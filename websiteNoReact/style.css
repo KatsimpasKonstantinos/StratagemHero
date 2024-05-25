@@ -1,11 +1,11 @@
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
+}
 
 .App-header {
     background-color: #282c34;
@@ -17,14 +17,14 @@ body {
     font-size: calc(10px + 2vmin);
     color: white;
     overflow: hidden;
-  }
+}
 
 .Game {
     width: 100vw;
     height: 100vh;
     background-color: #303132;
     margin: auto;
-} 
+}
 
 
 .UIWhiteLine {
@@ -35,14 +35,14 @@ body {
     margin-bottom: 4vh;
 }
 
-.Blur{
+.Blur {
     backdrop-filter: blur(1px);
     backdrop-filter: saturate(100%);
-    position:fixed;
-    padding:0;
-    margin:0;
-    top:0;
-    left:0;
+    position: fixed;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     text-shadow: 0 0 0.15em #1da9cc;
@@ -64,7 +64,7 @@ body {
 .Round {
     font-size: 0.6em;
     margin: 0;
-    
+
 }
 
 .ScoreCounterContainer {
@@ -94,24 +94,26 @@ body {
     align-items: center;
     height: 80vh;
     width: 60vw;
-    background-color: red;
     margin-left: 20vw;
 }
 
 .StratagemContainer {
-    background-color: red;
-    margin-left: 20vw;
+    width: 100%;
+    top: 0;
+    display: flex;
+    align-items: center;
 }
 
 .StratagemNameContainer {
     font-size: 1.5em;
     background-color: #dcd619;
-    color:#303132;
+    color: #303132;
     width: 100%;
     display: inline-block;
     font-size: 1.5em;
     margin: 0;
     text-align: center;
+
 }
 
 .ArrowKeysContainer {
@@ -124,3 +126,17 @@ body {
     margin-left: 20vw;
 }
 
+.MainStratagem {
+    width: 12vw;
+    border: 2px solid yellow;
+    padding: 15px;
+    display: inline-block
+}
+
+.Stratagem {
+    width: 7.5vw;
+    padding: 15px;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+}
