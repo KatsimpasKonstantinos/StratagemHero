@@ -18,7 +18,12 @@ let stratagem5 = document.getElementById('Stratagem5');
 let timerProgress = document.getElementById('Progress');
 
 let winSounds = ["./sound/win1.mp3", "./sound/win2.mp3", "./sound/win3.mp3", "./sound/win4.mp3"];
-let keySounds = ["./sound/key1.mp3"];
+let keySound = "./sound/key.ogg";
+let failureSound = "./sound/failure.ogg";
+let successSound = "./sound/success.ogg";
+let backgroundSound = "./sound/background.ogg";
+let backgroundAudio = new Audio(backgroundSound);
+backgroundAudio.loop = true;
 
 let arrowKeyContainer = document.getElementById('ArrowKeysContainer');
 
@@ -60,12 +65,20 @@ function reset() {
     loadedStratagems = [];
     generateNewStratagems();
     loadNextStratagem();
+    backgroundAudio.play();
 }
 
 function generateNewStratagems() {
     loadedStratagems = [];
-    for (let i = 0; i < stratagemsAmount; i++) {
-        loadedStratagems.push(stratagemsData[Math.floor(Math.random() * stratagemsData.length)]);
+    const usedIndexes = new Set();
+
+    while (loadedStratagems.length < stratagemsAmount) {
+        const randomIndex = Math.floor(Math.random() * stratagemsData.length);
+
+        if (!usedIndexes.has(randomIndex)) {
+            loadedStratagems.push(stratagemsData[randomIndex]);
+            usedIndexes.add(randomIndex);
+        }
     }
 }
 
@@ -103,7 +116,7 @@ document.addEventListener('keydown', function (event) {
         keyUp = true;
         if (!keyBlocked) {
             keyPressed = "up";
-            const audio = new Audio(keySounds[Math.floor(Math.random() * keySounds.length)]);
+            const audio = new Audio(keySound);
             audio.play();
         }
         keyBlocked = true;
@@ -112,7 +125,7 @@ document.addEventListener('keydown', function (event) {
         keyLeft = true;
         if (!keyBlocked) {
             keyPressed = "left";
-            const audio = new Audio(keySounds[Math.floor(Math.random() * keySounds.length)]);
+            const audio = new Audio(keySound);
             audio.play();
         }
         keyBlocked = true;
@@ -121,7 +134,7 @@ document.addEventListener('keydown', function (event) {
         keyDown = true;
         if (!keyBlocked) {
             keyPressed = "down";
-            const audio = new Audio(keySounds[Math.floor(Math.random() * keySounds.length)]);
+            const audio = new Audio(keySound);
             audio.play();
         }
         keyBlocked = true;
@@ -130,7 +143,7 @@ document.addEventListener('keydown', function (event) {
         keyRight = true;
         if (!keyBlocked) {
             keyPressed = "right";
-            const audio = new Audio(keySounds[Math.floor(Math.random() * keySounds.length)]);
+            const audio = new Audio(keySound);
             audio.play();
         }
         keyBlocked = true;
@@ -187,6 +200,9 @@ function success() {
             roundCounter.innerHTML = round;
             scoreCounter.innerHTML = score;
             timer = timerAmount;
+        } else {
+            const audio = new Audio(successSound);
+            audio.play();
         }
         loadNextStratagem();
     }
@@ -194,6 +210,8 @@ function success() {
 
 function failure() {
     currentKey = 0;
+    const audio = new Audio(failureSound);
+    audio.play();
     arrowKeyContainer.childNodes.forEach(element => {
         element.className = 'ArrowKey red ' + loadedStratagems[currentStratagem].code[element.id.replace('ArrowKey', '')];
     });
