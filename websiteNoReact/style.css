@@ -1,10 +1,14 @@
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
+    font-family: 'FS Sinclair', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+}
+
+@font-face {
+    font-family: 'FS Sinclair';
+    src: url('FS Sinclair Medium.otf') format('truetype');
 }
 
 :root {
@@ -20,24 +24,42 @@ body {
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
-    overflow: hidden;
 }
 
 .Game {
     width: 100vw;
     height: 100vh;
-    background-color: #303132;
+    background-color: #252627;
     margin: auto;
 }
 
+.BackgroundImage {
+    position: absolute;
+    left: 20vw;
+    top: 15vh;
+    width: 60vw;
+    height: 60vh;
+    filter: invert(1) brightness(0.20);
+}
 
-.UIWhiteLine {
+.UIWhiteLineTop {
     background-color: white;
     box-shadow: 0 0 0.15em white;
     height: 6px;
     width: 100%;
-    margin-top: 4vh;
-    margin-bottom: 4vh;
+    margin-top: 5vh;
+    position: absolute;
+    top: 0;
+}
+
+.UIWhiteLineBottom {
+    background-color: white;
+    box-shadow: 0 0 0.15em white;
+    height: 6px;
+    width: 100%;
+    margin-bottom: 5vh;
+    position: absolute;
+    bottom: 0;
 }
 
 .Blur {
@@ -57,7 +79,7 @@ body {
     text-shadow: 0 0 0.15em #1da9cc;
     float: left;
     margin-left: 11vw;
-    margin-top: 11vh;
+    margin-top: 10vh;
     text-align: center;
 }
 
@@ -79,8 +101,8 @@ body {
 .ScoreCounterContainer {
 
     float: right;
-    margin-right: 5vw;
-    margin-top: 15vh;
+    margin-right: 10vw;
+    margin-top: 10vh;
     text-align: right;
 }
 
@@ -103,7 +125,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    height: 60vh;
     width: 60vw;
     margin-left: 20vw;
 }
@@ -212,3 +234,96 @@ body {
     background-color: var(--mainColor);
     box-shadow: 0 0 0.15em var(--mainColor);
 }
+
+.GameScreen {
+    position: absolute;
+    width: 100%;
+    top: 10vh;
+}
+
+.StartScreen {
+    position: relative;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Title {
+    font-size: 5em;
+    font-weight: lighter;
+    color: white;
+    text-shadow: 0 0 0.05em white;
+    margin: 0;
+    position: absolute;
+    top: 40vh;
+}
+
+.Info {
+    font-size: 2.4em;
+    font-weight: lighter;
+    color: yellow;
+    text-shadow: 0 0 0.05em yellow;
+    margin: 0;
+    position: absolute;
+    top: 60vh;
+}
+
+
+.hidden {
+    visibility: hidden;
+}
+
+.MidScoreScreen {
+    color: white;
+    text-shadow: 0 0 0.1em white;
+}
+
+
+.RoundBonusContainer {
+    position: absolute;
+    top: 20vh;
+    left: 10vw;
+    width: 80vw;
+    display: flex;
+    align-items: center;
+}
+
+.TimeBonusContainer {
+    position: absolute;
+    top: 35vh;
+    left: 10vw;
+    width: 80vw;
+    display: flex;
+    align-items: center;
+}
+
+.PerfectBonusContainer {
+    position: absolute;
+    top: 50vh;
+    left: 10vw;
+    width: 80vw;
+    display: flex;
+    align-items: center;
+}
+
+.TotalScoreContainer {
+    position: absolute;
+    top: 65vh;
+    left: 10vw;
+    width: 80vw;
+    display: flex;
+    align-items: center;
+}
+
+.ScoreScore {
+    font-size: 3em;
+    font-weight: lighter;
+    position: absolute;
+    text-shadow: 0 0 0.1em yellow;
+    color: yellow;
+    right: 10vw;
+}   
+
+.EndScreen {}

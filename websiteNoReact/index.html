@@ -14,50 +14,76 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div class='App-header'>
         <div class="Game">
-            <div class='UIWhiteLine'></div>
-            <div class='RoundCounterContainer'>
-                <h1 class='Round'>ROUND</h1>
-                <h1 class='RoundCounter' id='RoundCounter'>12</h1>
+            <div class='UIWhiteLineTop'></div>
+            <div>
+                <img class="BackgroundImage" src="icons/superEarth.svg" />
             </div>
-            <div class='ScoreCounterContainer'>
-                <h1 class='ScoreCounter' id='ScoreCounter'>1234</h1>
-                <h1 class='Score'>SCORE</h1>
+            <div class="StartScreen" id="StartScreen">
+                <h1 class='Title'>STRATAGEM HERO</h1>
+                <h3 class='Info'>Enter any Stratagem Input to Start!</h3>
             </div>
-            <div class='GameContainer'>
-                <div class='StratagemContainer'>
-                    <div class='MainStratagem'>
-                        <img src="stratagems/Eagle 500KG Bomb.svg" id="MainStratagem" class="StratagemImage">
-                    </div>
-                    <div class='Stratagem'>
-                        <img src="stratagems/Eagle 500KG Bomb.svg" id="Stratagem1" class="StratagemImage">
-                    </div>
-                    <div class='Stratagem'>
-                        <img src="stratagems/Eagle 500KG Bomb.svg" id="Stratagem2" class="StratagemImage">
-                    </div>
-                    <div class='Stratagem'>
-                        <img src="stratagems/Eagle 500KG Bomb.svg" id="Stratagem3" class="StratagemImage">
-                    </div>
-                    <div class='Stratagem'>
-                        <img src="stratagems/Eagle 500KG Bomb.svg" id="Stratagem4" class="StratagemImage">
-                    </div>
-                    <div class='Stratagem'>
-                        <img src="stratagems/Eagle 500KG Bomb.svg" id="Stratagem5" class="StratagemImage">
-                    </div>
+            <div class="MidScoreScreen hidden" id="MidScoreScreen">
+                <div class="RoundBonusContainer">
+                    <h2 class='RoundBonusTitle' id="RoundBonusScoreTitle">Round Bonus</h2>
+                    <h1 class='ScoreScore' id='RoundBonusScoreScore'>0</h1>
                 </div>
-                <div class='StratagemNameContainer'>
-                    <h3 class='StratagemName' id='StratagemName'>STRATAGEM NAME</h3>
+                <div class="TimeBonusContainer">
+                    <h2 class='TimeBonusTitle' id="TimeBonusScoreTitle">Time Bonus</h2>
+                    <h1 class='ScoreScore' id='TimeBonusScoreScore'>0</h1>
                 </div>
-                <div class='ArrowKeysContainer' id='ArrowKeysContainer'>
-                    <div class='ArrowKey red' id="ArrowKey1">
-                        <img src="stratagems/arrow.svg" alt="ArrowKey1" class="ArrowKeyImage">
-                    </div>
+                <div class="PerfectBonusContainer">
+                    <h2 class='PerfectBonusTitle' id="PerfectBonusScoreTitle">Perfect Bonus</h2>
+                    <h1 class='ScoreScore' id='PerfectBonusScoreScore'>0</h1>
                 </div>
-                <div class='ProgressBar'>
-                    <div class='Progress' id='Progress'></div>
+                <div class="TotalScoreContainer">
+                    <h2 class='TotalScoreTitle' id="TotalScoreTitle">Total Score</h2>
+                    <h1 class='ScoreScore' id='TotalScoreScore'>0</h1>
                 </div>
             </div>
-
-            <div class='UIWhiteLine'></div>
+            <div class="GameScreen hidden" id="GameScreen">
+                <div class='RoundCounterContainer'>
+                    <h1 class='Round'>ROUND</h1>
+                    <h1 class='RoundCounter' id='RoundCounter'>12</h1>
+                </div>
+                <div class='ScoreCounterContainer'>
+                    <h1 class='ScoreCounter' id='ScoreCounter'>1234</h1>
+                    <h1 class='Score'>SCORE</h1>
+                </div>
+                <div class='GameContainer'>
+                    <div class='StratagemContainer'>
+                        <div class='MainStratagem'>
+                            <img src="stratagems/Eagle 500KG Bomb.svg" id="MainStratagem" class="StratagemImage">
+                        </div>
+                        <div class='Stratagem'>
+                            <img src="stratagems/Eagle 500KG Bomb.svg" id="Stratagem1" class="StratagemImage">
+                        </div>
+                        <div class='Stratagem'>
+                            <img src="stratagems/Eagle 500KG Bomb.svg" id="Stratagem2" class="StratagemImage">
+                        </div>
+                        <div class='Stratagem'>
+                            <img src="stratagems/Eagle 500KG Bomb.svg" id="Stratagem3" class="StratagemImage">
+                        </div>
+                        <div class='Stratagem'>
+                            <img src="stratagems/Eagle 500KG Bomb.svg" id="Stratagem4" class="StratagemImage">
+                        </div>
+                        <div class='Stratagem'>
+                            <img src="stratagems/Eagle 500KG Bomb.svg" id="Stratagem5" class="StratagemImage">
+                        </div>
+                    </div>
+                    <div class='StratagemNameContainer'>
+                        <h3 class='StratagemName' id='StratagemName'>STRATAGEM NAME</h3>
+                    </div>
+                    <div class='ArrowKeysContainer' id='ArrowKeysContainer'>
+                        <div class='ArrowKey red' id="ArrowKey1">
+                            <img src="stratagems/arrow.svg" alt="ArrowKey1" class="ArrowKeyImage">
+                        </div>
+                    </div>
+                    <div class='ProgressBar'>
+                        <div class='Progress' id='Progress'></div>
+                    </div>
+                </div>
+            </div>
+            <div class='UIWhiteLineBottom'></div>
         </div>
     </div>
     <script src="index.js"></script>

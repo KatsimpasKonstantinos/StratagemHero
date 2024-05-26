@@ -17,6 +17,19 @@ let stratagem5 = document.getElementById('Stratagem5');
 
 let timerProgress = document.getElementById('Progress');
 
+let gameScreen = document.getElementById('GameScreen');
+let startScreen = document.getElementById('StartScreen');
+let midScoreScreen = document.getElementById('MidScoreScreen');
+
+let roundBonusScoreScore = document.getElementById('RoundBonusScoreScore');
+let timeBonusScoreScore = document.getElementById('TimeBonusScoreScore');
+let perfectBonusScoreScore = document.getElementById('PerfectBonusScoreScore');
+let totalScoreScore = document.getElementById('TotalScoreScore');
+let roundBonusScoreTitle = document.getElementById('RoundBonusScoreTitle');
+let timeBonusScoreTitle = document.getElementById('TimeBonusScoreTitle');
+let perfectBonusScoreTitle = document.getElementById('PerfectBonusScoreTitle');
+let totalScoreTitle = document.getElementById('TotalScoreTitle');
+
 let winSounds = ["./sound/win1.mp3", "./sound/win2.mp3", "./sound/win3.mp3", "./sound/win4.mp3"];
 let keySound = "./sound/key.ogg";
 let failureSound = "./sound/failure.ogg";
@@ -36,28 +49,36 @@ let keyPressed = "";
 let currentKey = 0;
 let currentStratagem = 0;
 let round = 0;
-let score = 0;
+let perfectBonus = 100;
+let perfect = true;
+
+let roundBonusScore = 0;
+let timeBonusScore = 0;
+let perfectBonusScore = 0;
+let totalScore = 0;
+
 let lost = false;
 let timerAmount = 600;
 let timerGetBack = 60;
 let timer = timerAmount;
-let stratagemsAmount = 8;
+let stratagemsAmount = 1;
 let loadedStratagems = [];
 
-roundCounter.innerHTML = '0';
-scoreCounter.innerHTML = '0';
-stratagemName.innerHTML = 'Loading...';
+let startRunning = true;
+let gameRunning = false;
+let midScoreRunning = false;
 
-
-setTimeout(() => {
-    reset();
-}, 1000);
 
 function reset() {
+    startScreen.classList.remove('visible');
     round = 0;
-    score = 0;
+    roundBonusScore = 0;
+    timeBonusScore = 0;
+    perfectBonusScore = 0;
+    totalScore = 0;
     timer = timerAmount;
     lost = false;
+    perfect = true;
     currentStratagem = 0;
     roundCounter.innerHTML = '0';
     scoreCounter.innerHTML = '0';
@@ -66,6 +87,7 @@ function reset() {
     generateNewStratagems();
     loadNextStratagem();
     backgroundAudio.play();
+    keyPressed = "";
 }
 
 function generateNewStratagems() {
@@ -180,6 +202,62 @@ function keyLogic() {
     keyPressed = "";
 }
 
+function setMidScoreScreen() {
+    roundBonusScoreScore.innerHTML = 0;
+    timeBonusScoreScore.innerHTML = 0;
+    perfectBonusScoreScore.innerHTML = 0;
+    totalScoreScore.innerHTML = 0;
+    roundBonusScoreTitle.innerHTML = "";
+    timeBonusScoreTitle.innerHTML = "";
+    perfectBonusScoreTitle.innerHTML = "";
+    totalScoreTitle.innerHTML = "";
+    midScoreScreen.classList.remove('hidden');
+    gameScreen.classList.add('hidden');
+    setTimeout(() => {
+        roundBonusScoreScore.innerHTML = roundBonusScore;
+        roundBonusScoreTitle.innerHTML = "Round Bonus";
+    }, 10);
+    setTimeout(() => {
+        timeBonusScoreScore.innerHTML = timeBonusScore;
+        timeBonusScoreTitle.innerHTML = "Time Bonus";
+    }, 300);
+    setTimeout(() => {
+        perfectBonusScoreScore.innerHTML = perfectBonusScore;
+        perfectBonusScoreTitle.innerHTML = "Perfect Bonus";
+    }, 800);
+    setTimeout(() => {
+        totalScoreScore.innerHTML = totalScore;
+        totalScoreTitle.innerHTML = "Total Score";
+    }, 1300);
+    setTimeout(() => {
+        stratagemsAmount++;
+        roundCounter.innerHTML = round;
+        scoreCounter.innerHTML = totalScore;
+        midScoreScreen.classList.add('hidden');
+        gameScreen.classList.remove('hidden');
+        midScoreRunning = false;
+        gameRunning = true;
+        backgroundAudio.play();
+        perfect = true;
+    }, 4000);
+}
+
+
+function nextRound() {
+    currentStratagem = 0;
+    generateNewStratagems();
+    round
+    round++;
+    roundBonusScore = round * 10;
+    timeBonusScore = Math.floor(timer / timerAmount * 100);
+    perfectBonusScore = perfect ? perfectBonus : 0;
+    totalScore += roundBonusScore + timeBonusScore + perfectBonusScore;
+    timer = timerAmount;
+    gameRunning = false;
+    midScoreRunning = true;
+    setMidScoreScreen();
+}
+
 function success() {
     let key = document.getElementById('ArrowKey' + currentKey);
     key.className = 'ArrowKey yellow ' + loadedStratagems[currentStratagem].code[currentKey];
@@ -191,15 +269,10 @@ function success() {
             timer = timerAmount;
         }
         if (currentStratagem >= loadedStratagems.length) {
+            backgroundAudio.pause();
             const audio = new Audio(winSounds[Math.floor(Math.random() * winSounds.length)]);
             audio.play();
-            currentStratagem = 0;
-            generateNewStratagems();
-            score++;
-            round++;
-            roundCounter.innerHTML = round;
-            scoreCounter.innerHTML = score;
-            timer = timerAmount;
+            nextRound();
         } else {
             const audio = new Audio(successSound);
             audio.play();
@@ -210,6 +283,7 @@ function success() {
 
 function failure() {
     currentKey = 0;
+    perfect = false;
     const audio = new Audio(failureSound);
     audio.play();
     arrowKeyContainer.childNodes.forEach(element => {
@@ -222,8 +296,7 @@ function failure() {
     }, 100); // If someone pressed a correct before the 100ms passes, the color will not be yellow but gray
 }
 
-function animation() {
-    requestAnimationFrame(animation);
+function gameLogic() {
     if (keyPressed != "") {
         keyLogic();
     }
@@ -240,8 +313,26 @@ function animation() {
     }
 }
 
-animation();
+function animation() {
+    requestAnimationFrame(animation);
+    if (startRunning) {
+        if (keyPressed != "") {
+            reset();
+            startScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+            startRunning = false;
+            gameRunning = true;
+        }
+    }
+    if (gameRunning) {
+        gameLogic();
+    }
+    if (midScoreRunning) {
+        //Do nothing
+    }
+}
 
+animation();
 
 
 
