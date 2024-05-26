@@ -7,6 +7,10 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+:root {
+    --mainColor: yellow;
+}
+
 .App-header {
     background-color: #282c34;
     min-height: 100vh;
@@ -60,8 +64,8 @@ body {
 .RoundCounter {
     font-size: 2em;
     margin-left: 10px;
-    color: #dcd619;
-    text-shadow: 0 0 0.15em yellow;
+    color: var(--mainColor);
+    text-shadow: 0 0 0.15em var(--mainColor);
     margin: 0;
 }
 
@@ -82,8 +86,8 @@ body {
 
 .ScoreCounter {
     font-size: 2em;
-    color: #dcd619;
-    text-shadow: 0 0 0.15em yellow;
+    color: var(--mainColor);
+    text-shadow: 0 0 0.15em var(--mainColor);
     margin: 0;
 }
 
@@ -114,8 +118,8 @@ body {
 
 .StratagemNameContainer {
     font-size: 1.5em;
-    background-color: yellow;
-    box-shadow: 0 0 0.15em yellow;
+    background-color: var(--mainColor);
+    box-shadow: 0 0 0.15em var(--mainColor);
     width: 100%;
     display: inline-block;
     font-size: 1.5em;
@@ -141,8 +145,8 @@ body {
 
 .MainStratagem {
     width: 12vw;
-    border: 2px solid yellow;
-    box-shadow: 0 0 0.15em yellow;
+    border: 2px solid var(--mainColor);
+    box-shadow: 0 0 0.15em var(--mainColor);
     padding: 15px;
     display: inline-block
 }
@@ -205,6 +209,6 @@ body {
 .Progress {
     width: 50%;
     height: 5vh;
-    background-color: yellow;
-    box-shadow: 0 0 0.15em yellow;
+    background-color: var(--mainColor);
+    box-shadow: 0 0 0.15em var(--mainColor);
 }
