@@ -29,6 +29,7 @@ body {
 
 .UIWhiteLine {
     background-color: white;
+    box-shadow: 0 0 0.15em white;
     height: 6px;
     width: 100%;
     margin-top: 4vh;
@@ -51,40 +52,46 @@ body {
 .RoundCounterContainer {
     text-shadow: 0 0 0.15em #1da9cc;
     float: left;
-    margin-left: 10vw;
+    margin-left: 11vw;
+    margin-top: 11vh;
+    text-align: center;
 }
 
 .RoundCounter {
-    font-size: 1.4em;
+    font-size: 2em;
     margin-left: 10px;
     color: #dcd619;
+    text-shadow: 0 0 0.15em yellow;
     margin: 0;
 }
 
 .Round {
-    font-size: 0.6em;
+    font-size: 1em;
     margin: 0;
+    text-shadow: 0 0 0.15em white;
 
 }
 
 .ScoreCounterContainer {
-    text-shadow: 0 0 0.15em #1da9cc;
+
     float: right;
-    margin-right: 10vw;
-    margin-top: 5vh;
+    margin-right: 5vw;
+    margin-top: 15vh;
+    text-align: right;
 }
 
 .ScoreCounter {
-    font-size: 1.5em;
-    margin-right: 10px;
+    font-size: 2em;
     color: #dcd619;
+    text-shadow: 0 0 0.15em yellow;
     margin: 0;
 }
 
 .Score {
-    font-size: 0.7em;
+    font-size: 1em;
     margin-right: 10px;
     margin: 0;
+    text-shadow: 0 0 0.15em white;
 }
 
 .GameContainer {
@@ -102,12 +109,13 @@ body {
     top: 0;
     display: flex;
     align-items: center;
+    filter: saturate(200%);
 }
 
 .StratagemNameContainer {
     font-size: 1.5em;
-    background-color: #dcd619;
-    color: #303132;
+    background-color: yellow;
+    box-shadow: 0 0 0.15em yellow;
     width: 100%;
     display: inline-block;
     font-size: 1.5em;
@@ -116,27 +124,88 @@ body {
 
 }
 
-.ArrowKeysContainer {
-    background-color: red;
-    margin-left: 20vw;
+.StratagemName {
+    margin: 0;
+    padding: 0;
+    line-height: 1em;
+    color: #303132;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
 }
 
-.TimerContainer {
-    background-color: red;
-    margin-left: 20vw;
+.ArrowKeysContainer {
+    display: flex;
+    align-items: center;
 }
+
 
 .MainStratagem {
     width: 12vw;
     border: 2px solid yellow;
+    box-shadow: 0 0 0.15em yellow;
     padding: 15px;
     display: inline-block
 }
 
 .Stratagem {
-    width: 7.5vw;
+    width: 7vw;
     padding: 15px;
     display: inline-block;
     justify-content: center;
     align-items: center;
+}
+
+.ArrowKey {
+    width: 5vw;
+    padding: 15px;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+}
+
+.white {
+    filter: invert(1) brightness(2);
+}
+
+.yellow {
+    filter: invert(100%) sepia(100%) saturate(10000%);
+    box-shadow: 0 0 0.15em yellow;
+}
+
+.red {
+    filter: invert(100%) sepia(100%) hue-rotate(-60deg) saturate(1000);
+}
+
+.gray {
+    filter: invert(1) brightness(0.7);
+}
+
+.right {
+    transform: rotate(0deg);
+}
+
+.down {
+    transform: rotate(90deg);
+}
+
+.left {
+    transform: rotate(180deg);
+}
+
+.up {
+    transform: rotate(270deg);
+}
+
+.ProgressBar {
+    width: 100%;
+    height: 5vh;
+    background-color: grey;
+    margin-top: 5vh;
+}
+
+.Progress {
+    width: 50%;
+    height: 5vh;
+    background-color: yellow;
+    box-shadow: 0 0 0.15em yellow;
 }
