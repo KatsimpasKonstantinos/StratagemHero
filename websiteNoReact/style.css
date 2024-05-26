@@ -169,7 +169,6 @@ body {
 
 .yellow {
     filter: invert(100%) sepia(100%) saturate(10000%);
-    box-shadow: 0 0 0.15em yellow;
 }
 
 .red {

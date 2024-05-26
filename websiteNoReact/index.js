@@ -23,6 +23,7 @@ let keyDown = false;
 let keyLeft = false;
 let keyPressed = "";
 let currentKey = 0;
+let currentStratagem = 0;
 
 roundCounter.innerHTML = '0';
 scoreCounter.innerHTML = '0';
@@ -32,7 +33,7 @@ stratagemName.innerHTML = 'Loading...';
 let round = 0;
 let score = 0;
 let timer = 0;
-let stratagemsAmount = 10;
+let stratagemsAmount = 4;
 let loadedStratagems = [];
 
 function generateNewStratagems() {
@@ -45,32 +46,30 @@ function generateNewStratagems() {
 setTimeout(() => {
     generateNewStratagems();
     console.log(loadedStratagems);
-    loadNewStratagem();
+    loadNextStratagem();
 }, 1000);
 
 
-function loadNewStratagem() {
-    stratagemName.innerHTML = loadedStratagems[0].name;
-    maintStratagem.src = `./stratagems/${loadedStratagems[0].name}.svg`;
-    stratagem1.src = `./stratagems/${loadedStratagems[1].name}.svg`;
-    stratagem2.src = `./stratagems/${loadedStratagems[2].name}.svg`;
-    stratagem3.src = `./stratagems/${loadedStratagems[3].name}.svg`;
-    stratagem4.src = `./stratagems/${loadedStratagems[4].name}.svg`;
-    stratagem5.src = `./stratagems/${loadedStratagems[5].name}.svg`;
-    loadArrows();
+function loadNextStratagem() {
     currentKey = 0;
+    loadArrows();
+    stratagemName.innerHTML = loadedStratagems[currentStratagem].name;
+    maintStratagem.src = `./stratagems/${loadedStratagems[currentStratagem].name}.svg`;
+    stratagem1.src = currentStratagem + 1 < loadedStratagems.length ? `./stratagems/${loadedStratagems[currentStratagem + 1].name}.svg` : "";
+    stratagem2.src = currentStratagem + 2 < loadedStratagems.length ? `./stratagems/${loadedStratagems[currentStratagem + 2].name}.svg` : "";
+    stratagem3.src = currentStratagem + 3 < loadedStratagems.length ? `./stratagems/${loadedStratagems[currentStratagem + 3].name}.svg` : "";
+    stratagem4.src = currentStratagem + 4 < loadedStratagems.length ? `./stratagems/${loadedStratagems[currentStratagem + 4].name}.svg` : "";
+    stratagem5.src = currentStratagem + 5 < loadedStratagems.length ? `./stratagems/${loadedStratagems[currentStratagem + 5].name}.svg` : "";
 }
 
 function loadArrows() {
-    console.log(loadedStratagems[0].code.length);
     while (arrowKeyContainer.firstChild) {
         arrowKeyContainer.removeChild(arrowKeyContainer.firstChild);
     }
-    for (let i = 0; i < loadedStratagems[0].code.length; i++) {
-        console.log(loadedStratagems[0].code[i]);
+    for (let i = 0; i < loadedStratagems[currentStratagem].code.length; i++) {
         let divElement = document.createElement('div');
         let imgElement = document.createElement('img');
-        let rotation = loadedStratagems[0].code[i];
+        let rotation = loadedStratagems[currentStratagem].code[i];
         divElement.className = 'ArrowKey gray ' + rotation;
         divElement.id = 'ArrowKey' + i;
         imgElement.className = 'ArrowKeyImage'
@@ -115,28 +114,39 @@ document.addEventListener('keyup', function (event) {
 });
 
 function logic() {
-    if (loadedStratagems[0].code[currentKey] == keyPressed) {
+    if (loadedStratagems[currentStratagem].code[currentKey] == keyPressed) {
         console.log("Succes");
         success();
     } else {
-        console.log(loadedStratagems[0].code[currentKey] + " " + keyPressed);
+        console.log(loadedStratagems[currentStratagem].code[currentKey] + " pressed:" + keyPressed);
         failure();
     }
     keyPressed = "";
 }
 
 function success() {
-    if (currentKey <= loadedStratagems[0].code.length - 2) {
-        currentKey++;
-        console.log(currentKey + " " + loadedStratagems[0].code.length)
-    } else {
-        console.log("loading new Strat");
-        loadNewStratagem();
+    let key = document.getElementById('ArrowKey' + currentKey);
+    key.className = 'ArrowKey yellow ' + loadedStratagems[currentStratagem].code[currentKey];
+    currentKey++;
+    if (currentKey >= loadedStratagems[currentStratagem].code.length) {
+        currentStratagem++;
+        if (currentStratagem >= loadedStratagems.length) {
+            currentStratagem = 0;
+            generateNewStratagems();
+            score++;
+            round++;
+            roundCounter.innerHTML = round;
+            scoreCounter.innerHTML = score;
+        }
+        loadNextStratagem();
     }
 }
 
 function failure() {
     currentKey = 0;
+    arrowKeyContainer.childNodes.forEach(element => {
+        element.className = 'ArrowKey gray ' + loadedStratagems[currentStratagem].code[element.id.replace('ArrowKey', '')];
+    });
 }
 
 function animation() {
