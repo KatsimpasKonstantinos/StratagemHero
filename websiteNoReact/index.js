@@ -15,6 +15,8 @@ let stratagem3 = document.getElementById('Stratagem3');
 let stratagem4 = document.getElementById('Stratagem4');
 let stratagem5 = document.getElementById('Stratagem5');
 
+let timerProgress = document.getElementById('Progress');
+
 let winSounds = ["./sound/win1.mp3", "./sound/win2.mp3", "./sound/win3.mp3", "./sound/win4.mp3"];
 let keySounds = ["./sound/key1.mp3"];
 
@@ -28,17 +30,37 @@ let keyBlocked = false;
 let keyPressed = "";
 let currentKey = 0;
 let currentStratagem = 0;
+let round = 0;
+let score = 0;
+let lost = false;
+let timerAmount = 600;
+let timerGetBack = 60;
+let timer = timerAmount;
+let stratagemsAmount = 8;
+let loadedStratagems = [];
 
 roundCounter.innerHTML = '0';
 scoreCounter.innerHTML = '0';
 stratagemName.innerHTML = 'Loading...';
 
 
-let round = 0;
-let score = 0;
-let timer = 0;
-let stratagemsAmount = 2;
-let loadedStratagems = [];
+setTimeout(() => {
+    reset();
+}, 1000);
+
+function reset() {
+    round = 0;
+    score = 0;
+    timer = timerAmount;
+    lost = false;
+    currentStratagem = 0;
+    roundCounter.innerHTML = '0';
+    scoreCounter.innerHTML = '0';
+    stratagemName.innerHTML = 'Loading...';
+    loadedStratagems = [];
+    generateNewStratagems();
+    loadNextStratagem();
+}
 
 function generateNewStratagems() {
     loadedStratagems = [];
@@ -46,13 +68,6 @@ function generateNewStratagems() {
         loadedStratagems.push(stratagemsData[Math.floor(Math.random() * stratagemsData.length)]);
     }
 }
-
-setTimeout(() => {
-    generateNewStratagems();
-    console.log(loadedStratagems);
-    loadNextStratagem();
-}, 1000);
-
 
 function loadNextStratagem() {
     currentKey = 0;
@@ -105,6 +120,8 @@ document.addEventListener('keydown', function (event) {
     if (event.key == "ArrowDown") {
         keyDown = true;
         if (!keyBlocked) {
+            keyPressed = "down";
+            const audio = new Audio(keySounds[Math.floor(Math.random() * keySounds.length)]);
             audio.play();
         }
         keyBlocked = true;
@@ -139,7 +156,7 @@ document.addEventListener('keyup', function (event) {
     }
 });
 
-function logic() {
+function keyLogic() {
     if (loadedStratagems[currentStratagem].code[currentKey] == keyPressed) {
         console.log("Succes");
         success();
@@ -156,6 +173,10 @@ function success() {
     currentKey++;
     if (currentKey >= loadedStratagems[currentStratagem].code.length) {
         currentStratagem++;
+        timer += timerGetBack;
+        if (timer > timerAmount) {
+            timer = timerAmount;
+        }
         if (currentStratagem >= loadedStratagems.length) {
             const audio = new Audio(winSounds[Math.floor(Math.random() * winSounds.length)]);
             audio.play();
@@ -165,6 +186,7 @@ function success() {
             round++;
             roundCounter.innerHTML = round;
             scoreCounter.innerHTML = score;
+            timer = timerAmount;
         }
         loadNextStratagem();
     }
@@ -173,14 +195,30 @@ function success() {
 function failure() {
     currentKey = 0;
     arrowKeyContainer.childNodes.forEach(element => {
-        element.className = 'ArrowKey gray ' + loadedStratagems[currentStratagem].code[element.id.replace('ArrowKey', '')];
+        element.className = 'ArrowKey red ' + loadedStratagems[currentStratagem].code[element.id.replace('ArrowKey', '')];
     });
+    setTimeout(() => {
+        arrowKeyContainer.childNodes.forEach(element => {
+            element.className = 'ArrowKey gray ' + loadedStratagems[currentStratagem].code[element.id.replace('ArrowKey', '')];
+        });
+    }, 100); // If someone pressed a correct before the 100ms passes, the color will not be yellow but gray
 }
 
 function animation() {
     requestAnimationFrame(animation);
     if (keyPressed != "") {
-        logic();
+        keyLogic();
+    }
+    timer--;
+    timerProgress.style.width = timer / timerAmount * 100 + "%";
+    if (timer < timerAmount / 4) {
+        document.documentElement.style.setProperty('--mainColor', 'red');
+    } else {
+        document.documentElement.style.setProperty('--mainColor', 'yellow');
+    }
+    if (timer < 0) {
+        lost = true;
+        reset();
     }
 }
 
