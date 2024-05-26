@@ -15,12 +15,16 @@ let stratagem3 = document.getElementById('Stratagem3');
 let stratagem4 = document.getElementById('Stratagem4');
 let stratagem5 = document.getElementById('Stratagem5');
 
+let winSounds = ["./sound/win1.mp3", "./sound/win2.mp3", "./sound/win3.mp3", "./sound/win4.mp3"];
+let keySounds = ["./sound/key1.mp3"];
+
 let arrowKeyContainer = document.getElementById('ArrowKeysContainer');
 
 let keyUp = false;
 let keyRight = false;
 let keyDown = false;
 let keyLeft = false;
+let keyBlocked = false;
 let keyPressed = "";
 let currentKey = 0;
 let currentStratagem = 0;
@@ -33,11 +37,11 @@ stratagemName.innerHTML = 'Loading...';
 let round = 0;
 let score = 0;
 let timer = 0;
-let stratagemsAmount = 4;
+let stratagemsAmount = 2;
 let loadedStratagems = [];
 
 function generateNewStratagems() {
-    stratagems = [];
+    loadedStratagems = [];
     for (let i = 0; i < stratagemsAmount; i++) {
         loadedStratagems.push(stratagemsData[Math.floor(Math.random() * stratagemsData.length)]);
     }
@@ -82,34 +86,56 @@ function loadArrows() {
 document.addEventListener('keydown', function (event) {
     if (event.key == "ArrowUp") {
         keyUp = true;
-        keyPressed = "up";
+        if (!keyBlocked) {
+            keyPressed = "up";
+            const audio = new Audio(keySounds[Math.floor(Math.random() * keySounds.length)]);
+            audio.play();
+        }
+        keyBlocked = true;
     }
     if (event.key == "ArrowLeft") {
         keyLeft = true;
-        keyPressed = "left";
+        if (!keyBlocked) {
+            keyPressed = "left";
+            const audio = new Audio(keySounds[Math.floor(Math.random() * keySounds.length)]);
+            audio.play();
+        }
+        keyBlocked = true;
     }
     if (event.key == "ArrowDown") {
         keyDown = true;
-        keyPressed = "down";
+        if (!keyBlocked) {
+            audio.play();
+        }
+        keyBlocked = true;
     }
     if (event.key == "ArrowRight") {
         keyRight = true;
-        keyPressed = "right";
+        if (!keyBlocked) {
+            keyPressed = "right";
+            const audio = new Audio(keySounds[Math.floor(Math.random() * keySounds.length)]);
+            audio.play();
+        }
+        keyBlocked = true;
     }
 });
 
 document.addEventListener('keyup', function (event) {
     if (event.key == "ArrowUp") {
         keyUp = false;
+        keyBlocked = false;
     }
     if (event.key == "ArrowLeft") {
         keyLeft = false;
+        keyBlocked = false;
     }
     if (event.key == "ArrowDown") {
         keyDown = false;
+        keyBlocked = false;
     }
     if (event.key == "ArrowRight") {
         keyRight = false;
+        keyBlocked = false;
     }
 });
 
@@ -131,6 +157,8 @@ function success() {
     if (currentKey >= loadedStratagems[currentStratagem].code.length) {
         currentStratagem++;
         if (currentStratagem >= loadedStratagems.length) {
+            const audio = new Audio(winSounds[Math.floor(Math.random() * winSounds.length)]);
+            audio.play();
             currentStratagem = 0;
             generateNewStratagems();
             score++;
