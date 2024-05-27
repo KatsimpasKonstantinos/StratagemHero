@@ -148,19 +148,24 @@ function playKeySound() {
     audioKey.play();
 }
 
+function inputKeyPressed(key) {
+    return key == "ArrowUp" || key == "ArrowLeft" || key == "ArrowDown" || key == "ArrowRight" || key == "w" || key == "a" || key == "s" || key == "d";
+}
+
 document.addEventListener('keydown', function (event) {
-    if (event.key == "ArrowUp" || event.key == "ArrowLeft" || event.key == "ArrowDown" || event.key == "ArrowRight") {
+    console.log(event.key);
+    if (inputKeyPressed(event.key)) {
         if (!keyBlocked && (gameRunning || startRunning)) {
-            if (event.key == "ArrowUp") {
+            if (event.key == "ArrowUp" || event.key == "w") {
                 keyPressed = "up";
                 playKeySound()
-            } else if (event.key == "ArrowLeft") {
+            } else if (event.key == "ArrowLeft" || event.key == "a") {
                 keyPressed = "left";
                 playKeySound()
-            } else if (event.key == "ArrowDown") {
+            } else if (event.key == "ArrowDown" || event.key == "s") {
                 keyPressed = "down";
                 playKeySound()
-            } else if (event.key == "ArrowRight") {
+            } else if (event.key == "ArrowRight" || event.key == "d") {
                 keyPressed = "right";
                 playKeySound()
             }
@@ -171,7 +176,7 @@ document.addEventListener('keydown', function (event) {
 });
 
 document.addEventListener('keyup', function (event) {
-    if (event.key == "ArrowUp" || event.key == "ArrowLeft" || event.key == "ArrowDown" || event.key == "ArrowRight") {
+    if (inputKeyPressed(event.key)) {
         keyBlocked = false;
     }
 });
