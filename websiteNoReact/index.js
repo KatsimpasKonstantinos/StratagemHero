@@ -37,6 +37,7 @@ let winSounds = ["./sound/win1.mp3", "./sound/win2.mp3", "./sound/win3.mp3", "./
 let keySound = "./sound/key.ogg";
 let failureSound = "./sound/failure.ogg";
 let successSound = "./sound/success.ogg";
+let prepareSound = "./sound/prepare.ogg";
 let backgroundSound = "./sound/background.ogg";
 let backgroundAudio = new Audio(backgroundSound);
 backgroundAudio.loop = true;
@@ -211,6 +212,8 @@ function keyLogic() {
 
 function setPrepareScreen() {
     backgroundAudio.pause();
+    const audio = new Audio(prepareSound);
+    audio.play();
     if (round % 2 == 0 && stratagemsData.length - 10 > stratagemsAmount) {
         stratagemsAmount++;
     }
@@ -228,7 +231,7 @@ function setPrepareScreen() {
         perfect = true;
         prepareScreen.classList.add('hidden');
         gameScreen.classList.remove('hidden');
-    }, 1500);
+    }, 1200);
 
 }
 
