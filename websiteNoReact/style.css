@@ -62,29 +62,16 @@ body {
     bottom: 0;
 }
 
-.Blur {
-    backdrop-filter: blur(1px);
-    backdrop-filter: saturate(100%);
-    position: fixed;
-    padding: 0;
-    margin: 0;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    text-shadow: 0 0 0.15em #1da9cc;
-}
 
 .RoundCounterContainer {
-    text-shadow: 0 0 0.15em #1da9cc;
-    float: left;
+    position: absolute;
     margin-left: 11vw;
     margin-top: 10vh;
     text-align: center;
 }
 
 .RoundCounter {
-    font-size: 2em;
+    font-size: 3em;
     margin-left: 10px;
     color: var(--mainColor);
     text-shadow: 0 0 0.15em var(--mainColor);
@@ -99,15 +86,14 @@ body {
 }
 
 .ScoreCounterContainer {
-
-    float: right;
-    margin-right: 10vw;
+    position: absolute;
+    right: 10vw;
     margin-top: 10vh;
     text-align: right;
 }
 
 .ScoreCounter {
-    font-size: 2em;
+    font-size: 3em;
     color: var(--mainColor);
     text-shadow: 0 0 0.15em var(--mainColor);
     margin: 0;
@@ -121,13 +107,15 @@ body {
 }
 
 .GameContainer {
+    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    top: 10vh;
     height: 60vh;
     width: 60vw;
-    margin-left: 20vw;
+    left: 20vw;
 }
 
 .StratagemContainer {
@@ -324,6 +312,35 @@ body {
     text-shadow: 0 0 0.1em yellow;
     color: yellow;
     right: 10vw;
-}   
+}
+
+.MidPrepareScreen {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.PrepareRoundTitle{
+    position: absolute;
+    font-size: 1.75em;
+    font-weight: lighter;
+    color: white;
+    text-shadow: 0 0 0.1em white;
+    margin: 0;
+    top: 66vh;
+}
+
+.PrepareRoundCounter {
+    position: absolute;
+    font-size: 3em;
+    font-weight: lighter;
+    color: yellow;
+    text-shadow: 0 0 0.1em yellow;
+    margin: 0;
+    top: 71vh;
+}
 
 .EndScreen {}

@@ -30,6 +30,9 @@ let timeBonusScoreTitle = document.getElementById('TimeBonusScoreTitle');
 let perfectBonusScoreTitle = document.getElementById('PerfectBonusScoreTitle');
 let totalScoreTitle = document.getElementById('TotalScoreTitle');
 
+let prepareScreen = document.getElementById('PrepareScreen');
+let prepareRoundCounter = document.getElementById('PrepareRoundCounter');
+
 let winSounds = ["./sound/win1.mp3", "./sound/win2.mp3", "./sound/win3.mp3", "./sound/win4.mp3"];
 let keySound = "./sound/key.ogg";
 let failureSound = "./sound/failure.ogg";
@@ -48,7 +51,7 @@ let keyBlocked = false;
 let keyPressed = "";
 let currentKey = 0;
 let currentStratagem = 0;
-let round = 0;
+let round = 1;
 let perfectBonus = 100;
 let perfect = true;
 
@@ -61,17 +64,18 @@ let lost = false;
 let timerAmount = 600;
 let timerGetBack = 60;
 let timer = timerAmount;
-let stratagemsAmount = 1;
+let stratagemsAmount = 5;
 let loadedStratagems = [];
 
 let startRunning = true;
 let gameRunning = false;
+let prepareRunning = false;
 let midScoreRunning = false;
 
 
 function reset() {
     startScreen.classList.remove('visible');
-    round = 0;
+    round = 1;
     roundBonusScore = 0;
     timeBonusScore = 0;
     perfectBonusScore = 0;
@@ -88,6 +92,8 @@ function reset() {
     loadNextStratagem();
     backgroundAudio.play();
     keyPressed = "";
+    scoreCounter.innerHTML = totalScore;
+    roundCounter.innerHTML = round;
 }
 
 function generateNewStratagems() {
@@ -202,11 +208,35 @@ function keyLogic() {
     keyPressed = "";
 }
 
+
+function setPrepareScreen() {
+    backgroundAudio.pause();
+    if (round % 2 == 0 && stratagemsData.length - 10 > stratagemsAmount) {
+        stratagemsAmount++;
+    }
+    prepareRoundCounter.innerHTML = round;
+    midScoreRunning = false;
+    prepareRunning = true;
+    midScoreScreen.classList.add('hidden');
+    prepareScreen.classList.remove('hidden');
+    setTimeout(() => {
+        roundCounter.innerHTML = round;
+        scoreCounter.innerHTML = totalScore;
+        prepareRunning = false;
+        gameRunning = true;
+        backgroundAudio.play();
+        perfect = true;
+        prepareScreen.classList.add('hidden');
+        gameScreen.classList.remove('hidden');
+    }, 1500);
+
+}
+
 function setMidScoreScreen() {
-    roundBonusScoreScore.innerHTML = 0;
-    timeBonusScoreScore.innerHTML = 0;
-    perfectBonusScoreScore.innerHTML = 0;
-    totalScoreScore.innerHTML = 0;
+    roundBonusScoreScore.innerHTML = "";
+    timeBonusScoreScore.innerHTML = "";
+    perfectBonusScoreScore.innerHTML = "";
+    totalScoreScore.innerHTML = "";
     roundBonusScoreTitle.innerHTML = "";
     timeBonusScoreTitle.innerHTML = "";
     perfectBonusScoreTitle.innerHTML = "";
@@ -228,18 +258,12 @@ function setMidScoreScreen() {
     setTimeout(() => {
         totalScoreScore.innerHTML = totalScore;
         totalScoreTitle.innerHTML = "Total Score";
+        
     }, 1300);
     setTimeout(() => {
-        stratagemsAmount++;
-        roundCounter.innerHTML = round;
-        scoreCounter.innerHTML = totalScore;
-        midScoreScreen.classList.add('hidden');
-        gameScreen.classList.remove('hidden');
-        midScoreRunning = false;
-        gameRunning = true;
-        backgroundAudio.play();
-        perfect = true;
-    }, 4000);
+        setPrepareScreen();
+    }, 3000);
+
 }
 
 
@@ -248,7 +272,7 @@ function nextRound() {
     generateNewStratagems();
     round
     round++;
-    roundBonusScore = round * 10;
+    roundBonusScore = round * 25;
     timeBonusScore = Math.floor(timer / timerAmount * 100);
     perfectBonusScore = perfect ? perfectBonus : 0;
     totalScore += roundBonusScore + timeBonusScore + perfectBonusScore;
@@ -276,6 +300,8 @@ function success() {
         } else {
             const audio = new Audio(successSound);
             audio.play();
+            totalScore += loadedStratagems[currentStratagem].code.length * 5;
+            scoreCounter.innerHTML = totalScore;
         }
         loadNextStratagem();
     }
@@ -317,15 +343,17 @@ function animation() {
     requestAnimationFrame(animation);
     if (startRunning) {
         if (keyPressed != "") {
-            reset();
-            startScreen.classList.add('hidden');
-            gameScreen.classList.remove('hidden');
             startRunning = false;
-            gameRunning = true;
+            startScreen.classList.add('hidden');
+            reset();
+            setPrepareScreen();
         }
     }
     if (gameRunning) {
         gameLogic();
+    }
+    if (prepareRunning) {
+        //Do nothing
     }
     if (midScoreRunning) {
         //Do nothing
