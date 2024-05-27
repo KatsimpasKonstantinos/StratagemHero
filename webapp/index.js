@@ -1,4 +1,4 @@
-let stratagemsData = ["test"];
+let stratagemsData = [];
 
 import('./stratagemsData.js').then(data => {
     stratagemsData = data.default;
@@ -35,21 +35,22 @@ let finalScoreTitle = document.getElementById('FinalScoreTitle');
 let prepareScreen = document.getElementById('PrepareScreen');
 let prepareRoundCounter = document.getElementById('PrepareRoundCounter');
 
-let winSounds = ["./sound/win1.mp3", "./sound/win2.mp3", "./sound/win3.mp3", "./sound/win4.mp3"];
-let keySound = "./sound/key.ogg";
-let failureSound = "./sound/failure.ogg";
-let successSound = "./sound/success.ogg";
-let prepareSound = "./sound/prepare.ogg";
-let backgroundSound = "./sound/background.ogg";
-let backgroundAudio = new Audio(backgroundSound);
+const sounds = {
+    win: ["./sound/win1.mp3", "./sound/win2.mp3", "./sound/win3.mp3", "./sound/win4.mp3"],
+    key: "./sound/key.ogg",
+    failure: "./sound/failure.ogg",
+    success: "./sound/success.ogg",
+    prepare: "./sound/prepare.ogg",
+    background: "./sound/background.ogg"
+}
+let backgroundAudio = new Audio(sounds.background);
 backgroundAudio.loop = true;
 
 let arrowKeyContainer = document.getElementById('ArrowKeysContainer');
 
-let keyUp = false;
-let keyRight = false;
-let keyDown = false;
-let keyLeft = false;
+let gameData = {
+
+}
 let keyBlocked = false;
 let keyPressed = "";
 let currentKey = 0;
@@ -143,61 +144,36 @@ function loadArrows() {
     }
 }
 
+
 function playKeySound() {
-    const audio = new Audio(keySound);
-    audio.play();
+    const audioKey = new Audio(sounds.key);
+    audioKey.play();
 }
 
 document.addEventListener('keydown', function (event) {
-    if (event.key == "ArrowUp") {
-        keyUp = true;
-        if (!keyBlocked) {
-            keyPressed = "up";
-            if (gameRunning || startRunning) playKeySound();
+    if (event.key == "ArrowUp" || event.key == "ArrowLeft" || event.key == "ArrowDown" || event.key == "ArrowRight") {
+        if (!keyBlocked && (gameRunning || startRunning)) {
+            if (event.key == "ArrowUp") {
+                keyPressed = "up";
+                playKeySound()
+            } else if (event.key == "ArrowLeft") {
+                keyPressed = "left";
+                playKeySound()
+            } else if (event.key == "ArrowDown") {
+                keyPressed = "down";
+                playKeySound()
+            } else if (event.key == "ArrowRight") {
+                keyPressed = "right";
+                playKeySound()
+            }
         }
         keyBlocked = true;
     }
-    if (event.key == "ArrowLeft") {
-        keyLeft = true;
-        if (!keyBlocked) {
-            keyPressed = "left";
-            if (gameRunning || startRunning) playKeySound();
-        }
-        keyBlocked = true;
-    }
-    if (event.key == "ArrowDown") {
-        keyDown = true;
-        if (!keyBlocked) {
-            keyPressed = "down";
-            if (gameRunning || startRunning) playKeySound();
-        }
-        keyBlocked = true;
-    }
-    if (event.key == "ArrowRight") {
-        keyRight = true;
-        if (!keyBlocked) {
-            keyPressed = "right";
-            if (gameRunning || startRunning) playKeySound();
-        }
-        keyBlocked = true;
-    }
+    
 });
 
 document.addEventListener('keyup', function (event) {
-    if (event.key == "ArrowUp") {
-        keyUp = false;
-        keyBlocked = false;
-    }
-    if (event.key == "ArrowLeft") {
-        keyLeft = false;
-        keyBlocked = false;
-    }
-    if (event.key == "ArrowDown") {
-        keyDown = false;
-        keyBlocked = false;
-    }
-    if (event.key == "ArrowRight") {
-        keyRight = false;
+    if (event.key == "ArrowUp" || event.key == "ArrowLeft" || event.key == "ArrowDown" || event.key == "ArrowRight") {
         keyBlocked = false;
     }
 });
@@ -216,7 +192,7 @@ function keyLogic() {
 
 function setPrepareScreen() {
     backgroundAudio.pause();
-    const audio = new Audio(prepareSound);
+    const audio = new Audio(sounds.prepare);
     audio.play();
     if (round % 2 == 0 && stratagemsData.length - 10 > stratagemsAmount) {
         stratagemsAmount++;
@@ -227,6 +203,7 @@ function setPrepareScreen() {
     midScoreScreen.classList.add('hidden');
     prepareScreen.classList.remove('hidden');
     setTimeout(() => {
+        keyPressed = "";
         roundCounter.innerHTML = round;
         scoreCounter.innerHTML = totalScore;
         prepareRunning = false;
@@ -301,11 +278,11 @@ function success() {
         }
         if (currentStratagem >= loadedStratagems.length) {
             backgroundAudio.pause();
-            const audio = new Audio(winSounds[Math.floor(Math.random() * winSounds.length)]);
+            const audio = new Audio(sounds.win[Math.floor(Math.random() * sounds.win.length)]);
             audio.play();
             nextRound();
         } else {
-            const audio = new Audio(successSound);
+            const audio = new Audio(sounds.success);
             audio.play();
             totalScore += loadedStratagems[currentStratagem].code.length * 5;
             scoreCounter.innerHTML = totalScore;
@@ -317,7 +294,7 @@ function success() {
 function failure() {
     currentKey = 0;
     perfect = false;
-    const audio = new Audio(failureSound);
+    const audio = new Audio(sounds.failure);
     audio.play();
     arrowKeyContainer.childNodes.forEach(element => {
         element.className = 'ArrowKey red ' + loadedStratagems[currentStratagem].code[element.id.replace('ArrowKey', '')];
