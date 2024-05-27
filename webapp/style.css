@@ -35,11 +35,13 @@ body {
 
 .BackgroundImage {
     position: absolute;
-    left: 20vw;
-    top: 15vh;
-    width: 60vw;
-    height: 60vh;
-    filter: invert(1) brightness(0.20);
+    width: 100vw;
+    height: 100vh;
+    filter: grayscale() brightness(0.25);
+    background-image: url('./icons/superEarth.png');
+    background-size: 62vh;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .UIWhiteLineTop {
@@ -323,7 +325,7 @@ body {
     display: flex;
 }
 
-.PrepareRoundTitle{
+.PrepareRoundTitle {
     position: absolute;
     font-size: 1.75em;
     font-weight: lighter;
@@ -352,11 +354,11 @@ body {
     display: flex;
 }
 
-.high{
+.high {
     top: 10vh
 }
 
-.FinalScoreTitle{
+.FinalScoreTitle {
     position: absolute;
     font-size: 1.75em;
     font-weight: lighter;
@@ -366,7 +368,7 @@ body {
     top: 66vh;
 }
 
-.FinalScore{
+.FinalScore {
     position: absolute;
     font-size: 3em;
     font-weight: lighter;
