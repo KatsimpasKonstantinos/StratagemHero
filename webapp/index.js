@@ -41,16 +41,14 @@ const sounds = {
     failure: "./sound/failure.ogg",
     success: "./sound/success.ogg",
     prepare: "./sound/prepare.ogg",
-    background: "./sound/background.ogg"
+    background: "./sound/background.ogg",
+    gameOver: "./sound/gameOver.ogg"
 }
 let backgroundAudio = new Audio(sounds.background);
 backgroundAudio.loop = true;
 
 let arrowKeyContainer = document.getElementById('ArrowKeysContainer');
 
-let gameData = {
-
-}
 let keyBlocked = false;
 let keyPressed = "";
 let currentKey = 0;
@@ -138,7 +136,7 @@ function loadArrows() {
         divElement.className = 'ArrowKey gray ' + rotation;
         divElement.id = 'ArrowKey' + i;
         imgElement.className = 'ArrowKeyImage'
-        imgElement.src = './stratagems/arrow.svg'
+        imgElement.src = './icons/arrow.svg'
         divElement.appendChild(imgElement);
         arrowKeyContainer.appendChild(divElement);
     }
@@ -318,7 +316,10 @@ function gameLogic() {
         document.documentElement.style.setProperty('--mainColor', 'yellow');
     }
     if (timer < 0) {
+        //Game Over
         backgroundAudio.pause();
+        const audio = new Audio(sounds.gameOver);
+        audio.play();
         lost = true;
         gameRunning = false;
         endRunning = true;
