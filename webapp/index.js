@@ -133,10 +133,10 @@ function loadArrows() {
         let divElement = document.createElement('div');
         let imgElement = document.createElement('img');
         let rotation = loadedStratagems[currentStratagem].code[i];
-        divElement.className = 'ArrowKey gray ' + rotation;
+        divElement.className = 'ArrowKey gray';
         divElement.id = 'ArrowKey' + i;
         imgElement.className = 'ArrowKeyImage'
-        imgElement.src = './icons/arrow.svg'
+        imgElement.src = './icons/arrow' + rotation + '.svg'
         divElement.appendChild(imgElement);
         arrowKeyContainer.appendChild(divElement);
     }
@@ -167,7 +167,7 @@ document.addEventListener('keydown', function (event) {
         }
         keyBlocked = true;
     }
-    
+
 });
 
 document.addEventListener('keyup', function (event) {

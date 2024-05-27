@@ -1,6 +1,8 @@
 # TODO List
 
 - [ ] Add Scoreboard
-- [ ] Arrow Key missaligned when rotated
+- [ ] Add WASD
+- [ ] No wait time after successfull stratagem
 - [ ] clean up js and css
-- [ ] Minimize Discrepencies to original (no wait after successfull stratagem)
+- [ ] Minimize Discrepencies to original
+- [ ] Add KoFi
