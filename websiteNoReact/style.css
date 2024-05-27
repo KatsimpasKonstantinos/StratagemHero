@@ -343,4 +343,35 @@ body {
     top: 71vh;
 }
 
-.EndScreen {}
+.EndScreen {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.high{
+    top: 10vh
+}
+
+.FinalScoreTitle{
+    position: absolute;
+    font-size: 1.75em;
+    font-weight: lighter;
+    color: white;
+    text-shadow: 0 0 0.1em white;
+    margin: 0;
+    top: 66vh;
+}
+
+.FinalScore{
+    position: absolute;
+    font-size: 3em;
+    font-weight: lighter;
+    color: yellow;
+    text-shadow: 0 0 0.1em yellow;
+    margin: 0;
+    top: 71vh;
+}

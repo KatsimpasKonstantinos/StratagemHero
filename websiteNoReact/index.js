@@ -20,6 +20,7 @@ let timerProgress = document.getElementById('Progress');
 let gameScreen = document.getElementById('GameScreen');
 let startScreen = document.getElementById('StartScreen');
 let midScoreScreen = document.getElementById('MidScoreScreen');
+let endScreen = document.getElementById('EndScreen');
 
 let roundBonusScoreScore = document.getElementById('RoundBonusScoreScore');
 let timeBonusScoreScore = document.getElementById('TimeBonusScoreScore');
@@ -29,6 +30,7 @@ let roundBonusScoreTitle = document.getElementById('RoundBonusScoreTitle');
 let timeBonusScoreTitle = document.getElementById('TimeBonusScoreTitle');
 let perfectBonusScoreTitle = document.getElementById('PerfectBonusScoreTitle');
 let totalScoreTitle = document.getElementById('TotalScoreTitle');
+let finalScoreTitle = document.getElementById('FinalScoreTitle');
 
 let prepareScreen = document.getElementById('PrepareScreen');
 let prepareRoundCounter = document.getElementById('PrepareRoundCounter');
@@ -72,6 +74,7 @@ let startRunning = true;
 let gameRunning = false;
 let prepareRunning = false;
 let midScoreRunning = false;
+let endRunning = false;
 
 
 function reset() {
@@ -140,13 +143,17 @@ function loadArrows() {
     }
 }
 
+function playKeySound() {
+    const audio = new Audio(keySound);
+    audio.play();
+}
+
 document.addEventListener('keydown', function (event) {
     if (event.key == "ArrowUp") {
         keyUp = true;
         if (!keyBlocked) {
             keyPressed = "up";
-            const audio = new Audio(keySound);
-            audio.play();
+            if (gameRunning || startRunning) playKeySound();
         }
         keyBlocked = true;
     }
@@ -154,8 +161,7 @@ document.addEventListener('keydown', function (event) {
         keyLeft = true;
         if (!keyBlocked) {
             keyPressed = "left";
-            const audio = new Audio(keySound);
-            audio.play();
+            if (gameRunning || startRunning) playKeySound();
         }
         keyBlocked = true;
     }
@@ -163,8 +169,7 @@ document.addEventListener('keydown', function (event) {
         keyDown = true;
         if (!keyBlocked) {
             keyPressed = "down";
-            const audio = new Audio(keySound);
-            audio.play();
+            if (gameRunning || startRunning) playKeySound();
         }
         keyBlocked = true;
     }
@@ -172,8 +177,7 @@ document.addEventListener('keydown', function (event) {
         keyRight = true;
         if (!keyBlocked) {
             keyPressed = "right";
-            const audio = new Audio(keySound);
-            audio.play();
+            if (gameRunning || startRunning) playKeySound();
         }
         keyBlocked = true;
     }
@@ -261,7 +265,7 @@ function setMidScoreScreen() {
     setTimeout(() => {
         totalScoreScore.innerHTML = totalScore;
         totalScoreTitle.innerHTML = "Total Score";
-        
+
     }, 1300);
     setTimeout(() => {
         setPrepareScreen();
@@ -337,8 +341,20 @@ function gameLogic() {
         document.documentElement.style.setProperty('--mainColor', 'yellow');
     }
     if (timer < 0) {
+        backgroundAudio.pause();
         lost = true;
-        reset();
+        gameRunning = false;
+        endRunning = true;
+        finalScoreTitle.innerHTML = totalScore;
+        gameScreen.classList.add('hidden');
+        endScreen.classList.remove('hidden');
+        setTimeout(() => {
+            keyPressed = "";
+            endRunning = false;
+            startRunning = true;
+            endScreen.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+        }, 5000);
     }
 }
 
@@ -359,6 +375,9 @@ function animation() {
         //Do nothing
     }
     if (midScoreRunning) {
+        //Do nothing
+    }
+    if (endRunning) {
         //Do nothing
     }
 }
