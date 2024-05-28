@@ -392,13 +392,13 @@ function nameEnterLogic() {
                     scoreBoardRunning = true;
                     let scoreArray = loadAllCookies();
                     for (let i = 0; i < scoreBoards.length; i++) {
-                        if (scoreArray[i]) scoreBoards[i].innerHTML = "1. " + scoreArray[i].name + " | " + scoreArray[i].score;
+                        if (scoreArray[i]) scoreBoards[i].innerHTML = (i + 1) + ". " + scoreArray[i].name + " | " + scoreArray[i].score;
                         else scoreBoards[i].innerHTML = "";
                         if (scoreArray[i].name == "SEX" || scoreArray[i].name == "GPN") {
                             scoreBoards[i].classList.add('easterEgg');
                         } else {
                             scoreBoards[i].classList.remove('easterEgg');
-                                                }
+                        }
                     }
                     nameEnterScreen.classList.add('hidden');
                     scoreBoardScreen.classList.remove('hidden');
