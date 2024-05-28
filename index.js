@@ -54,6 +54,24 @@ const sounds = {
 let backgroundAudio = new Audio(sounds.background);
 backgroundAudio.loop = true;
 
+//preload all images
+
+function preloadImage(url)
+{
+    var img=new Image();
+    img.src=url;
+}
+
+for (let i = 0; i < stratagemsData.length; i++) {
+    preloadImage(`./stratagems/${stratagemsData[i].name}.svg`);
+}
+
+preloadImage(`./icons/arrowup.svg`);
+preloadImage(`./icons/arrowdown.svg`);
+preloadImage(`./icons/arrowleft.svg`);
+preloadImage(`./icons/arrowright.svg`);
+
+
 let arrowKeyContainer = document.getElementById('ArrowKeysContainer');
 
 let keyBlocked = false;
