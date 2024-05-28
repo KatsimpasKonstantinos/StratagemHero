@@ -391,16 +391,19 @@ function nameEnterLogic() {
                 setTimeout(() => {
                     scoreBoardRunning = true;
                     let scoreArray = loadAllCookies();
+                    console.log(scoreArray);
                     for (let i = 0; i < scoreBoards.length; i++) {
-                        if (scoreArray[i] || scoreArray[i].name) {
-                            if (scoreArray[i]) scoreBoards[i].innerHTML = (i + 1) + ". " + scoreArray[i].name + " | " + scoreArray[i].score;
-                            else scoreBoards[i].innerHTML = "";
-                            if (scoreArray[i].name == "SEX" || scoreArray[i].name == "GPN") {
-                                scoreBoards[i].classList.add('easterEgg');
-                            } else {
-                                scoreBoards[i].classList.remove('easterEgg');
+                        if (scoreArray[i] != undefined) {
+                            if (scoreArray[i].name != undefined) {
+                                if (scoreArray[i]) scoreBoards[i].innerHTML = (i + 1) + ". " + scoreArray[i].name + " | " + scoreArray[i].score;
+
+                                if (scoreArray[i].name == "GPN" || scoreArray[i].name == "CCC") {
+                                    scoreBoards[i].classList.add('easterEgg');
+                                } else {
+                                    scoreBoards[i].classList.remove('easterEgg');
+                                }
                             }
-                        }
+                        } else scoreBoards[i].innerHTML = "";
                     }
                     nameEnterScreen.classList.add('hidden');
                     scoreBoardScreen.classList.remove('hidden');
