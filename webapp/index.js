@@ -21,6 +21,8 @@ let gameScreen = document.getElementById('GameScreen');
 let startScreen = document.getElementById('StartScreen');
 let midScoreScreen = document.getElementById('MidScoreScreen');
 let endScreen = document.getElementById('EndScreen');
+let nameEnterScreen = document.getElementById('NameEnterScreen');
+let scoreBoardScreen = document.getElementById('ScoreBoardScreen');
 
 let roundBonusScoreScore = document.getElementById('RoundBonusScoreScore');
 let timeBonusScoreScore = document.getElementById('TimeBonusScoreScore');
@@ -34,6 +36,11 @@ let finalScoreTitle = document.getElementById('FinalScoreTitle');
 
 let prepareScreen = document.getElementById('PrepareScreen');
 let prepareRoundCounter = document.getElementById('PrepareRoundCounter');
+
+let nameEnter = [document.getElementById('NameEnter0'), document.getElementById('NameEnter1'), document.getElementById('NameEnter2')];
+let currentNameEnter = 0;
+
+let scoreBoards = [document.getElementById('ScoreBoard0'), document.getElementById('ScoreBoard1'), document.getElementById('ScoreBoard2')];
 
 const sounds = {
     win: ["./sound/win1.mp3", "./sound/win2.mp3", "./sound/win3.mp3", "./sound/win4.mp3"],
@@ -73,7 +80,8 @@ let startRunning = true;
 let gameRunning = false;
 let prepareRunning = false;
 let midScoreRunning = false;
-let endRunning = false;
+let nameEnterRunning = false;
+let scoreBoardRunning = false;
 
 
 function reset() {
@@ -153,9 +161,8 @@ function inputKeyPressed(key) {
 }
 
 document.addEventListener('keydown', function (event) {
-    console.log(event.key);
     if (inputKeyPressed(event.key)) {
-        if (!keyBlocked && (gameRunning || startRunning)) {
+        if (!keyBlocked && (gameRunning || startRunning || nameEnterRunning)) {
             if (event.key == "ArrowUp" || event.key == "w") {
                 keyPressed = "up";
                 playKeySound()
@@ -183,10 +190,8 @@ document.addEventListener('keyup', function (event) {
 
 function keyLogic() {
     if (loadedStratagems[currentStratagem].code[currentKey] == keyPressed) {
-        console.log("Succes");
         success();
     } else {
-        console.log(loadedStratagems[currentStratagem].code[currentKey] + " pressed:" + keyPressed);
         failure();
     }
     keyPressed = "";
@@ -287,7 +292,7 @@ function success() {
         } else {
             const audio = new Audio(sounds.success);
             audio.play();
-            totalScore += loadedStratagems[currentStratagem].code.length * 5;
+            totalScore += loadedStratagems[currentStratagem - 1].code.length * 5;
             scoreCounter.innerHTML = totalScore;
         }
         loadNextStratagem();
@@ -309,6 +314,34 @@ function failure() {
     }, 100); // If someone pressed a correct before the 100ms passes, the color will not be yellow but gray
 }
 
+function setCookie(name, score) {
+    //if name allready exist only update score if higher
+    let cookieArray = loadAllCookies();
+    let found = false;
+    cookieArray.forEach(cookie => {
+        if (cookie.name == name) {
+            if (cookie.score < score) {
+                document.cookie = name + "=" + score + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+                console.log("replacing")
+            }
+            found = true;
+        }
+    });
+    if (!found) document.cookie = name + "=" + score + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+}
+
+function loadAllCookies() {
+    let cookieArray = document.cookie.replace(/ /g, "").split(';');
+    let scoreArray = [];
+    cookieArray.forEach(cookie => {
+        let cookieSplit = cookie.split('=');
+        if (cookieSplit[0].length == 3) {
+            scoreArray.push({ name: cookieSplit[0], score: parseInt(cookieSplit[1]) });
+        }
+    });
+    return scoreArray.sort((a, b) => b.score - a.score);
+}
+
 function gameLogic() {
     if (keyPressed != "") {
         keyLogic();
@@ -327,17 +360,57 @@ function gameLogic() {
         audio.play();
         lost = true;
         gameRunning = false;
-        endRunning = true;
+        nameEnterRunning = true;
         finalScoreTitle.innerHTML = totalScore;
         gameScreen.classList.add('hidden');
         endScreen.classList.remove('hidden');
-        setTimeout(() => {
-            keyPressed = "";
-            endRunning = false;
-            startRunning = true;
-            endScreen.classList.add('hidden');
-            startScreen.classList.remove('hidden');
-        }, 5000);
+        nameEnterScreen.classList.remove('hidden');
+    }
+}
+
+function nameEnterLogic() {
+    if (keyPressed != "") {
+        if (keyPressed == "up" || keyPressed == "w") {
+            nameEnter[currentNameEnter].innerHTML = String.fromCharCode((nameEnter[currentNameEnter].innerHTML.charCodeAt(0) - 65 + 25) % 26 + 65);
+        } else if (keyPressed == "down" || keyPressed == "s") {
+            nameEnter[currentNameEnter].innerHTML = String.fromCharCode((nameEnter[currentNameEnter].innerHTML.charCodeAt(0) - 65 + 1) % 26 + 65);
+        } else if (keyPressed == "right" || keyPressed == "d") {
+            nameEnter[currentNameEnter].classList.remove('selected');
+            nameEnter[currentNameEnter].classList.add('submited');
+            currentNameEnter++;
+            if (currentNameEnter >= nameEnter.length) {
+                nameEnterRunning = false;
+                setCookie(nameEnter[0].innerHTML + nameEnter[1].innerHTML + nameEnter[2].innerHTML, totalScore);
+                setTimeout(() => {
+                    scoreBoardRunning = true;
+                    let scoreArray = loadAllCookies();
+                    for (let i = 0; i < scoreBoards.length; i++) {
+                        if (scoreArray[i]) scoreBoards[i].innerHTML = "1. " + scoreArray[i].name + " | " + scoreArray[i].score;
+                        else scoreBoards[i].innerHTML = "";
+                    }
+                    nameEnterScreen.classList.add('hidden');
+                    scoreBoardScreen.classList.remove('hidden');
+                    setTimeout(() => {
+                        scoreBoardRunning = false;
+                        startRunning = true;
+                        scoreBoardScreen.classList.add('hidden');
+                        endScreen.classList.add('hidden');
+                        startScreen.classList.remove('hidden');
+                    }, 5000);
+                }, 500);
+            } else {
+                nameEnter[currentNameEnter].classList.add('selected');
+            }
+        } else if (keyPressed == "left" || keyPressed == "a") {
+            
+            if (currentNameEnter > 0) {
+                nameEnter[currentNameEnter].classList.remove('selected');
+                currentNameEnter--;
+                nameEnter[currentNameEnter].classList.remove('submited');
+                nameEnter[currentNameEnter].classList.add('selected');
+            }
+        }
+        keyPressed = "";
     }
 }
 
@@ -360,12 +433,14 @@ function animation() {
     if (midScoreRunning) {
         //Do nothing
     }
-    if (endRunning) {
+    if (nameEnterRunning) {
+        nameEnterLogic();
+    }
+    if (scoreBoardRunning) {
         //Do nothing
     }
 }
 
 animation();
-
 
 

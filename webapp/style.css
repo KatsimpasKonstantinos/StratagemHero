@@ -339,7 +339,7 @@ body {
 }
 
 .high {
-    top: 10vh
+    top: 20vh
 }
 
 .FinalScoreTitle {
@@ -360,4 +360,70 @@ body {
     text-shadow: 0 0 0.1em yellow;
     margin: 0;
     top: 71vh;
+}
+
+.NameEnterContainer {
+    position: absolute;
+    top: 45vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.NameEnter {
+    font-size: 2em;
+    font-weight: lighter;
+    color: white;
+    text-shadow: 0 0 0.1em white;
+    margin: 0;
+}
+
+.selected {
+    text-decoration: underline;
+}
+
+.submited {
+    color: yellow;
+    text-shadow: 0 0 0.1em yellow;
+}
+
+.ScoreBoardContainer {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.ScoreBoardTitle {
+    position: absolute;
+    font-size: 2.5em;
+    font-weight: lighter;
+    color: white;
+    text-shadow: 0 0 0.1em white;
+    margin: 0;
+    top: 35vh;
+}
+
+.ScoreBoard {
+    position: absolute;
+    font-size: 1.5em;
+    font-weight: lighter;
+    color: white;
+    text-shadow: 0 0 0.1em white;
+    margin: 0;
+}
+
+.first {
+    top: 44vh;
+}
+
+.second {
+    top: 50vh;
+}
+
+.third {
+    top: 56vh;
 }
