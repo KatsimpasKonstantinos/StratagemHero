@@ -362,6 +362,12 @@ function gameLogic() {
         gameRunning = false;
         nameEnterRunning = true;
         finalScoreTitle.innerHTML = totalScore;
+        nameEnter.forEach(element => {
+            element.classList.remove('submited');
+            element.classList.remove('selected');
+            element.innerHTML = "A";
+        });
+        nameEnter[0].classList.add('selected');
         gameScreen.classList.add('hidden');
         endScreen.classList.remove('hidden');
         nameEnterScreen.classList.remove('hidden');
@@ -379,6 +385,7 @@ function nameEnterLogic() {
             nameEnter[currentNameEnter].classList.add('submited');
             currentNameEnter++;
             if (currentNameEnter >= nameEnter.length) {
+                currentNameEnter = 0;
                 nameEnterRunning = false;
                 setCookie(nameEnter[0].innerHTML + nameEnter[1].innerHTML + nameEnter[2].innerHTML, totalScore);
                 setTimeout(() => {
@@ -387,6 +394,11 @@ function nameEnterLogic() {
                     for (let i = 0; i < scoreBoards.length; i++) {
                         if (scoreArray[i]) scoreBoards[i].innerHTML = "1. " + scoreArray[i].name + " | " + scoreArray[i].score;
                         else scoreBoards[i].innerHTML = "";
+                        if (scoreArray[i].name == "SEX" || scoreArray[i].name == "GPN") {
+                            scoreBoards[i].classList.add('easterEgg');
+                        } else {
+                            scoreBoards[i].classList.remove('easterEgg');
+                                                }
                     }
                     nameEnterScreen.classList.add('hidden');
                     scoreBoardScreen.classList.remove('hidden');
@@ -402,7 +414,7 @@ function nameEnterLogic() {
                 nameEnter[currentNameEnter].classList.add('selected');
             }
         } else if (keyPressed == "left" || keyPressed == "a") {
-            
+
             if (currentNameEnter > 0) {
                 nameEnter[currentNameEnter].classList.remove('selected');
                 currentNameEnter--;

@@ -364,19 +364,29 @@ body {
 
 .NameEnterContainer {
     position: absolute;
-    top: 45vh;
+    top: 46vh;
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
-.NameEnter {
+.NameEnterTitle {
+    position: absolute;
+    top: -10vh;
     font-size: 2em;
     font-weight: lighter;
     color: white;
     text-shadow: 0 0 0.1em white;
     margin: 0;
+}
+
+.NameEnter {
+    font-size: 2.5em;
+    font-weight: lighter;
+    color: white;
+    text-shadow: 0 0 0.1em white;
+    margin: 0;
+    top: 5vh;
 }
 
 .selected {
@@ -426,4 +436,9 @@ body {
 
 .third {
     top: 56vh;
+}
+
+.easterEgg {
+    color: yellow !important;
+    text-shadow: 0 0 0.1em yellow !important;
 }
