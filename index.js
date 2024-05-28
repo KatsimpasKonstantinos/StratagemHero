@@ -392,7 +392,7 @@ function nameEnterLogic() {
                     scoreBoardRunning = true;
                     let scoreArray = loadAllCookies();
                     for (let i = 0; i < scoreBoards.length; i++) {
-                        if (scoreArray[i].name) {
+                        if (scoreArray[i] || scoreArray[i].name) {
                             if (scoreArray[i]) scoreBoards[i].innerHTML = (i + 1) + ". " + scoreArray[i].name + " | " + scoreArray[i].score;
                             else scoreBoards[i].innerHTML = "";
                             if (scoreArray[i].name == "SEX" || scoreArray[i].name == "GPN") {
