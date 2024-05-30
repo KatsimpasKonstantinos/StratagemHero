@@ -91,7 +91,8 @@ let lost = false;
 let timerAmount = 600;
 let timerGetBack = 60;
 let timer = timerAmount;
-let stratagemsAmount = 5;
+let stratagemsStartAmount = 5;
+let stratagemsAmount = stratagemsStartAmount;
 let loadedStratagems = [];
 
 let startRunning = true;
@@ -105,6 +106,7 @@ let scoreBoardRunning = false;
 function reset() {
     startScreen.classList.remove('visible');
     round = 1;
+    stratagemsAmount = stratagemsStartAmount;
     roundBonusScore = 0;
     timeBonusScore = 0;
     perfectBonusScore = 0;
@@ -345,7 +347,7 @@ function setCookie(name, score) {
             found = true;
         }
     });
-    if (!found) document.cookie = name + "=" + score + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+    if (!found) document.cookie = name + "=" + score + "; expires=Fri, t31 Dec 9999 23:59:59 GMT";
 }
 
 function loadAllCookies() {
