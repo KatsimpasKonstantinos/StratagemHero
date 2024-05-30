@@ -56,10 +56,9 @@ backgroundAudio.loop = true;
 
 //preload all images
 
-function preloadImage(url)
-{
-    var img=new Image();
-    img.src=url;
+function preloadImage(url) {
+    var img = new Image();
+    img.src = url;
 }
 
 for (let i = 0; i < stratagemsData.length; i++) {
@@ -88,7 +87,9 @@ let perfectBonusScore = 0;
 let totalScore = 0;
 
 let lost = false;
-let timerAmount = 600;
+let timerStartAmount = 800;
+let timerAmount = timerStartAmount;
+let timeDecrease = 20;
 let timerGetBack = 60;
 let timer = timerAmount;
 let stratagemsStartAmount = 5;
@@ -111,6 +112,7 @@ function reset() {
     timeBonusScore = 0;
     perfectBonusScore = 0;
     totalScore = 0;
+    timerAmount = timerStartAmount;
     timer = timerAmount;
     lost = false;
     perfect = true;
@@ -288,6 +290,7 @@ function nextRound() {
     timeBonusScore = Math.floor(timer / timerAmount * 100);
     perfectBonusScore = perfect ? perfectBonus : 0;
     totalScore += roundBonusScore + timeBonusScore + perfectBonusScore;
+    timerAmount -= timeDecrease;
     timer = timerAmount;
     gameRunning = false;
     midScoreRunning = true;
