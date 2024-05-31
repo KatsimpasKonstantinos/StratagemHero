@@ -5,3 +5,4 @@
 - [ ] Minimize Discrepencies to original
 - [ ] Add KoFi
 - [ ] Add mobile support
+- [ ] 

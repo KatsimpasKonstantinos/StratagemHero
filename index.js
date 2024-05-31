@@ -41,6 +41,7 @@ let nameEnter = [document.getElementById('NameEnter0'), document.getElementById(
 let currentNameEnter = 0;
 
 let scoreBoards = [document.getElementById('ScoreBoard0'), document.getElementById('ScoreBoard1'), document.getElementById('ScoreBoard2')];
+let scoreBoardSelf = document.getElementById('ScoreBoardX');
 
 const sounds = {
     win: ["./sound/win1.mp3", "./sound/win2.mp3", "./sound/win3.mp3", "./sound/win4.mp3"],
@@ -388,7 +389,6 @@ function gameLogic() {
         nameEnter.forEach(element => {
             element.classList.remove('submited');
             element.classList.remove('selected');
-            element.innerHTML = "A";
         });
         nameEnter[0].classList.add('selected');
         gameScreen.classList.add('hidden');
@@ -410,7 +410,8 @@ function nameEnterLogic() {
             if (currentNameEnter >= nameEnter.length) {
                 currentNameEnter = 0;
                 nameEnterRunning = false;
-                setCookie(nameEnter[0].innerHTML + nameEnter[1].innerHTML + nameEnter[2].innerHTML, totalScore);
+                playerName = nameEnter[0].innerHTML + nameEnter[1].innerHTML + nameEnter[2].innerHTML;
+                setCookie(playerName, totalScore);
                 setTimeout(() => {
                     scoreBoardRunning = true;
                     let scoreArray = loadAllCookies();
@@ -428,6 +429,17 @@ function nameEnterLogic() {
                             }
                         } else scoreBoards[i].innerHTML = "";
                     }
+                    //search where current score would be ranked
+
+                    let rank = scoreArray.length;
+                    for (let i = scoreArray.length - 1; i >= 0; i--) {
+                        if (i == 0) rank = 1;
+                        if (totalScore < scoreArray[i].score) {
+                            rank = i + 2;
+                            break;
+                        }
+                    }
+                    scoreBoardSelf.innerHTML = rank + ". " + playerName + " | " + totalScore;
                     nameEnterScreen.classList.add('hidden');
                     scoreBoardScreen.classList.remove('hidden');
                     setTimeout(() => {
@@ -436,7 +448,7 @@ function nameEnterLogic() {
                         scoreBoardScreen.classList.add('hidden');
                         endScreen.classList.add('hidden');
                         startScreen.classList.remove('hidden');
-                    }, 5000);
+                    }, 6000);
                 }, 500);
             } else {
                 nameEnter[currentNameEnter].classList.add('selected');
