@@ -43,6 +43,8 @@ let currentNameEnter = 0;
 let scoreBoards = [document.getElementById('ScoreBoard0'), document.getElementById('ScoreBoard1'), document.getElementById('ScoreBoard2')];
 let scoreBoardSelf = document.getElementById('ScoreBoardX');
 
+let settingsElement = document.getElementById("SettingsElement")
+
 const sounds = {
     win: ["./sound/win1.mp3", "./sound/win2.mp3", "./sound/win3.mp3", "./sound/win4.mp3"],
     key: "./sound/key.ogg",

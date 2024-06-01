@@ -493,10 +493,24 @@ body {
     justify-content: left;
 }
 
-.Settings {}
+.ExtraImage {
+    padding: 3px;
+    width: 2.5vw;
+}
+
+.Settings {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
 
 .SettingsTitle {
     font-size: 1.5em;
 }
 
-.SettingsArrowContainer {}
+
+.SettingsArrowContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
