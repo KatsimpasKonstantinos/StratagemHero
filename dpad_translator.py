@@ -1,18 +1,25 @@
-import hid
-from evdev import uinput, ecodes as e
+import sys
 import time
 
-gamepad = hid.Device(0x0810, 0xe501)
-gamepad.nonblocking = True
-time.sleep(1)
-default_report = gamepad.read(64, timeout=100)
-last_report = None
+import hid
+from evdev import uinput, ecodes as e
+
+# scan  for gamepad
+gamepad = None
+while not gamepad:
+    try:
+        gamepad = hid.Device(0x0810, 0xe501)
+        gamepad.nonblocking = True
+        print('connected.')
+    except hid.HIDException:
+        time.sleep(0.5)
+        sys.stdout.write('.')
+
 with uinput.UInput() as ui:
     while True:
         report = gamepad.read(64,timeout=10)
-        if not report or report == last_report:
+        if not report:
             continue
-        last_report = report
         keys_up_down = report[4]
         keys_left_right = report[3]
         if keys_up_down != 127:
