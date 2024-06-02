@@ -518,6 +518,15 @@ function sequenceLogic() {
             if (validSequences[0] == startSequence && startKey == startSequence.length) {
                 startRunning = false;
                 startScreen.classList.add('hidden');
+                startArrows.forEach(element => {
+                    element.classList.remove('yellow');
+                    element.classList.add('gray');
+                });
+                settingsArrows.forEach(element => {
+                    element.classList.remove('yellow');
+                    element.classList.add('gray');
+                });
+                startKey = 0;
                 reset();
                 setPrepareScreen();
             }
