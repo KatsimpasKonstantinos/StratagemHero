@@ -44,6 +44,7 @@ let scoreBoards = [document.getElementById('ScoreBoard0'), document.getElementBy
 let scoreBoardSelf = document.getElementById('ScoreBoardX');
 
 let settingsElement = document.getElementById("SettingsElement")
+let settingsArrows = [document.getElementById('ArrowKeySettings1'), document.getElementById('ArrowKeySettings2'), document.getElementById('ArrowKeySettings3'), document.getElementById('ArrowKeySettings4')];
 
 const sounds = {
     win: ["./sound/win1.mp3", "./sound/win2.mp3", "./sound/win3.mp3", "./sound/win4.mp3"],
@@ -468,15 +469,73 @@ function nameEnterLogic() {
     }
 }
 
+let startKey = 0;
+let startArrows = [document.getElementById('ArrowKeyStart1'), document.getElementById('ArrowKeyStart2'), document.getElementById('ArrowKeyStart3'), document.getElementById('ArrowKeyStart4'), document.getElementById('ArrowKeyStart5')];
+let startSequence = ["up", "down", "right", "left", "up"];
+let settingArrow = [document.getElementById('ArrowKeySettings1'), document.getElementById('ArrowKeySettings2'), document.getElementById('ArrowKeySettings3'), document.getElementById('ArrowKeySettings4')];
+let settingsSequence = ["right", "right", "left", "left"];
+
+
+let sequences = [startSequence, settingsSequence];
+let validSequences = sequences;
+
+function sequenceLogic() {
+    if (keyPressed != "") {
+        console.log(validSequences)
+        console.log(keyPressed + " " + startKey)
+        for (let i = 0; i < sequences.length; i++) {
+            if (keyPressed !== sequences[i][startKey]) {
+                validSequences = validSequences.filter(item => item !== sequences[i]);
+            }
+        }
+
+        //if start sequence is inside validsequences
+        if (validSequences.includes(startSequence)) {
+            startArrows[startKey].classList.add('yellow');
+            startArrows[startKey].classList.remove('gray');
+        } else {
+            startArrows.forEach(element => {
+                element.classList.remove('yellow');
+                element.classList.add('gray');
+            });
+        }
+
+        //if settings sequence is inside validsequences
+        if (validSequences.includes(settingsSequence)) {
+            settingArrow[startKey].classList.add('yellow');
+            settingArrow[startKey].classList.remove('gray');
+        } else {
+            settingArrow.forEach(element => {
+                element.classList.remove('yellow');
+                element.classList.add('gray');
+            });
+        }
+
+        keyPressed = "";
+        startKey++;
+
+        if (validSequences.length == 1) {
+            if (validSequences[0] == startSequence && startKey == startSequence.length) {
+                startRunning = false;
+                startScreen.classList.add('hidden');
+                reset();
+                setPrepareScreen();
+            }
+            if (validSequences[0] == settingsSequence) {
+                //TODO open settings
+            }
+        }
+        if (validSequences.length == 0) {
+            startKey = 0;
+            validSequences = sequences;
+        }
+    }
+}
+
 function animation() {
     requestAnimationFrame(animation);
     if (startRunning) {
-        if (keyPressed != "") {
-            startRunning = false;
-            startScreen.classList.add('hidden');
-            reset();
-            setPrepareScreen();
-        }
+        sequenceLogic();
     }
     if (gameRunning) {
         gameLogic();

@@ -491,11 +491,23 @@ body {
     text-align: left;
     align-items: left;
     justify-content: left;
+    display: flex;
+}
+
+.ExtraArrowImage {
+    padding: 3px;
+    width: 2.5vw;
 }
 
 .ExtraImage {
-    padding: 3px;
-    width: 2.5vw;
+    width: 6vw;
+}
+
+.ContentContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1em;
 }
 
 .Settings {
@@ -504,8 +516,11 @@ body {
     display: flex;
 }
 
-.SettingsTitle {
+.ExtraTitle {
     font-size: 1.5em;
+    margin: 0;
+    color: white;
+    text-shadow: 0 0 0.1em white;
 }
 
 
@@ -513,4 +528,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.ArrowKeyStartContainer {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 70vh;
 }
