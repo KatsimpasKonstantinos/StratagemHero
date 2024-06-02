@@ -15,11 +15,19 @@ while not gamepad:
         time.sleep(0.5)
         sys.stdout.write('.')
 
-with uinput.UInput() as ui:
+capabilities = {
+    e.EV_KEY: [
+        e.KEY_W, e.KEY_A, e.KEY_S, e.KEY_D
+    ]
+}
+
+last_report = None
+with uinput.UInput(capabilities) as ui:
     while True:
         report = gamepad.read(64,timeout=10)
-        if not report:
+        if not report or report == last_report:
             continue
+        last_report = report
         keys_up_down = report[4]
         keys_left_right = report[3]
         if keys_up_down != 127:
