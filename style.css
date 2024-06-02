@@ -530,7 +530,7 @@ body {
     justify-content: center;
 }
 
-.ArrowKeyStartContainer2 {
+.ArrowKeyStartContainer {
     position: absolute;
     display: flex;
     align-items: center;
