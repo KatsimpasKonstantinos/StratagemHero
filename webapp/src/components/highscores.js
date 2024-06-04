@@ -1,5 +1,6 @@
 
 function Highscores() {
+    console.log("Rendering Highscores");
     return (
         <div>
             <h1>Highscores</h1>
