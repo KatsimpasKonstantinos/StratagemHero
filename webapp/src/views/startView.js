@@ -2,6 +2,7 @@ import ArrowContainer from '../components/ArrowContainer';
 import './StartView.css';
 
 function StartView(props) {
+    console.log("Rendering StartView");
     let mainScreenString = props.mainScreenString;
     let keyPressed = props.keyPressed;
 
