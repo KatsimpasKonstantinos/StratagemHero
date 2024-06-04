@@ -1,7 +1,9 @@
 :root {
   --yellow: yellow;
+  --mainColor: yellow;
+  --red: red;
   --white: white;
-  --background: #232029;
+  --background: #252627;
 }
 
 body {
@@ -13,6 +15,7 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  color: var(--white);
 }
 
 code {

@@ -1,4 +1,4 @@
-const data = [
+const stratagemsData = [
     {
         name: 'Machine Gun',
         code: ['down', 'left', 'down', 'up', 'right'],
@@ -277,4 +277,4 @@ const data = [
     }
 ];
 
-export default data;
+export default stratagemsData;

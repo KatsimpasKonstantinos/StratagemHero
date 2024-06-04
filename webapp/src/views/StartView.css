@@ -1,0 +1,34 @@
+.StartView {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.StartViewTitle {
+    position: absolute;
+    top: 40vh;
+    color: var(--white);
+    font-size: 10em;
+    text-align: center;
+    margin: 0;
+}
+
+.StartViewInfo {
+    position: absolute;
+    top: 60vh;
+    color: var(--yellow);
+    font-size: 3em;
+    text-align: center;
+    margin: 0;
+}
+
+.StartViewArrowContainer {
+    position: absolute;
+    top: 70vh;
+    display: flex;
+    align-items: center;
+}

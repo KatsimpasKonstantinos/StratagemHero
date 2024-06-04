@@ -1,5 +1,17 @@
 .App {
   text-align: center;
+
+}
+
+.BackgroundImage {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  filter: grayscale() brightness(0.25);
+  background-image: url('./media/icons/superEarth.png');
+  background-size: 62vh;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .whiteLine {
@@ -16,4 +28,10 @@
 .bottom {
   position: absolute;
   bottom: 5vh;
+}
+
+.GameView {
+  position: absolute;
+  top: 10vh;
+  color: var(--white)
 }
