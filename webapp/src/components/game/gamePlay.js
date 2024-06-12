@@ -29,6 +29,7 @@ function GamePlay(props) {
     }
   }
   chooseRandomStratagems();
+  console.log(stratagems);
 
   let renderScore = computed(() => {
     calculateScore()
@@ -50,7 +51,7 @@ function GamePlay(props) {
     } else {
       round.value++;
       currentStratagemIndex.value = 0;
-      gameScreenString.value = "prepare";
+      gameScreenString.value = "recap";
     }
   });
 
@@ -67,10 +68,8 @@ function GamePlay(props) {
         <p className="RoundTitle">Round</p>
         <p className="Round">{round}</p>
       </div>
-      <div>
-        {renderArrowContainer}
-        {renderScore}
-      </div>
+      {renderArrowContainer}
+      {renderScore}
     </div>
   );
 }

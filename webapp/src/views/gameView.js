@@ -2,6 +2,7 @@ import { computed, effect, signal } from "@preact/signals-react";
 import GamePrepare from "../components/game/GamePrepare.js";
 import GamePlay from "../components/game/GamePlay.js";
 import InvalidScreen from "../components/InvalidScreen.js";
+import GameRecap from "../components/game/GameRecap.js";
 
 let stratagemsData = [];
 import("../media/stratagemsData.js").then((module) => {
@@ -28,6 +29,8 @@ function GameView(props) {
                 return <GamePrepare round={round} gameScreenString={gameScreenString} />
             case "play":
                 return <GamePlay round={round} score={score} keyPressed={keyPressed} stratagemsData={stratagemsData} gameScreenString={gameScreenString} />
+            case "recap":
+                return <GameRecap round={round} score={score} gameScreenString={gameScreenString} />
             default:
                 return <InvalidScreen />;
         }

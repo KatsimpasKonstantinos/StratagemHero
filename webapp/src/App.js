@@ -57,6 +57,7 @@ function App(props) {
       <div className="whiteLine top"></div>
       {screen}
       <div className="whiteLine bottom"></div>
+      
     </div>
   );
 }
