@@ -10,14 +10,16 @@
 
 .RoundTitle {
     color: var(--white);
-    font-size: 2em;
+    font-size: 3em;
+    line-height: 0.5em;
     text-align: center;
     margin: 0;
 }
 
 .Round {
     color: var(--mainColor);
-    font-size: 5em;
+    font-size: 6em;
+    letter-spacing: 0.1em;
     text-align: center;
     margin: 0;
 }
@@ -27,30 +29,82 @@
     top: 20vh;
     right: 10vw;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+    align-items: flex-end;
 }
 
 .ScoreTitle {
     color: var(--white);
-    font-size: 2em;
-    text-align: center;
+    font-size: 3em;
     margin: 0;
 }
 
 .Score {
     color: var(--mainColor);
-    font-size: 5em;
-    text-align: center;
+    font-size: 6em;
+    line-height: 0.5em;
+    letter-spacing: 0.1em;
     margin: 0;
+    text-align: right;
 }
+
+
 
 .ArrowContainerContainer {
     position: absolute;
-    top: 55vh;
+    top: 57vh;
     left: 50vw;
     transform: translateX(-50%);
     display: flex;
+    align-items: center;
+}
+
+
+.StratagemNameContainer {
+    position: absolute;
+    top: 50vh;
+    left: 20vw;
+    width: 60vw;
+    height: 5vh;
+
+    background-color: var(--mainColor);
+    position: absolute;
+    display: inline-block;
+    align-items: center;
+    margin: 0;
+}
+
+.StratagemName {
+    margin: 0;
+    padding: 0;
+    line-height: 1em;
+    color: var(--background);
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    font-size: 3.3em;
+    z-index: -2;
+}
+
+.StratagemsContainer {
+    position: absolute;
+    top: 20vh;
+    left: 20vw;
+    width: 60vw;
+    height: 30vh;
+    display: flex;
+    align-items: center;
+}
+
+.MainStratagem {
+    height: 28vh;
+    border: 0.4vh solid var(--mainColor);
+    padding: 1vh;
+}
+
+.Stratagem {
+    width: 7vw;
+    padding: 15px;
+    display: inline-block;
+    justify-content: center;
     align-items: center;
 }

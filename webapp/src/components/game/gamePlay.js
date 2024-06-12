@@ -12,7 +12,7 @@ function GamePlay(props) {
   let keyPressed = props.keyPressed;
   let stratagemsData = props.stratagemsData;
   let gameScreenString = props.gameScreenString;
-  let stratagemsAmount = 5;
+  let stratagemsAmount = 6;
   let stratagems = [];
 
   function chooseRandomStratagems() {
@@ -31,29 +31,44 @@ function GamePlay(props) {
   chooseRandomStratagems();
   console.log(stratagems);
 
-  let renderScore = computed(() => {
+  let renderScreen = computed(() => {
     calculateScore()
     if (currentStratagemIndex.value < stratagemsAmount) {
-      return (<div className="ScoreContainer">
-        <p className="Score">{score + scoreThisRound}</p>
-        <p className="ScoreTitle">SCORE</p>
-      </div>);
+      return (<>
+        <div className="ScoreContainer">
+          <p className="Score">{score + scoreThisRound}</p>
+          <p className="ScoreTitle">SCORE</p>
+        </div>
+        <div className="StratagemsContainer">
+          {stratagems.slice(currentStratagemIndex.value, stratagemsAmount).map((stratagem, i) => {
+            if (i >= 6) return null;
+            return (
+              <img
+                key={i}
+                className={i === 0 ? "MainStratagem" : "Stratagem"}
+                src={process.env.PUBLIC_URL + "/media/stratagems/" + stratagem.name + ".svg"}
+                alt={stratagem.name}
+              />
+            );
+          })}
+        </div>
+        <div className="StratagemNameContainer">
+          <p className="StratagemName">{stratagems[currentStratagemIndex.value].name.toUpperCase()}</p>
+        </div>
+        <div className="ArrowContainerContainer">
+          <ArrowContainer someSignal={currentStratagemIndex} successValue={currentStratagemIndex.value + 1} code={stratagems[currentStratagemIndex.value].code} keyPressed={keyPressed} />
+        </div>
+      </>
+      );
     } else {
       score.value += scoreThisRound;
-    }
-  });
-
-  let renderArrowContainer = computed(() => {
-    if (currentStratagemIndex.value < stratagemsAmount) {
-      return (<div className="ArrowContainerContainer">
-        <ArrowContainer someSignal={currentStratagemIndex} successValue={currentStratagemIndex.value + 1} code={stratagems[currentStratagemIndex.value].code} keyPressed={keyPressed} />
-      </div>);
-    } else {
       round.value++;
       currentStratagemIndex.value = 0;
       gameScreenString.value = "recap";
     }
   });
+
+
 
   function calculateScore() {
     if (currentStratagemIndex.value > 0) {
@@ -68,8 +83,7 @@ function GamePlay(props) {
         <p className="RoundTitle">Round</p>
         <p className="Round">{round}</p>
       </div>
-      {renderArrowContainer}
-      {renderScore}
+      {renderScreen}
     </div>
   );
 }
