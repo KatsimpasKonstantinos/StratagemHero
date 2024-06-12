@@ -1,0 +1,56 @@
+.RoundContainer {
+    position: absolute;
+    top: 20vh;
+    left: 10vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.RoundTitle {
+    color: var(--white);
+    font-size: 2em;
+    text-align: center;
+    margin: 0;
+}
+
+.Round {
+    color: var(--mainColor);
+    font-size: 5em;
+    text-align: center;
+    margin: 0;
+}
+
+.ScoreContainer {
+    position: absolute;
+    top: 20vh;
+    right: 10vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.ScoreTitle {
+    color: var(--white);
+    font-size: 2em;
+    text-align: center;
+    margin: 0;
+}
+
+.Score {
+    color: var(--mainColor);
+    font-size: 5em;
+    text-align: center;
+    margin: 0;
+}
+
+.ArrowContainerContainer {
+    position: absolute;
+    top: 55vh;
+    left: 50vw;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+}

@@ -1,33 +1,27 @@
 import { computed, effect, signal } from "@preact/signals-react";
 import "./ArrowContainer.css";
 
-const keyMap = {
-    "ArrowUp": "up",
-    "ArrowDown": "down",
-    "ArrowRight": "right",
-    "ArrowLeft": "left",
-    "w": "up",
-    "s": "down",
-    "d": "right",
-    "a": "left"
-}
-
-let currentIndex = signal(0);
+let currentArrowIndex = signal(0);
+let code = signal([]);
 let failure = signal(false);
+let someSignal = signal();
+let successValue = signal();
 
 function ArrowContainer(props) {
     console.log("Rendering ArrowContainer");
-    let code = props.code;
-    let screenString = props.screenString;
-    let success = props.success;
+    code.value = props.code;
+    someSignal.value = props.someSignal;
+    successValue.value = props.successValue;
     let keyPressed = props.keyPressed;
+
+    currentArrowIndex.value = 0;
 
     let renderArrows = computed(() => {
         console.log("Rendering Arrows");
         let arrows = [];
-        for (let i = 0; i < code.length; i++) {
+        for (let i = 0; i < code.value.length; i++) {
             let color = "gray";
-            if (i < currentIndex.value) {
+            if (i < currentArrowIndex.value) {
                 color = "yellow";
             }
             if (failure.value) {
@@ -36,7 +30,7 @@ function ArrowContainer(props) {
             let className = "ArrowContainerArrow " + color;
             arrows.push(
                 <div key={i}>
-                    <img className={className} src={process.env.PUBLIC_URL + "/media/arrows/arrow" + code[i] + ".svg"} alt={code[i]} />
+                    <img className={className} src={process.env.PUBLIC_URL + "/media/arrows/arrow" + code.value[i] + ".svg"} alt={code.value[i]} />
                 </div>
             );
         }
@@ -45,13 +39,14 @@ function ArrowContainer(props) {
 
     effect(() => {
         if (keyPressed.value !== "") {
-            if (keyMap[keyPressed.value] === code[currentIndex.value]) {
-                currentIndex.value++;
-                if (currentIndex.value === code.length) {
-                    screenString.value = success;
+            if (keyPressed.value === code.value[currentArrowIndex.value]) {
+                currentArrowIndex.value++;
+                console.log("correct")
+                if (currentArrowIndex.value === code.value.length) {
+                    someSignal.value.value = successValue.value;
                 }
             } else {
-                currentIndex.value = 0;
+                currentArrowIndex.value = 0;
                 failure.value = true;
                 setTimeout(() => {
                     failure.value = false;

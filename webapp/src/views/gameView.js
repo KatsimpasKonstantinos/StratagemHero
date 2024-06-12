@@ -10,22 +10,24 @@ import("../media/stratagemsData.js").then((module) => {
 
 const gameScreenString = signal("prepare");
 const time = signal(10000);
-const round = signal(0);
+const round = signal(1);
 const score = signal(0);
 const updateInterval = 100;
 
 
-function GameView() {
+
+function GameView(props) {
     console.log("Rendering GameView")
 
     let gameScreen = computed(() => renderGameScreen());
+    let keyPressed = props.keyPressed;
 
     function renderGameScreen() {
         switch (gameScreenString.value) {
             case "prepare":
-                return <GamePrepare round={round} />
+                return <GamePrepare round={round} gameScreenString={gameScreenString} />
             case "play":
-                return <GamePlay />
+                return <GamePlay round={round} score={score} keyPressed={keyPressed} stratagemsData={stratagemsData} gameScreenString={gameScreenString} />
             default:
                 return <InvalidScreen />;
         }
@@ -41,7 +43,7 @@ function GameView() {
 
 
     return (
-        <div style={{height: 100 + "vh", width: 100 + "vw"}}>
+        <div style={{ height: 100 + "vh", width: 100 + "vw" }}>
             {gameScreen}
         </div>
     );

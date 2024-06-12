@@ -4,6 +4,17 @@ import GameView from "./views/GameView.js";
 import StartView from './views/StartView.js';
 import InvalidScreen from './components/InvalidScreen.js';
 
+const keyMap = {
+  "ArrowUp": "up",
+  "ArrowDown": "down",
+  "ArrowRight": "right",
+  "ArrowLeft": "left",
+  "w": "up",
+  "s": "down",
+  "d": "right",
+  "a": "left"
+}
+
 export const mainScreenString = signal("start");
 
 function App(props) {
@@ -15,10 +26,12 @@ function App(props) {
 
   window.addEventListener('keydown', function (event) {
     if (!keyBlocked) {
-      keyPressed.value = event.key;
-      let audio = new Audio(process.env.PUBLIC_URL + "/media/sounds/backgroundMusic.ogg");
-      console.log(audio);
-      audio.play();
+      if (keyMap[event.key]) {
+        keyBlocked = true;
+        keyPressed.value = keyMap[event.key];
+        let audio = new Audio(process.env.PUBLIC_URL + "/media/sounds/keyInput.ogg");
+        audio.play();
+      }
     }
   });
 
@@ -32,7 +45,7 @@ function App(props) {
       case "start":
         return <StartView mainScreenString={mainScreenString} keyPressed={keyPressed} />;
       case "game":
-        return <GameView />;
+        return <GameView keyPressed={keyPressed} />;
       default:
         return <InvalidScreen />;
     }

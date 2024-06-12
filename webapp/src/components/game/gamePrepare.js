@@ -3,6 +3,11 @@ import "./GamePrepare.css";
 
 function GamePrepare(props) {
     let round = props.round;
+    let gameScreenString = props.gameScreenString;
+
+    setTimeout(() => {
+        gameScreenString.value = "play";
+    }, 3000);
 
     return (
         <div className="GamePrepare">
