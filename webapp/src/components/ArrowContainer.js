@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 
 export let perfect = signal(true);
-let onlyArrowContainerKey = signal();
+let onlyArrowContainerKey = signal(null);
 
 function ArrowContainer(props) {
     console.log("Rendering ArrowContainer");
@@ -47,7 +47,8 @@ function ArrowContainer(props) {
         if (key !== onlyArrowContainerKey.value) {
             // For some god forsaken reason, dispose sometimes doesnt work leaving ghost effects behind
             // To fix this each ArrowContainer has a unique key which is saved in a global signal
-            console.log("I AM A FRAUD");
+            // On unmount the global signal is being set to null
+            console.log("Disposing ghost ArrowContainer effect");
             dispose();
             return;
         }
@@ -69,15 +70,13 @@ function ArrowContainer(props) {
             }
             keyPressed.value = "";
         }
-        return () => {
-            console.log(code.value);
-        }
     });
 
     useEffect(() => {
         return () => {
             console.log("Unmounting ArrowContainer");
             dispose();
+            onlyArrowContainerKey.value = null;
         }
     }, []);
 

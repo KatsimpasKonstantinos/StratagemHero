@@ -18,7 +18,7 @@ function GameOver(props) {
 
   setTimeout(() => {
     mainScreenString.value = "start";
-  }, 3000);
+  }, 300000);
 
   useEffect(() => {
     return () => {
@@ -39,8 +39,6 @@ function GameOver(props) {
         <p className='GameOverScoreTitle'>YOUR FINAL SCORE</p>
         <p className='GameOverScore'>{score}</p>
       </div>
-      <ArrowContainer someSignal={arrowContainerFix} successValue={true} code={[]} keyPressed={keyPressed} muted={true} />
-      // Catching ghost arrowContainer effects
     </div>
   );
 }
