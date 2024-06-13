@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import "./GamePrepare.css";
 
 
 function GamePrepare(props) {
+    console.log("Rendering GamePrepare");
     let round = props.round;
     let gameScreenString = props.gameScreenString;
 
@@ -11,6 +13,13 @@ function GamePrepare(props) {
     setTimeout(() => {
         gameScreenString.value = "play";
     }, 3000);
+
+    useEffect(() => {
+        return () => {
+            console.log("Unmounting GamePrepare");
+            prepareNextRoundSound.pause();
+        }
+    }, []);
 
     return (
         <div className="GamePrepare">

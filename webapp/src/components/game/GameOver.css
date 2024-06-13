@@ -1,0 +1,42 @@
+.GameOverContainer {
+    position: absolute;
+    top: 20vh;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.GameOverTitle {
+    color: var(--white);
+    font-size: 10em;
+    line-height: 0.5em;
+    margin: 0;
+}
+
+.GameOverScoreContainer {
+    position: absolute;
+    top: 66vh;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.GameOverScoreTitle {
+    color: var(--white);
+    font-size: var(--info);
+    margin: 0;
+    line-height: 1em;
+
+}
+
+.GameOverScore {
+    color: var(--yellow);
+    font-size: var(--score);
+    margin: 0;
+    line-height: 0.9em;
+}

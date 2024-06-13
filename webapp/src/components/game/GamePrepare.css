@@ -12,7 +12,7 @@
     position: absolute;
     top: 40vh;
     color: var(--white);
-    font-size: 10em;
+    font-size: var(--title);
     text-align: center;
     margin: 0;
 }
@@ -21,16 +21,16 @@
     position: absolute;
     top: 66vh;
     color: var(--white);
-    font-size: 3em;
+    font-size: var(--info);
     text-align: center;
     margin: 0;
 }
 
 .GamePrepareRound {
     position: absolute;
-    top: 71vh;
+    top: 70vh;
     color: var(--white);
-    font-size: 5em;
+    font-size: var(--score);
     text-align: center;
     margin: 0;
     color: var(--yellow);

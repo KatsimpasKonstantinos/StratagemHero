@@ -1,19 +1,16 @@
 import { computed, effect, signal } from "@preact/signals-react";
 import ArrowContainer from "../ArrowContainer";
 import "./GamePlay.css";
-
-let currentStratagemIndex = signal(0);
-let currentStratagemIndexDelay = signal(0);
-//To achive a delay we use a Mirror, that is offset by 300ms
-
+import TimeBar from "../TimeBar";
+import { timeRunning, time } from "../TimeBar";
+import { useEffect } from "react";
 
 function GamePlay(props) {
-  let test = props.test;
-  console.log("Rendering GamePlay " + test);
+  console.log("Rendering GamePlay");
   let round = props.round;
   let score = props.score;
   let keyPressed = props.keyPressed;
-  keyPressed.value = "";
+  let timeGetBack = 500;
   let stratagemsData = props.stratagemsData;
   let gameScreenString = props.gameScreenString;
   let stratagemsAmount = 2;
@@ -24,6 +21,9 @@ function GamePlay(props) {
   backgroundMusic.play();
 
   let stratagemCompleteSound = new Audio(process.env.PUBLIC_URL + "/media/sounds/stratagemComplete.ogg");
+
+  let currentStratagemIndex = signal(0);
+  let currentStratagemIndexDelay = signal(0);
 
   function chooseRandomStratagems() {
     stratagems = [];
@@ -37,17 +37,18 @@ function GamePlay(props) {
     }
   }
   chooseRandomStratagems();
-  console.log(stratagems);
 
 
   let dispose = effect(() => {
     if (currentStratagemIndexDelay.value !== currentStratagemIndex.value) {
       score.value = score.peek() + stratagems[currentStratagemIndex.value].code.length * 5;
       stratagemCompleteSound.play();
+      time.value = time.peek() + timeGetBack;
+      timeRunning.value = false;
     }
     setTimeout(() => {
-      keyPressed.value = "";
       currentStratagemIndex.value = currentStratagemIndexDelay.value;
+      timeRunning.value = true;
     }, 300);
   });
 
@@ -93,7 +94,6 @@ function GamePlay(props) {
   });
 
   let renderScreen = computed(() => {
-    console.log("Rendering GamePlayScreen");
     if (currentStratagemIndex.value < stratagemsAmount) {
       return (<>
         <div className="StratagemNameContainer">
@@ -106,13 +106,17 @@ function GamePlay(props) {
       );
     } else {
       round.value++;
-      currentStratagemIndex.value = 0;
-      currentStratagemIndexDelay.value = 0;
-      backgroundMusic.pause();
-      dispose();
       gameScreenString.value = "recap";
     }
   });
+
+  useEffect(() => {
+    return () => {
+      console.log("Unmounting GamePlay");
+      backgroundMusic.pause();
+      dispose();
+    }
+  }, []);
 
 
   return (
@@ -124,6 +128,9 @@ function GamePlay(props) {
       {renderScore}
       {renderStratagems}
       {renderScreen}
+      <div className="TimeBarContainer">
+        <TimeBar startTime={10000} someSignal={gameScreenString} failureValue={"over"} />
+      </div>
     </div>
   );
 }

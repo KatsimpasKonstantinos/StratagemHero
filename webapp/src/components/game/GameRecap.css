@@ -24,13 +24,13 @@
 
 .RecapTitle {
     margin: 0;
-    font-size: 3em;
+    font-size: var(--info);
     color: var(--white);
 }
 
 .RecapScore {
     margin: 0;
-    font-size: 6em;
+    font-size: var(--score);
     color: var(--yellow);
     margin-left: auto;
 }

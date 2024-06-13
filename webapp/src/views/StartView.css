@@ -12,23 +12,23 @@
     position: absolute;
     top: 40vh;
     color: var(--white);
-    font-size: 10em;
+    font-size: var(--title);
     text-align: center;
     margin: 0;
 }
 
 .StartViewInfo {
     position: absolute;
-    top: 60vh;
+    top: 75vh;
     color: var(--yellow);
-    font-size: 3em;
+    font-size: var(--info);
     text-align: center;
     margin: 0;
 }
 
 .StartViewArrowContainer {
     position: absolute;
-    top: 70vh;
+    top: 63vh;
     display: flex;
     align-items: center;
 }

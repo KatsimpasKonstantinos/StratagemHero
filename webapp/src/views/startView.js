@@ -12,10 +12,11 @@ function StartView(props) {
     return (
         <div className="StartView">
             <p class='StartViewTitle'>STRATAGEM HERO</p>
-            <p class='StartViewInfo'>To Start Enter:</p>
             <div class="StartViewArrowContainer">
                 <ArrowContainer someSignal={mainScreenString} successValue={"game"} code={['up', 'down', 'right', 'left', 'up']} keyPressed={keyPressed} muted={false} />
             </div>
+            <p class='StartViewInfo'>Enter Stratagem Combination to Start:</p>
+
         </div>
     );
 }

@@ -1,19 +1,19 @@
 import { computed, effect, signal } from "@preact/signals-react";
 import "./ArrowContainer.css";
+import { useEffect } from "react";
 
-let currentArrowIndex = signal(0);
-let code = signal([]);
-let failure = signal(false);
-let someSignal = signal();
-let successValue = signal();
+
 export let perfect = signal(true);
 
 function ArrowContainer(props) {
-    code.value = props.code;
-    someSignal.value = props.someSignal;
-    successValue.value = props.successValue;
+    let currentArrowIndex = signal(0);
+    let code = signal(props.code);
+    let failure = signal(false);
+    let someSignal = signal(props.someSignal);
+    let successValue = signal(props.successValue);
     let keyPressed = props.keyPressed;
     let muted = props.muted;
+    keyPressed.value = "";
 
     let wrongInputSound = new Audio(process.env.PUBLIC_URL + "/media/sounds/wrongInput.ogg");
 
@@ -58,8 +58,14 @@ function ArrowContainer(props) {
             }
             keyPressed.value = "";
         }
-        console.log(currentArrowIndex.value);
     });
+
+    useEffect(() => {
+        return () => {
+            console.log("Unmounting ArrowContainer");
+            dispose();
+        }
+    }, []);
 
     return (
         <div className="ArrowContainer">

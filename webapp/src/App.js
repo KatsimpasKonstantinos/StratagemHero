@@ -3,6 +3,7 @@ import './App.css';
 import GameView from "./views/GameView.js";
 import StartView from './views/StartView.js';
 import InvalidScreen from './components/InvalidScreen.js';
+import { useEffect } from 'react';
 
 const keyMap = {
   "ArrowUp": "up",
@@ -15,11 +16,9 @@ const keyMap = {
   "a": "left"
 }
 
-export const mainScreenString = signal("start");
-
 function App(props) {
   console.log("Rendering App");
-  let screen = computed(() => renderScreen())
+  const mainScreenString = signal("start");
   let keyPressed = signal("");
   let keyBlocked = false;
 
@@ -40,16 +39,22 @@ function App(props) {
   });
 
 
-  function renderScreen() {
+  let screen = computed(() => {
     switch (mainScreenString.value) {
       case "start":
         return <StartView mainScreenString={mainScreenString} keyPressed={keyPressed} />;
       case "game":
-        return <GameView keyPressed={keyPressed} />;
+        return <GameView mainScreenString={mainScreenString} keyPressed={keyPressed} />;
       default:
         return <InvalidScreen />;
     }
-  }
+  });
+
+  useEffect(() => {
+    return () => {
+      console.log("Unmounting App");
+    }
+  }, []);
 
   return (
     <div className="App">
@@ -57,7 +62,7 @@ function App(props) {
       <div className="whiteLine top"></div>
       {screen}
       <div className="whiteLine bottom"></div>
-      
+
     </div>
   );
 }

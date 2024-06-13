@@ -4,6 +4,11 @@
   --red: red;
   --white: white;
   --background: #252627;
+
+  --title: 10em;
+  --subtitle: 6em;
+  --score: 6em;
+  --info: 3em;
 }
 
 body {
