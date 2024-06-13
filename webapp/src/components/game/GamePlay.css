@@ -95,16 +95,38 @@
     align-items: center;
 }
 
-.MainStratagem {
-    height: 28vh;
+.MainStratagemBox {
     border: 0.4vh solid var(--mainColor);
+}
+
+.MainStratagem {
+    height: 29vh;
     padding: 1vh;
+    filter: saturate(2);
 }
 
 .Stratagem {
     width: 7vw;
-    padding: 15px;
+    padding: 1vw;
     display: inline-block;
     justify-content: center;
     align-items: center;
+    filter: saturate(2);
+
+}
+
+
+@keyframes saturate {
+    0% {
+        filter: sepia(0) saturate(2);
+    }
+
+    100% {
+        filter: sepia(24%) saturate(403%) hue-rotate(13deg) brightness(97%) contrast(93%) drop-shadow(0 0 3px orange);
+
+    }
+}
+
+.saturation {
+    animation: saturate 0.2s forwards;
 }

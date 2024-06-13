@@ -19,22 +19,21 @@ const updateInterval = 100;
 
 function GameView(props) {
     console.log("Rendering GameView")
-
-    let gameScreen = computed(() => renderGameScreen());
     let keyPressed = props.keyPressed;
 
-    function renderGameScreen() {
+    let gameScreen = computed(() => {
         switch (gameScreenString.value) {
             case "prepare":
-                return <GamePrepare round={round} gameScreenString={gameScreenString} />
+                return <GamePrepare round={round} gameScreenString={gameScreenString} key={gameScreenString.value + " " + Math.random()} />
             case "play":
-                return <GamePlay round={round} score={score} keyPressed={keyPressed} stratagemsData={stratagemsData} gameScreenString={gameScreenString} />
+                return <GamePlay round={round} score={score} keyPressed={keyPressed} stratagemsData={stratagemsData} gameScreenString={gameScreenString} test={gameScreenString.value + " " + Math.random()} />
             case "recap":
-                return <GameRecap round={round} score={score} gameScreenString={gameScreenString} />
+                return <GameRecap round={round} score={score} gameScreenString={gameScreenString} key={gameScreenString.value + " " + Math.random()} />
             default:
                 return <InvalidScreen />;
         }
-    }
+    });
+
 
     setInterval(() => {
         gameLogic();

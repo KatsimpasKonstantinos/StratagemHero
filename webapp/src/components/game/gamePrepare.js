@@ -5,6 +5,9 @@ function GamePrepare(props) {
     let round = props.round;
     let gameScreenString = props.gameScreenString;
 
+    let prepareNextRoundSound = new Audio(process.env.PUBLIC_URL + "/media/sounds/prepareNextRound.ogg");
+    prepareNextRoundSound.play();
+
     setTimeout(() => {
         gameScreenString.value = "play";
     }, 3000);

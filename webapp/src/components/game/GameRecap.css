@@ -1,0 +1,36 @@
+.RecapScoreContainer {
+    position: absolute;
+    left: 10vw;
+    width: 75vw;
+    display: flex;
+    align-items: center;
+}
+
+.RecapRoundBonus {
+    top: 20vh;
+}
+
+.RecapTimeBonus {
+    top: 35vh;
+}
+
+.RecapPerfectBonus {
+    top: 50vh;
+}
+
+.RecapTotalScore {
+    top: 65vh;
+}
+
+.RecapTitle {
+    margin: 0;
+    font-size: 3em;
+    color: var(--white);
+}
+
+.RecapScore {
+    margin: 0;
+    font-size: 6em;
+    color: var(--yellow);
+    margin-left: auto;
+}

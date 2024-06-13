@@ -6,18 +6,20 @@ let code = signal([]);
 let failure = signal(false);
 let someSignal = signal();
 let successValue = signal();
+export let perfect = signal(true);
 
 function ArrowContainer(props) {
-    console.log("Rendering ArrowContainer");
     code.value = props.code;
     someSignal.value = props.someSignal;
     successValue.value = props.successValue;
     let keyPressed = props.keyPressed;
+    let muted = props.muted;
+
+    let wrongInputSound = new Audio(process.env.PUBLIC_URL + "/media/sounds/wrongInput.ogg");
 
     currentArrowIndex.value = 0;
 
     let renderArrows = computed(() => {
-        console.log("Rendering Arrows");
         let arrows = [];
         for (let i = 0; i < code.value.length; i++) {
             let color = "gray";
@@ -37,23 +39,26 @@ function ArrowContainer(props) {
         return arrows;
     });
 
-    effect(() => {
+    let dispose = effect(() => {
         if (keyPressed.value !== "") {
             if (keyPressed.value === code.value[currentArrowIndex.value]) {
                 currentArrowIndex.value++;
-                console.log("correct")
                 if (currentArrowIndex.value === code.value.length) {
                     someSignal.value.value = successValue.value;
+                    dispose();
                 }
             } else {
                 currentArrowIndex.value = 0;
                 failure.value = true;
+                perfect.value = false;
+                if (!muted) wrongInputSound.play();
                 setTimeout(() => {
                     failure.value = false;
                 }, 100);
             }
             keyPressed.value = "";
         }
+        console.log(currentArrowIndex.value);
     });
 
     return (
