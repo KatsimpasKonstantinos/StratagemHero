@@ -118,12 +118,10 @@
 @keyframes saturate {
     0% {
         filter: sepia(0) saturate(2);
-        opacity: 1;
     }
 
     100% {
-        filter: sepia(24%) saturate(403%) hue-rotate(13deg) brightness(97%) contrast(93%) drop-shadow(0 0 3px orange);
-        opacity: 0.7;
+        filter: sepia(24%) saturate(403%) hue-rotate(13deg) brightness(200%) contrast(93%) drop-shadow(0 0 3px orange);
     }
 }
 

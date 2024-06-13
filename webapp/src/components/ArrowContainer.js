@@ -4,8 +4,10 @@ import { useEffect } from "react";
 
 
 export let perfect = signal(true);
+let onlyArrowContainerKey = signal();
 
 function ArrowContainer(props) {
+    console.log("Rendering ArrowContainer");
     let currentArrowIndex = signal(0);
     let code = signal(props.code);
     let failure = signal(false);
@@ -13,6 +15,8 @@ function ArrowContainer(props) {
     let successValue = signal(props.successValue);
     let keyPressed = props.keyPressed;
     let muted = props.muted;
+    let key = Math.random();
+    onlyArrowContainerKey.value = key;
     keyPressed.value = "";
 
     let wrongInputSound = new Audio(process.env.PUBLIC_URL + "/media/sounds/wrongInput.ogg");
@@ -40,11 +44,18 @@ function ArrowContainer(props) {
     });
 
     let dispose = effect(() => {
+        if (key !== onlyArrowContainerKey.value) {
+            // For some god forsaken reason, dispose sometimes doesnt work leaving ghost effects behind
+            // To fix this each ArrowContainer has a unique key which is saved in a global signal
+            console.log("I AM A FRAUD");
+            dispose();
+            return;
+        }
         if (keyPressed.value !== "") {
-            if (keyPressed.value === code.value[currentArrowIndex.value]) {
-                currentArrowIndex.value++;
-                if (currentArrowIndex.value === code.value.length) {
-                    someSignal.value.value = successValue.value;
+            if (keyPressed.value === code.value[currentArrowIndex.peek()]) {
+                currentArrowIndex.value = currentArrowIndex.peek() + 1;
+                if (currentArrowIndex.peek() === code.value.length) {
+                    someSignal.value.value = successValue.peek();
                     dispose();
                 }
             } else {
@@ -57,6 +68,9 @@ function ArrowContainer(props) {
                 }, 100);
             }
             keyPressed.value = "";
+        }
+        return () => {
+            console.log(code.value);
         }
     });
 

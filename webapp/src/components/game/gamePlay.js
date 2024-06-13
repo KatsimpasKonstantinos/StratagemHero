@@ -11,9 +11,10 @@ function GamePlay(props) {
   let score = props.score;
   let keyPressed = props.keyPressed;
   let timeGetBack = 500;
+  let startTime = props.startTime;
   let stratagemsData = props.stratagemsData;
   let gameScreenString = props.gameScreenString;
-  let stratagemsAmount = 2;
+  let stratagemsAmount = 7;
   let stratagems = [];
 
   let backgroundMusic = new Audio(process.env.PUBLIC_URL + "/media/sounds/backgroundMusic.ogg");
@@ -129,7 +130,7 @@ function GamePlay(props) {
       {renderStratagems}
       {renderScreen}
       <div className="TimeBarContainer">
-        <TimeBar startTime={10000} someSignal={gameScreenString} failureValue={"over"} />
+        <TimeBar startTime={startTime} someSignal={gameScreenString} failureValue={"over"} />
       </div>
     </div>
   );

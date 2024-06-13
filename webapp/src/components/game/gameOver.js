@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import './GameOver.css';
+import ArrowContainer from '../ArrowContainer';
+import { signal } from '@preact/signals-react';
 
 
 function GameOver(props) {
@@ -7,6 +9,8 @@ function GameOver(props) {
   let mainScreenString = props.mainScreenString;
   let round = props.round;
   let score = props.score;
+  let keyPressed = props.keyPressed;
+  let arrowContainerFix = signal(false);
 
   let gameOverSound = new Audio(process.env.PUBLIC_URL + "/media/sounds/gameOver.ogg");
   gameOverSound.play();
@@ -34,8 +38,9 @@ function GameOver(props) {
       <div className='GameOverScoreContainer'>
         <p className='GameOverScoreTitle'>YOUR FINAL SCORE</p>
         <p className='GameOverScore'>{score}</p>
-
       </div>
+      <ArrowContainer someSignal={arrowContainerFix} successValue={true} code={[]} keyPressed={keyPressed} muted={true} />
+      // Catching ghost arrowContainer effects
     </div>
   );
 }

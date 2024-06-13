@@ -2,12 +2,14 @@ import { computed, effect, signal } from "@preact/signals-react";
 import { perfect } from "../ArrowContainer.js";
 import "./GameRecap.css";
 import { useEffect } from "react";
+import { time } from "../TimeBar.js";
 
 function GameRecap(props) {
     console.log("Rendering GameRecap");
     let gameScreenString = props.gameScreenString;
     let score = props.score;
     let round = props.round;
+    let startTime = props.startTime;
 
     let roundCompleteSoundURL = process.env.PUBLIC_URL + "/media/sounds/roundComplete" + Math.ceil(Math.random() * 4).toString() + ".mp3";
     let roundCompleteSound = new Audio(roundCompleteSoundURL);
@@ -21,11 +23,11 @@ function GameRecap(props) {
     setTimeout(() => {
         roundScore.value = round.value * 25;
         setTimeout(() => {
-            timeScore.value = Math.floor(Math.random() * 100);
+            timeScore.value = Math.round((time.value / startTime) * 100);
             setTimeout(() => {
                 perfectScore.value = perfect.value ? 100 : 0;
                 setTimeout(() => {
-                    totalScore.value = roundScore.value + timeScore.value + perfectScore.value;
+                    totalScore.value = score.value + roundScore.value + timeScore.value + perfectScore.value;
                     setTimeout(() => {
                         gameScreenString.value = "prepare";
                         perfect.value = true;

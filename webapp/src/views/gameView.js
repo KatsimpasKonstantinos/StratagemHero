@@ -19,17 +19,18 @@ function GameView(props) {
     const gameScreenString = signal("prepare");
     const round = signal(1);
     const score = signal(0);
+    let startTime = 10000;
 
     let gameScreen = computed(() => {
         switch (gameScreenString.value) {
             case "prepare":
                 return <GamePrepare round={round} gameScreenString={gameScreenString} key={gameScreenString.value + " " + Math.random()} />
             case "play":
-                return <GamePlay round={round} score={score} keyPressed={keyPressed} stratagemsData={stratagemsData} gameScreenString={gameScreenString} />
+                return <GamePlay round={round} score={score} keyPressed={keyPressed} startTime={startTime} stratagemsData={stratagemsData} gameScreenString={gameScreenString} />
             case "recap":
-                return <GameRecap round={round} score={score} gameScreenString={gameScreenString} key={gameScreenString.value + " " + Math.random()} />
+                return <GameRecap round={round} score={score} startTime={startTime} gameScreenString={gameScreenString} key={gameScreenString.value + " " + Math.random()} />
             case "over":
-                return <GameOver round={round} score={score} mainScreenString={mainScreenString} />
+                return <GameOver round={round} score={score} keyPressed={keyPressed} mainScreenString={mainScreenString} />
             default:
                 return <InvalidScreen />;
         }
