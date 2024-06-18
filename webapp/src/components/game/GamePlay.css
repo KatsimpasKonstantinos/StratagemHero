@@ -10,6 +10,7 @@
 
 .RoundTitle {
     color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
     font-size: var(--info);
     line-height: 0.9em;
     text-align: center;
@@ -18,6 +19,7 @@
 
 .Round {
     color: var(--mainColor);
+    text-shadow: 0 0 var(--bloom) var(--mainColor);
     font-size: var(--score);
     letter-spacing: 0.1em;
     text-align: center;
@@ -36,6 +38,7 @@
 
 .ScoreTitle {
     color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
     font-size: var(--info);
     line-height: 0.9em;
     margin: 0;
@@ -43,6 +46,7 @@
 
 .Score {
     color: var(--mainColor);
+    text-shadow: 0 0 var(--bloom) var(--mainColor);
     font-size: var(--score);
     line-height: 0.9em;
     letter-spacing: 0.1em;
@@ -67,6 +71,7 @@
     height: 5vh;
 
     background-color: var(--mainColor);
+    box-shadow: 0 0 var(--bloomBox) var(--mainColor);
     position: absolute;
     display: inline-block;
     align-items: center;
@@ -96,6 +101,7 @@
 
 .MainStratagemBox {
     border: 0.4vh solid var(--mainColor);
+    box-shadow: 0 0 var(--bloomBox) var(--mainColor);
 }
 
 .MainStratagem {
@@ -121,7 +127,7 @@
     }
 
     100% {
-        filter: sepia(24%) saturate(403%) hue-rotate(13deg) brightness(200%) contrast(93%) drop-shadow(0 0 3px orange);
+        filter: sepia(50%) saturate(500%) hue-rotate(13deg) brightness(300%) contrast(93%) drop-shadow(0 0 3px orange);
     }
 }
 

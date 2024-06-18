@@ -2,6 +2,7 @@
     position: absolute;
     top: 20vh;
     left: 50%;
+    width: 100%;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
@@ -11,6 +12,7 @@
 
 .GameOverTitle {
     color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
     font-size: 10em;
     line-height: 0.5em;
     margin: 0;
@@ -28,6 +30,7 @@
 
 .GameOverScoreTitle {
     color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
     font-size: var(--info);
     margin: 0;
     line-height: 1em;
@@ -36,7 +39,59 @@
 
 .GameOverScore {
     color: var(--yellow);
+    text-shadow: 0 0 var(--bloom) var(--yellow);
     font-size: var(--score);
     margin: 0;
     line-height: 0.9em;
+}
+
+.GameOverNameContainer {
+    position: absolute;
+    top: 35vh;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.GameOverNameTitle {
+    color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
+    font-size: var(--info);
+    margin: 0;
+    line-height: 1em;
+}
+
+.GameOverNameHighscore {
+    font-size: var(--score);
+}
+
+.GameOverHighscoreContainer {
+    position: absolute;
+    top: 30vh;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.GameOverHighscoreTitle {
+    color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
+    font-size: var(--score);
+    margin: 0;
+    line-height: 1em;
+
+}
+
+.GameOverHighscore {
+    color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
+    font-size: var(--info);
+    margin: 0;
+    line-height: 1em;
+}
+
+.Own {
+    color: var(--yellow);
+    text-shadow: 0 0 var(--bloom) var(--yellow);
 }

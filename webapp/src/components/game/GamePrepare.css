@@ -12,6 +12,7 @@
     position: absolute;
     top: 40vh;
     color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
     font-size: var(--title);
     text-align: center;
     margin: 0;
@@ -21,6 +22,7 @@
     position: absolute;
     top: 66vh;
     color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
     font-size: var(--info);
     text-align: center;
     margin: 0;
@@ -29,9 +31,9 @@
 .GamePrepareRound {
     position: absolute;
     top: 70vh;
-    color: var(--white);
     font-size: var(--score);
     text-align: center;
     margin: 0;
     color: var(--yellow);
+    text-shadow: 0 0 var(--bloom) var(--yellow);
 }

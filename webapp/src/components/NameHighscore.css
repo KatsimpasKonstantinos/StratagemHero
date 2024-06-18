@@ -1,0 +1,18 @@
+.NameHighscore {
+    margin: 0;
+}
+
+.NameHighscoreTitle {
+    margin: 0;
+    color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
+}
+
+.selected {
+    text-decoration: underline;
+}
+
+.submited {
+    color: var(--yellow);
+    text-shadow: 0 0 var(--bloom) var(--yellow);
+}

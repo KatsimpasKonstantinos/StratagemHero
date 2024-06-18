@@ -1,8 +1,9 @@
 # TODO List
 
-- [ ] No wait time after successfull stratagem
-- [ ] clean up js and css
-- [ ] Minimize Discrepencies to original
+- [ ] Add Settings Page
+- [ ] Able to press multiple keys at once
+- [ ] Delay between end of game and enter name
+- [ ] Add bloom to svg's
 - [ ] Add KoFi
 - [ ] Add mobile support
 - [ ] Add Statistics

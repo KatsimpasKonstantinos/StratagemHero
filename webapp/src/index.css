@@ -9,6 +9,9 @@
   --subtitle: 6em;
   --score: 6em;
   --info: 3em;
+
+  --bloom: 8px;
+  --bloomBox: 0.4em;
 }
 
 body {
@@ -21,6 +24,7 @@ body {
   height: 100vh;
   overflow: hidden;
   color: var(--white);
+  cursor:none;
 }
 
 code {

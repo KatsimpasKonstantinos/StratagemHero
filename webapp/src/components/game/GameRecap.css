@@ -26,11 +26,13 @@
     margin: 0;
     font-size: var(--info);
     color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
 }
 
 .RecapScore {
     margin: 0;
     font-size: var(--score);
     color: var(--yellow);
+    text-shadow: 0 0 var(--bloom) var(--yellow);
     margin-left: auto;
 }

@@ -7,6 +7,7 @@
 
 .TimeBarFill {
     background-color: var(--mainColor);
+    box-shadow: 0 0 var(--bloomBox) var(--mainColor);
     height: 100%;
     width: 0;
 }
