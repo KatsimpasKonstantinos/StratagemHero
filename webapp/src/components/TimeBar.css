@@ -1,0 +1,13 @@
+.TimeBar {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #b2b2b2;
+}
+
+.TimeBarFill {
+    background-color: var(--mainColor);
+    box-shadow: 0 0 var(--bloomBox) var(--mainColor);
+    height: 100%;
+    width: 0;
+}

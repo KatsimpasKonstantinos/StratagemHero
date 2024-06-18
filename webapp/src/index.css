@@ -1,0 +1,38 @@
+:root {
+  --yellow: yellow;
+  --mainColor: yellow;
+  --red: red;
+  --white: white;
+  --background: #252627;
+
+  --title: 10em;
+  --subtitle: 6em;
+  --score: 6em;
+  --info: 3em;
+
+  --bloom: 8px;
+  --bloomBox: 0.4em;
+}
+
+body {
+  margin: 0;
+  font-family: FS Sinclair, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background);
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  color: var(--white);
+  cursor:none;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+@font-face {
+  font-family: 'FS Sinclair';
+  src: url('media/FS\ Sinclair\ Medium.otf') format('truetype');
+}

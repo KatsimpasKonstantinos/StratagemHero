@@ -1,0 +1,20 @@
+.ArrowContainer {
+  display: flex;
+  align-items: center;
+}
+
+.ArrowContainerArrow {
+  height: 10vh;
+}
+
+.gray {
+  filter: invert(1) brightness(0.7);
+}
+
+.yellow {
+  filter: invert(100%) sepia(100%) saturate(10000%);
+}
+
+.red {
+  filter: invert(100%) sepia(100%) hue-rotate(-60deg) saturate(1000);
+}

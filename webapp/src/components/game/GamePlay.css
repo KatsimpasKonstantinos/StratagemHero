@@ -1,0 +1,147 @@
+.RoundContainer {
+    position: absolute;
+    top: 20vh;
+    left: 10vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.RoundTitle {
+    color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
+    font-size: var(--info);
+    line-height: 0.9em;
+    text-align: center;
+    margin: 0;
+}
+
+.Round {
+    color: var(--mainColor);
+    text-shadow: 0 0 var(--bloom) var(--mainColor);
+    font-size: var(--score);
+    letter-spacing: 0.1em;
+    text-align: center;
+    margin: 0;
+    line-height: 0.9em;
+}
+
+.ScoreContainer {
+    position: absolute;
+    top: 20vh;
+    right: 10vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.ScoreTitle {
+    color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
+    font-size: var(--info);
+    line-height: 0.9em;
+    margin: 0;
+}
+
+.Score {
+    color: var(--mainColor);
+    text-shadow: 0 0 var(--bloom) var(--mainColor);
+    font-size: var(--score);
+    line-height: 0.9em;
+    letter-spacing: 0.1em;
+    margin: 0;
+    text-align: right;
+}
+
+.ArrowContainerContainer {
+    position: absolute;
+    top: 57vh;
+    left: 50vw;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+}
+
+.StratagemNameContainer {
+    position: absolute;
+    top: 50vh;
+    left: 20vw;
+    width: 60vw;
+    height: 5vh;
+
+    background-color: var(--mainColor);
+    box-shadow: 0 0 var(--bloomBox) var(--mainColor);
+    position: absolute;
+    display: inline-block;
+    align-items: center;
+    margin: 0;
+}
+
+.StratagemName {
+    margin: 0;
+    padding: 0;
+    line-height: 1em;
+    color: var(--background);
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    font-size: 3.3em;
+    z-index: -2;
+}
+
+.StratagemsContainer {
+    position: absolute;
+    top: 20vh;
+    left: 20vw;
+    width: 60vw;
+    height: 30vh;
+    display: flex;
+    align-items: center;
+}
+
+.MainStratagemBox {
+    border: 0.4vh solid var(--mainColor);
+    box-shadow: 0 0 var(--bloomBox) var(--mainColor);
+}
+
+.MainStratagem {
+    height: 29vh;
+    padding: 1vh;
+    filter: saturate(2);
+}
+
+.Stratagem {
+    width: 7vw;
+    padding: 1vw;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    filter: saturate(2);
+
+}
+
+
+@keyframes saturate {
+    0% {
+        filter: sepia(0) saturate(2);
+    }
+
+    100% {
+        filter: sepia(50%) saturate(500%) hue-rotate(13deg) brightness(300%) contrast(93%) drop-shadow(0 0 3px orange);
+    }
+}
+
+.saturation {
+    animation: saturate 0.2s forwards;
+}
+
+.TimeBarContainer {
+    position: absolute;
+    top: 73vh;
+    left: 20vw;
+    width: 60vw;
+    height: 4vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
