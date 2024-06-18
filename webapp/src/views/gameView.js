@@ -6,16 +6,14 @@ import GameRecap from "../components/game/GameRecap.js";
 import GameOver from "../components/game/GameOver.js";
 import { useEffect } from "react";
 
-let stratagemsData = [];
-import("../media/stratagemsData.js").then((module) => {
-    stratagemsData = module.default;
-});
+
 
 
 function GameView(props) {
     console.log("Rendering GameView")
     let keyPressed = props.keyPressed;
     let mainScreenString = props.mainScreenString;
+    let stratagemsData = props.stratagemsData;
     const gameScreenString = signal("prepare");
     const round = signal(1);
     const score = signal(0);

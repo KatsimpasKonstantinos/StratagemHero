@@ -16,11 +16,26 @@ const keyMap = {
   "a": "left"
 }
 
+let stratagemsData = [];
+import("./media/stratagemsData.js").then((module) => {
+  stratagemsData = module.default;
+  // Preload stratagem images
+  for (let stratagem of stratagemsData) {
+    let url = process.env.PUBLIC_URL + "/media/stratagems/" + stratagem.name + ".svg"
+    let img = new Image();
+    img.src = url;
+  }
+});
+
+
+
 function App(props) {
   console.log("Rendering App");
   const mainScreenString = signal("start");
   let keyPressed = signal("");
   let keyBlocked = false;
+
+
 
 
   window.addEventListener('keydown', function (event) {
@@ -44,7 +59,7 @@ function App(props) {
       case "start":
         return <StartView mainScreenString={mainScreenString} keyPressed={keyPressed} />;
       case "game":
-        return <GameView mainScreenString={mainScreenString} keyPressed={keyPressed} />;
+        return <GameView mainScreenString={mainScreenString} keyPressed={keyPressed} stratagemsData={stratagemsData} />;
       default:
         return <InvalidScreen />;
     }
