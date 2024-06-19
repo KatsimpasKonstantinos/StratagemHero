@@ -27,30 +27,65 @@ import("./media/stratagemsData.js").then((module) => {
   }
 });
 
-
-
 function App(props) {
   console.log("Rendering App");
   const mainScreenString = signal("start");
   let keyPressed = signal("");
-  let keyBlocked = false;
 
+  let keyBlockedUp = false;
+  let keyBlockedDown = false;
+  let keyBlockedRight = false;
+  let keyBlockedLeft = false;
 
-
+  function playKeySound() {
+    let audio = new Audio(process.env.PUBLIC_URL + "/media/sounds/keyInput.ogg");
+    audio.play();
+  }
 
   window.addEventListener('keydown', function (event) {
-    if (!keyBlocked) {
-      if (keyMap[event.key]) {
-        keyBlocked = true;
-        keyPressed.value = keyMap[event.key];
-        let audio = new Audio(process.env.PUBLIC_URL + "/media/sounds/keyInput.ogg");
-        audio.play();
-      }
+    switch (keyMap[event.key]) {
+      case "up":
+        if (keyBlockedUp) return;
+        keyPressed.value = "up";
+        keyBlockedUp = true;
+        playKeySound();
+        break;
+      case "down":
+        if (keyBlockedDown) return;
+        keyPressed.value = "down";
+        keyBlockedDown = true;
+        playKeySound();
+        break;
+      case "right":
+        if (keyBlockedRight) return;
+        keyPressed.value = "right";
+        keyBlockedRight = true;
+        playKeySound();
+        break;
+      case "left":
+        if (keyBlockedLeft) return;
+        keyPressed.value = "left";
+        keyBlockedLeft = true;
+        playKeySound();
+        break;
     }
   });
 
   window.addEventListener('keyup', function (event) {
-    keyBlocked = false;
+    switch (keyMap[event.key]) {
+      case "up":
+        keyBlockedUp = false;
+        break;
+      case "down":
+        keyBlockedDown = false;
+        break;
+      case "right":
+        keyBlockedRight = false;
+        break;
+      case "left":
+        keyBlockedLeft = false;
+        break;
+    }
   });
 
 
