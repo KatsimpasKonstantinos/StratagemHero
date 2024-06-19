@@ -1,7 +1,6 @@
 # TODO List
 
 - [ ] Add Settings Page
-- [ ] Add meta information
 - [ ] Change Points/Time/Round Progression
 - [ ] Able to press multiple keys at once
 - [ ] Delay between end of game and enter name
