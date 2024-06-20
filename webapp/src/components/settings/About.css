@@ -5,16 +5,21 @@
     width: 100vw;
     justify-content: center;
     align-items: center;
+    cursor: url("../../media/icons/res.svg"), auto;
 }
 
 .AboutTextContainer {
     width: 50vw;
-    
+
 
     a {
         color: var(--yellow);
         text-shadow: 0 0 var(--bloom) var(--yellow);
         text-decoration: none;
+    }
+
+    a:hover {
+        cursor: url("../../media/icons/resHover.svg"), auto;
     }
 }
 
@@ -31,7 +36,7 @@
     text-shadow: 0 0 var(--bloom) var(--white);
 }
 
-.AboutInfo{
+.AboutInfo {
     font-size: var(--tiny);
     color: var(--white);
     text-shadow: 0 0 var(--bloom) var(--white);
