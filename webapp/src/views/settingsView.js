@@ -15,6 +15,7 @@ function SettingsView(props) {
   let keyPressed = props.keyPressed;
   let mainScreenString = props.mainScreenString;
   let settingsScreenString = signal("ABOUT");
+  let blockNavigation = signal(false);
 
   let arrowData = [
     {
@@ -60,8 +61,16 @@ function SettingsView(props) {
 
   let dispose = effect(() => {
     if (keyPressed.value != "") {
-      mac.handleKeyPressed(keyPressed.value);
-      keyPressed.value = "";
+      if (!blockNavigation.peek()) {
+        mac.handleKeyPressed(keyPressed.value);
+        keyPressed.value = "";
+      }
+    }
+  });
+
+  let dispose2 = effect(() => {
+    if (!blockNavigation.value) {
+      mac.reset(true);
     }
   });
 
@@ -85,7 +94,7 @@ function SettingsView(props) {
   });
 
   let renderSettingsScreen = computed(() => {
-    switch (settingsScreenString.value) {
+    switch (settingsScreenString.value.split(" ")[0]) {
       case "BACK":
         mainScreenString.value = "start";
         break;
@@ -94,31 +103,43 @@ function SettingsView(props) {
       case "CONTROLS":
         return <Controls />;
       case "BLOOM":
-        return <Bloom />;
+        blockNavigation.value = true;
+        return <Bloom keyPressed={keyPressed} blockNavigation={blockNavigation} key={settingsScreenString.value} />;
       case "DATA":
         return <Data />;
       case "ABOUT":
+        mac.reset(true);
         return <About />;
       default:
         return <InvalidScreen />;
     }
   });
 
+
+  let renderWholeSettings = computed(() => {
+    return (
+      <div>
+        <div className={"SettingsViewNavbar" + (blockNavigation.value ? " SettingsViewhidden" : "")}>
+          {renderSettingsNavBar}
+        </div>
+        {renderSettingsScreen}
+      </div>
+    );
+  });
+
   useEffect(() => {
     return () => {
       console.log("Unmounting SettingsView");
       dispose();
+      dispose2();
     }
   }, []);
 
 
   return (
-    <div>
-      <div className="SettingsViewNavbar">
-        {renderSettingsNavBar}
-      </div>
-      {renderSettingsScreen}
-    </div>
+    <>
+      {renderWholeSettings}
+    </>
   );
 }
 

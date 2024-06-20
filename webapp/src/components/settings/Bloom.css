@@ -1,5 +1,49 @@
 .Bloom {
-    font-size: var(--title);
+    position: absolute;
+    display: flex;
+    height: 100vh;
+    width: 50vw;
+    transform: translateX(50%);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.BloomTitle {
+    margin: 0;
+    font-size: var(--subtitle);
     color: var(--white);
     text-shadow: 0 0 var(--bloom) var(--white);
+}
+
+.BloomContainer {
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    display: flex;
+    align-items: center;
+}
+
+.BloomTestText {
+    font-size: var(--info);
+    color: var(--white);
+    margin: 0;
+    text-shadow: 0 0 var(--bloom) var(--white);
+}
+
+.BloomBloom {
+    color: var(--yellow);
+    text-shadow: 0 0 var(--bloom) var(--yellow);
+}
+
+.BloomArrow {
+    filter: invert(1) brightness(0.7);
+    height: 10vh;
+}
+
+.BloomArrowYellow {
+    filter: invert(100%) sepia(100%) saturate(10000%);
+}
+
+.BloomArrowDarkGray {
+    filter: invert(1) brightness(0.3);
 }

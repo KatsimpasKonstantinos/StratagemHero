@@ -7,15 +7,16 @@ class MultipleArrowContainer {
     arrowData;
     currentArrowIndex = signal(0);
     someSignal;
+    blockNavigation;
     constructor(arrowData, someSignal) {
         this.arrowData = arrowData;
         this.someSignal = someSignal;
     }
 
-    reset() {
+    reset(show) {
         this.currentArrowIndex.value = 0;
         for (let arrow of this.arrowData) {
-            arrow.show.value = true;
+            arrow.show.value = show;
         }
     }
 
@@ -29,8 +30,8 @@ class MultipleArrowContainer {
                 this.arrowData[i].show.value = true;
                 if (this.currentArrowIndex.value === arrow.code.length - 1) {
                     console.log("Success: " + arrow.success);
-                    this.someSignal.value = arrow.success;
-                    this.reset();
+                    this.reset(false);
+                    this.someSignal.value = arrow.success + " " + Math.random();
                     return;
                 }
             } else {
@@ -40,9 +41,8 @@ class MultipleArrowContainer {
         if (match) {
             this.currentArrowIndex.value++;
         } else {
-            this.reset();
+            this.reset(true);
         }
-        console.log(this.currentArrowIndex.value);
     }
 }
 
