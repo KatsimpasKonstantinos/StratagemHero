@@ -15,6 +15,6 @@
   filter: invert(100%) sepia(100%) saturate(10000%);
 }
 
-.ArrowContaineRed {
+.ArrowContainerRed {
   filter: invert(100%) sepia(100%) hue-rotate(-60deg) saturate(1000);
 }
