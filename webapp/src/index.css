@@ -3,12 +3,15 @@
   --mainColor: yellow;
   --red: red;
   --white: white;
+  --green: green;
+  --blue: #49adc9;
   --background: #252627;
 
   --title: 10em;
   --subtitle: 6em;
   --score: 6em;
   --info: 3em;
+  --tiny: 2em;
 
   --bloom: 8px;
   --bloomBox: 0.4em;
@@ -24,7 +27,7 @@ body {
   height: 100vh;
   overflow: hidden;
   color: var(--white);
-  cursor:none;
+  cursor: none;
 }
 
 code {

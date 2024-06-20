@@ -1,0 +1,5 @@
+.Controls {
+    font-size: var(--title);
+    color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
+}

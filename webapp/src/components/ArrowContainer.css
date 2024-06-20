@@ -7,14 +7,14 @@
   height: 10vh;
 }
 
-.gray {
+.ArrowContainerGray {
   filter: invert(1) brightness(0.7);
 }
 
-.yellow {
+.ArrowContainerYellow {
   filter: invert(100%) sepia(100%) saturate(10000%);
 }
 
-.red {
+.ArrowContaineRed {
   filter: invert(100%) sepia(100%) hue-rotate(-60deg) saturate(1000);
 }

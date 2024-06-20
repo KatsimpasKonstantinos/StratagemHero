@@ -28,9 +28,21 @@
     margin: 0;
 }
 
-.StartViewArrowContainer {
+.StartViewGameArrowContainer {
     position: absolute;
     top: 63vh;
     display: flex;
-    align-items: center;
+    height: 10vh;
+}
+
+.StartViewSettingsContainer {
+    position: absolute;
+    top: 20vh;
+    left: 5vw;
+    display: flex;
+    height: 5vh;
+}
+
+.StartViewSettingsArrowContainer {
+    display: flex;
 }

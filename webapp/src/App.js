@@ -4,6 +4,7 @@ import GameView from "./views/GameView.js";
 import StartView from './views/StartView.js';
 import InvalidScreen from './components/InvalidScreen.js';
 import { useEffect } from 'react';
+import SettingsView from './views/SettingsView.js';
 
 const keyMap = {
   "ArrowUp": "up",
@@ -95,6 +96,8 @@ function App(props) {
         return <StartView mainScreenString={mainScreenString} keyPressed={keyPressed} />;
       case "game":
         return <GameView mainScreenString={mainScreenString} keyPressed={keyPressed} stratagemsData={stratagemsData} />;
+      case "settings":
+        return <SettingsView mainScreenString={mainScreenString} keyPressed={keyPressed} />;
       default:
         return <InvalidScreen />;
     }

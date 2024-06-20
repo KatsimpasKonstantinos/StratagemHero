@@ -26,12 +26,12 @@ function ArrowContainer(props) {
     let renderArrows = computed(() => {
         let arrows = [];
         for (let i = 0; i < code.value.length; i++) {
-            let color = "gray";
+            let color = "ArrowContainerGray";
             if (i < currentArrowIndex.value) {
-                color = "yellow";
+                color = "ArrowContainerYellow";
             }
             if (failure.value) {
-                color = "red";
+                color = "ArrowContainerRed";
             }
             let className = "ArrowContainerArrow " + color;
             arrows.push(
