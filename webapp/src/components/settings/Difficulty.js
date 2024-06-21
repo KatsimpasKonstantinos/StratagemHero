@@ -22,13 +22,13 @@ let difficultyDescription = [
         "description": "Standard difficulty."
     }, {
         "name": "Extreme",
-        "description": "Play this if you are a bot"
+        "description": "Fast reflexes"
     }, {
         "name": "Suicide Mission",
-        "description": "Fast reflexes",
+        "description": "Fast reflexes and fingers",
     }, {
         "name": "Impossible",
-        "description": "Fast reflexes and fingers"
+        "description": "Play this if you are a bot"
     }, {
         "name": "Helldive",
         "description": "God is dead"

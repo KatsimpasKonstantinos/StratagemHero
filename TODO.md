@@ -1,11 +1,9 @@
 # TODO List
 
 - [ ] Add Settings Page
-  - [ ] Difficulty Setting
-  - [ ] Control Settings
-  - [ ] Data Settings
-  - [ ] Custom Key Inputs
-- [ ] Change Points/Time/Round Progression
+  - [ ] Control Settings Custom Key Inputs
+  - [ ] Sound Settings
+- [ ] Change Points/Time/Round Progression depending on difficulty
 - [ ] Delay between end of game and enter name
 - [ ] Add bloom to svg's
 - [ ] Add mobile support

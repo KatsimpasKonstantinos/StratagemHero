@@ -41,8 +41,14 @@
 
 .SettingsViewNavbarBlue {
     border: 4px solid var(--blue);
-    background-color: rgba(0, 0, 255, 0.1);
+    background-color: rgba(20, 60, 255, 0.1);
     box-shadow: 0 0 var(--bloomBox) var(--blue);
+}
+
+.SettingsViewNavbarGreen {
+    border: 4px solid var(--green);
+    background-color: rgba(0, 255, 0, 0.1);
+    box-shadow: 0 0 var(--bloomBox) var(--green);
 }
 
 

@@ -9,6 +9,7 @@ import Difficulty from "../components/settings/Difficulty";
 import Controls from "../components/settings/Controls";
 import Bloom from "../components/settings/Bloom";
 import Data from "../components/settings/Data";
+import Sound from "../components/settings/Sound";
 
 function SettingsView(props) {
   console.log("Rendering SettingsView");
@@ -31,17 +32,23 @@ function SettingsView(props) {
       "img": process.env.PUBLIC_URL + "/media/stratagems/Hellbomb.svg",
       "color": "SettingsViewNavbarYellow"
     }, {
-      "success": "CONTROLS",
-      "code": ['down', 'up', 'up', 'down', 'up'],
+      "success": "SOUND",
+      "code": ['down', 'up', 'right', 'right', 'down'],
       "show": signal(true),
-      "img": process.env.PUBLIC_URL + "/media/stratagems/Jump Pack.svg",
-      "color": "SettingsViewNavbarBlue"
+      "img": process.env.PUBLIC_URL + "/media/stratagems/Mortar Sentry.svg",
+      "color": "SettingsViewNavbarGreen"
     }, {
       "success": "BLOOM",
       "code": ['right', 'down', 'left', 'up', 'up'],
       "show": signal(true),
       "img": process.env.PUBLIC_URL + "/media/stratagems/Orbital Laser.svg",
       "color": "SettingsViewNavbarRed"
+    }, {
+      "success": "CONTROLS",
+      "code": ['down', 'up', 'up', 'down', 'up'],
+      "show": signal(true),
+      "img": process.env.PUBLIC_URL + "/media/stratagems/Jump Pack.svg",
+      "color": "SettingsViewNavbarBlue"
     }, {
       "success": "DATA",
       "code": ['up', 'right', 'down', 'down', 'down'],
@@ -102,6 +109,9 @@ function SettingsView(props) {
       case "DIFFICULTY":
         blockNavigation.value = true;
         return <Difficulty keyPressed={keyPressed} blockNavigation={blockNavigation} key={settingsScreenString.value} />;
+      case "SOUND":
+        mac.reset(true);
+        return <Sound />;
       case "CONTROLS":
         mac.reset(true);
         return <Controls />;

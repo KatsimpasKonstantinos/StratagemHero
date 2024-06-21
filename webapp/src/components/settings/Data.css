@@ -30,12 +30,13 @@
 .DataTimeBar {
     position: absolute;
     top: 82vh;
-    left: 20vw;
-    width: 60vw;
+    left: 25vw;
+    width: 50vw;
     height: 4vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: -1;
 }
 
 .DataArrowContainer {
