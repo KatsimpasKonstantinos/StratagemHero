@@ -96,16 +96,20 @@ function SettingsView(props) {
   let renderSettingsScreen = computed(() => {
     switch (settingsScreenString.value.split(" ")[0]) {
       case "BACK":
+        mac.reset(true);
         mainScreenString.value = "start";
         break;
       case "DIFFICULTY":
-        return <Difficulty />;
+        blockNavigation.value = true;
+        return <Difficulty keyPressed={keyPressed} blockNavigation={blockNavigation} key={settingsScreenString.value} />;
       case "CONTROLS":
+        blockNavigation.value = true;
         return <Controls />;
       case "BLOOM":
         blockNavigation.value = true;
         return <Bloom keyPressed={keyPressed} blockNavigation={blockNavigation} key={settingsScreenString.value} />;
       case "DATA":
+        blockNavigation.value = true;
         return <Data />;
       case "ABOUT":
         mac.reset(true);

@@ -1,5 +1,81 @@
 .Difficulty {
-    font-size: var(--title);
+    position: absolute;
+    display: flex;
+    height: 100vh;
+    width: 50vw;
+    transform: translateX(50%);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.DifficultyTitle {
+    font-size: var(--subtitle);
     color: var(--white);
     text-shadow: 0 0 var(--bloom) var(--white);
+}
+
+.DifficultyText {
+    font-size: var(--info);
+    color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
+}
+
+.DifficultyDivContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+.DifficultyDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 1.5vw;
+    font-size: var(--score);
+    color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
+}
+
+.DifficultyDivYellow {
+    color: var(--yellow);
+    text-shadow: 0 0 var(--bloom) var(--yellow);
+}
+
+.DifficultyDivWhite {
+    color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
+}
+
+.DifficultyDivGray {
+    color: var(--gray);
+    text-shadow: 0 0 var(--bloom) var(--gray);
+}
+
+.DifficultyDivDarkGray {
+    color: var(--grayDark);
+    text-shadow: 0 0 var(--bloom) var(--grayDark);
+}
+
+.DifficultyArrowContainer {
+    display: flex;
+    align-items: center;
+}
+
+.DifficultyArrow {
+    height: 10vh;
+}
+
+.DifficultyArrowYellow {
+    filter: invert(100%) sepia(100%) saturate(10000%);
+}
+
+.DifficultyArrowDarkGray {
+    filter: invert(1) brightness(0.3);
+}
+
+.DifficultyArrowGray {
+    filter: invert(1) brightness(0.7);
 }
