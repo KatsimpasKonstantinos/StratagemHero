@@ -67,7 +67,7 @@ function Difficulty(props) {
     let renderScreen = computed(() => {
         return (
             <div className="Difficulty">
-                <div className="DifficultyTitle">Set the difficulty of the game</div>
+                <div className="DifficultyTitle">Change the game difficulty</div>
                 <div className="DifficultyText">Some more info that can be helpful is here</div>
                 <div className="DifficultyDivContainer">
                     <div className={"DifficultyDiv" + divColor(1)}>1</div>

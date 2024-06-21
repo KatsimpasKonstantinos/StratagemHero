@@ -110,7 +110,7 @@ function SettingsView(props) {
         return <Bloom keyPressed={keyPressed} blockNavigation={blockNavigation} key={settingsScreenString.value} />;
       case "DATA":
         blockNavigation.value = true;
-        return <Data />;
+        return <Data keyPressed={keyPressed} blockNavigation={blockNavigation} key={settingsScreenString.value} />;
       case "ABOUT":
         mac.reset(true);
         return <About />;
