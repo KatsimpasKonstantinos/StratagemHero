@@ -4,6 +4,36 @@ import { useEffect } from "react";
 
 export let difficulty = signal(5);
 
+let difficultyDescription = [
+    {
+        "name": "Trivial",
+        "description": "Play this if you are a bug."
+    }, {
+        "name": "Easy",
+        "description": "Play this if you are over 80"
+    }, {
+        "name": "Medium",
+        "description": "For beginners."
+    }, {
+        "name": "Challenging",
+        "description": "More challenging."
+    }, {
+        "name": "Hard",
+        "description": "Standard difficulty."
+    }, {
+        "name": "Extreme",
+        "description": "Play this if you are a bot"
+    }, {
+        "name": "Suicide Mission",
+        "description": "Fast reflexes",
+    }, {
+        "name": "Impossible",
+        "description": "Fast reflexes and fingers"
+    }, {
+        "name": "Helldive",
+        "description": "God is dead"
+    }
+]
 
 
 function Difficulty(props) {
@@ -67,8 +97,9 @@ function Difficulty(props) {
     let renderScreen = computed(() => {
         return (
             <div className="Difficulty">
-                <div className="DifficultyTitle">Change the game difficulty</div>
-                <div className="DifficultyText">Some more info that can be helpful is here</div>
+                <div className="DifficultyTitle">Game difficulty</div>
+                <div className="DifficultyTitle">{difficultyDescription[difficulty.value - 1].name}</div>
+                <div className="DifficultyText">{difficultyDescription[difficulty.value - 1].description}</div>
                 <div className="DifficultyDivContainer">
                     <div className={"DifficultyDiv" + divColor(1)}>1</div>
                     <div className={"DifficultyDiv" + divColor(2)}>2</div>

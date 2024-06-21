@@ -3,7 +3,8 @@ import "./Data.css"
 import { useEffect } from "react";
 import TimeBar from "../TimeBar";
 
-import { timeRunning } from "../TimeBar";
+import { timeRunning, time } from "../TimeBar";
+const startTime = 5000;
 
 function Data(props) {
     console.log("Rendering Data");
@@ -30,6 +31,8 @@ function Data(props) {
                         index.value = -1;
                         deleteLocalHighscores();
                         blockNavigation.value = false;
+                        timeRunning.value = false;
+                        time.value = startTime;
                     };
                 } else if (keyPressed.value === "down") {
                     index.value = 4;
@@ -43,6 +46,7 @@ function Data(props) {
                         index.value = -1;
                         blockNavigation.value = false;
                         timeRunning.value = false;
+                        time.value = startTime;
                     }
                 }
             }
@@ -110,7 +114,7 @@ function Data(props) {
         <>
             {renderScreen}
             <div className="DataTimeBar">
-                <TimeBar startTime={5000} someSignal={timeOver} failureValue={true} key={Math.random()} />
+                <TimeBar startTime={startTime} someSignal={timeOver} failureValue={true} key={Math.random()} />
             </div>
         </>
     );

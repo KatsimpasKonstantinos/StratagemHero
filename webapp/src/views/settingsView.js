@@ -103,7 +103,7 @@ function SettingsView(props) {
         blockNavigation.value = true;
         return <Difficulty keyPressed={keyPressed} blockNavigation={blockNavigation} key={settingsScreenString.value} />;
       case "CONTROLS":
-        blockNavigation.value = true;
+        mac.reset(true);
         return <Controls />;
       case "BLOOM":
         blockNavigation.value = true;
