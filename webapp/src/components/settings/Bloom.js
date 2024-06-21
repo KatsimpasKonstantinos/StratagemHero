@@ -118,7 +118,7 @@ function Bloom(props) {
     let renderScreen = computed(() => {
         return (
             <div className="Bloom">
-                <p className="BloomTitle">Change the Bloom intensity</p>
+                <p className="BloomTitle">Change Bloom intensity</p>
                 <div className="BloomContainer">
                     <img className={"BloomArrow" + (arrowColor(0, "left"))} src={process.env.PUBLIC_URL + "/media/arrows/arrowleft.svg"} />
                     <p className={"BloomTestText" + (index.value == 0 ? " BloomBloom" : "")}>Text Bloom {getBloom()}</p>

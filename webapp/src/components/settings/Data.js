@@ -36,7 +36,7 @@ function Data(props) {
             if (keyPressed.peek() === "up") {
                 clearInterval(timoutID);
                 timeRunning.value = true;
-                index.value = 0;
+                index.value = -1;
             } else if (keyPressed.peek() === "down") {
                 index.value = index.peek() + 1;
                 if (index.peek() >= 3) {
@@ -62,7 +62,7 @@ function Data(props) {
         }
         if (timeOver.value) {
             deleteLocalHighscores();
-            index.value = 0;
+            index.value = -1;
             blockNavigation.value = false;
             timeRunning.value = false;
             time.value = startTime;
