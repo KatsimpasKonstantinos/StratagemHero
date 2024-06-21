@@ -2,7 +2,7 @@ import { computed, effect, signal } from "@preact/signals-react";
 import "./TimeBar.css";
 import { useEffect } from "react";
 
-const intervalTime = 5;
+const intervalTime = 20;
 
 export let time = signal(10000);
 export let timeRunning = signal(true);
