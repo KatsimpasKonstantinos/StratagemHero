@@ -94,8 +94,8 @@ function App(props) {
   let screen = computed(() => {
     switch (mainScreenString.value.split(" ")[0]) {
       case "start":
-        //return <StartView mainScreenString={mainScreenString} keyPressed={keyPressed} />;
-        return <BrowserVersion />;
+        return <StartView mainScreenString={mainScreenString} keyPressed={keyPressed} />;
+        //return <BrowserVersion />;
       case "game":
         return <GameView mainScreenString={mainScreenString} keyPressed={keyPressed} stratagemsData={stratagemsData} />;
       case "settings":
