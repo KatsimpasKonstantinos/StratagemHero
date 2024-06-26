@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.30fdefa2.css",
+    "main.js": "/static/js/main.41a13bfa.js",
+    "static/js/218.6feb6d25.chunk.js": "/static/js/218.6feb6d25.chunk.js",
+    "static/media/superEarth.png": "/static/media/superEarth.da320c9f619306f5b961.png",
+    "static/media/FS Sinclair Medium.otf": "/static/media/FS Sinclair Medium.b3b6bfb7b2b91e3a9828.otf",
+    "index.html": "/index.html",
+    "static/media/res.svg": "/static/media/res.d1d87a01e44a1f3f931b.svg",
+    "static/media/resHover.svg": "/static/media/resHover.e0cee2cd68d9c0484468.svg",
+    "main.30fdefa2.css.map": "/static/css/main.30fdefa2.css.map",
+    "main.41a13bfa.js.map": "/static/js/main.41a13bfa.js.map",
+    "218.6feb6d25.chunk.js.map": "/static/js/218.6feb6d25.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.30fdefa2.css",
+    "static/js/main.41a13bfa.js"
+  ]
+}
