@@ -22,8 +22,7 @@ function BrowserVersion() {
 
     return (
         <div>
-            <h1>Browser Version</h1>
-            <p>{navigator.sayswho}</p>
+            <h1>Browser Version {navigator.sayswho}</h1>
         </div>
     )
 }
