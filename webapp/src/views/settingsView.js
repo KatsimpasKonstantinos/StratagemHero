@@ -110,8 +110,8 @@ function SettingsView(props) {
         blockNavigation.value = true;
         return <Difficulty keyPressed={keyPressed} blockNavigation={blockNavigation} key={settingsScreenString.value} />;
       case "SOUND":
-        mac.reset(true);
-        return <Sound />;
+        blockNavigation.value = true;
+        return <Sound keyPressed={keyPressed} blockNavigation={blockNavigation} key={settingsScreenString.value}/>;
       case "CONTROLS":
         mac.reset(true);
         return <Controls />;

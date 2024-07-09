@@ -2,6 +2,7 @@ import { computed, effect, signal } from "@preact/signals-react";
 import "./Data.css"
 import { useEffect } from "react";
 import TimeBar from "../TimeBar";
+import { soundMaster, soundEffects } from "./Sound";
 
 import { timeRunning, time } from "../TimeBar";
 const startTime = 5000;
@@ -23,6 +24,7 @@ function Data(props) {
     }
 
     let audio = new Audio(process.env.PUBLIC_URL + "/media/sounds/delete.ogg");
+    audio.volume = (soundMaster.value / 10) * (soundEffects / 10);
     timeRunning.value = false;
 
     setTimeout(() => {
@@ -58,6 +60,7 @@ function Data(props) {
     let dispose2 = effect(() => {
         if (time.value <= 4000 && time.value > 3980) {
             let charge = new Audio(process.env.PUBLIC_URL + "/media/sounds/charge.ogg");
+            setTimeout(() => { charge.volume = (soundMaster.value / 10) * (soundEffects / 10) }, 0); // Delay to make sure the volume is set (hacky js fix)
             charge.play();
         }
         if (timeOver.value) {
@@ -99,7 +102,7 @@ function Data(props) {
                 <div className="DataText">Spam UP untill the progress reaches zero to delete all locally saved highscores</div>
                 <div className="DataArrowContainer">
                     <img className={"DataArrow" + (arrowColor(1))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
-                    <img className={"DataArrow" + (arrowColor(2))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
+                    <img className={"DataArrowBig" + (arrowColor(2))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
                     <img className={"DataArrow" + (arrowColor(3))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
                 </div>
             </div>

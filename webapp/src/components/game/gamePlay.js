@@ -4,6 +4,7 @@ import "./GamePlay.css";
 import TimeBar from "../TimeBar";
 import { timeRunning, time } from "../TimeBar";
 import { useEffect } from "react";
+import { soundMaster, soundEffects, soundMusic } from '../settings/Sound.js';
 
 function GamePlay(props) {
   console.log("Rendering GamePlay");
@@ -18,10 +19,12 @@ function GamePlay(props) {
   let stratagems = [];
 
   let backgroundMusic = new Audio(process.env.PUBLIC_URL + "/media/sounds/backgroundMusic.ogg");
+  backgroundMusic.volume = (soundMaster.value / 10) * (soundMusic / 10);
   backgroundMusic.loop = true;
   backgroundMusic.play();
 
   let stratagemCompleteSound = new Audio(process.env.PUBLIC_URL + "/media/sounds/stratagemComplete.ogg");
+  stratagemCompleteSound.volume = (soundMaster.value / 10) * (soundEffects / 10);
 
   let currentStratagemIndex = signal(0);
   let currentStratagemIndexDelay = signal(0);

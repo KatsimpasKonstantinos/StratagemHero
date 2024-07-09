@@ -3,6 +3,7 @@ import { perfect } from "../ArrowContainer.js";
 import "./GameRecap.css";
 import { useEffect } from "react";
 import { time } from "../TimeBar.js";
+import { soundMaster, soundEffects } from "../settings/Sound.js";
 
 function GameRecap(props) {
     console.log("Rendering GameRecap");
@@ -13,6 +14,7 @@ function GameRecap(props) {
 
     let roundCompleteSoundURL = process.env.PUBLIC_URL + "/media/sounds/roundComplete" + Math.ceil(Math.random() * 4).toString() + ".mp3";
     let roundCompleteSound = new Audio(roundCompleteSoundURL);
+    roundCompleteSound.volume = (soundMaster.value / 10) * (soundEffects / 10);
     roundCompleteSound.play();
 
     let roundScore = signal(null);

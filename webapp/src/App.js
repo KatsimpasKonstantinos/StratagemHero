@@ -6,6 +6,8 @@ import InvalidScreen from './components/InvalidScreen.js';
 import { useEffect } from 'react';
 import SettingsView from './views/SettingsView.js';
 
+import { soundMaster, soundKeyboard } from './components/settings/Sound.js';
+
 const keyMap = {
   "ArrowUp": "up",
   "ArrowDown": "down",
@@ -40,6 +42,7 @@ function App(props) {
 
   function playKeySound() {
     let audio = new Audio(process.env.PUBLIC_URL + "/media/sounds/keyInput.ogg");
+    setTimeout(() => { audio.volume = (soundMaster.value / 10) * (soundKeyboard / 10) }, 0); // Delay to make sure the volume is set (hacky js fix)
     audio.play();
   }
 

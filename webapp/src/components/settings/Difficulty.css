@@ -68,6 +68,10 @@
     height: 10vh;
 }
 
+.DifficultyArrowBig {
+    height: 13vh;
+}
+
 .DifficultyArrowYellow {
     filter: invert(100%) sepia(100%) saturate(10000%);
 }

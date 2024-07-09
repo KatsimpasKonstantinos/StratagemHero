@@ -1,6 +1,7 @@
 import { computed, effect, signal } from "@preact/signals-react";
 import "./ArrowContainer.css";
 import { useEffect } from "react";
+import { soundMaster, soundEffects } from "./settings/Sound";
 
 
 export let perfect = signal(true);
@@ -20,7 +21,7 @@ function ArrowContainer(props) {
     keyPressed.value = "";
 
     let wrongInputSound = new Audio(process.env.PUBLIC_URL + "/media/sounds/wrongInput.ogg");
-
+    wrongInputSound.volume = (soundMaster.value / 10) * (soundEffects / 10);
     currentArrowIndex.value = 0;
 
     let renderArrows = computed(() => {

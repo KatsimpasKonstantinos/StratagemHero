@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import "./GamePrepare.css";
-
+import { soundEffects, soundMaster } from "../settings/Sound";
 
 function GamePrepare(props) {
     console.log("Rendering GamePrepare");
@@ -8,6 +8,7 @@ function GamePrepare(props) {
     let gameScreenString = props.gameScreenString;
 
     let prepareNextRoundSound = new Audio(process.env.PUBLIC_URL + "/media/sounds/prepareNextRound.ogg");
+    prepareNextRoundSound.volume = (soundMaster.value / 10) * (soundEffects / 10);
     prepareNextRoundSound.play();
 
     setTimeout(() => {

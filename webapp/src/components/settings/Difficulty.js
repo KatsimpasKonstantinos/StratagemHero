@@ -113,7 +113,7 @@ function Difficulty(props) {
                 </div>
                 <div className="DifficultyArrowContainer">
                     <img className={"DifficultyArrow" + (arrowColor(2))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
-                    <img className={"DifficultyArrow" + (arrowColor(3))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
+                    <img className={"DifficultyArrowBig" + (arrowColor(3))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
                     <img className={"DifficultyArrow" + (arrowColor(4))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
                 </div>
             </div>

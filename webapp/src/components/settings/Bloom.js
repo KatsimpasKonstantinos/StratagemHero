@@ -133,7 +133,7 @@ function Bloom(props) {
 
                 <div className="BloomContainer">
                     <img className={"BloomArrow" + (arrowColor(3))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
-                    <img className={"BloomArrow" + (arrowColor(4))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
+                    <img className={"BloomArrowBig" + (arrowColor(4))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
                     <img className={"BloomArrow" + (arrowColor(5))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
                 </div>
 
