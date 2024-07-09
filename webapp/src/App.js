@@ -5,6 +5,7 @@ import StartView from './views/StartView.js';
 import InvalidScreen from './components/InvalidScreen.js';
 import { useEffect } from 'react';
 import SettingsView from './views/SettingsView.js';
+import BrowserVersion from './components/BrowserVersion.js';
 
 import { soundMaster, soundKeyboard } from './components/settings/Sound.js';
 
@@ -97,6 +98,7 @@ function App(props) {
     switch (mainScreenString.value.split(" ")[0]) {
       case "start":
         return <StartView mainScreenString={mainScreenString} keyPressed={keyPressed} />;
+        //return <BrowserVersion />;
       case "game":
         return <GameView mainScreenString={mainScreenString} keyPressed={keyPressed} stratagemsData={stratagemsData} />;
       case "settings":
