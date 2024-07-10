@@ -1,13 +1,14 @@
 import { computed, effect, signal } from "@preact/signals-react";
 import "./Bloom.css";
 import { useEffect } from "react";
+import ExitArrows from "../ExitArrows";
 
 function Bloom(props) {
     console.log("Rendering Bloom");
     let keyPressed = props.keyPressed;
     let blockNavigation = props.blockNavigation;
     let index = signal(0);
-    let delayArrow = signal("");
+    let valueChangedFlip = signal(false);
 
 
     function getBloom() {
@@ -23,6 +24,7 @@ function Bloom(props) {
             bloomValue += int;
         }
         document.documentElement.style.setProperty('--bloom', bloomValue + "px");
+        valueChangedFlip.value = !valueChangedFlip.peek();
     }
 
     function resetBloom() {
@@ -42,13 +44,12 @@ function Bloom(props) {
             bloomValue += int;
         }
         document.documentElement.style.setProperty('--bloomBox', bloomValue + "em");
+        valueChangedFlip.value = !valueChangedFlip.peek();
     }
 
     function resetBoxBloom() {
         document.documentElement.style.setProperty('--bloomBox', '0.4em');
     }
-
-    let timoutID;
 
     let dispose = effect(() => {
         if (keyPressed.value != "") {
@@ -64,78 +65,36 @@ function Bloom(props) {
                     index.value = -1;
                 }
             } else if (keyPressed.value === "left") {
-                clearTimeout(timoutID);
                 if (index.value == 0) {
                     setBloom(-1);
-                    delayArrow.value = "left";
                 } else if (index.value == 1) {
                     setBoxBloom(-0.1);
-                    delayArrow.value = "left";
                 }
-                timoutID = setTimeout(() => {
-                    delayArrow.value = "";
-                }, 100);
             } else if (keyPressed.value === "right") {
-                clearTimeout(timoutID);
                 if (index.value == 0) {
                     setBloom(1);
-                    delayArrow.value = "right";
                 } else if (index.value == 1) {
                     setBoxBloom(0.1);
-                    delayArrow.value = "right";
                 }
-                timoutID = setTimeout(() => {
-                    delayArrow.value = "";
-                }, 100);
             }
             keyPressed.value = "";
         }
     });
 
-    function arrowColor(i, orientation) {
-        if (i == 0) {
-            if (index.value == 0) {
-                return delayArrow.value === orientation ? " BloomArrowYellow" : "";
-            } else {
-                return " BloomArrowDarkGray";
-            }
-        } else if (i == 1) {
-            if (index.value == 1) {
-                return delayArrow.value === orientation ? " BloomArrowYellow" : "";
-            } else {
-                return " BloomArrowDarkGray";
-            }
-        } else {
-            if (index.value <= 1) return " BloomArrowDarkGray";
-            if (index.value >= i) {
-                return " BloomArrowYellow";
-            } else {
-                return "";
-            }
-        }
-    }
-
     let renderScreen = computed(() => {
+        let dependecy = valueChangedFlip.value;
         return (
             <div className="Bloom">
-                <p className="BloomTitle">Change Bloom intensity</p>
+                <p className="BloomTitle">BLOOM INTENSITY</p>
                 <div className="BloomContainer">
-                    <img className={"BloomArrow" + (arrowColor(0, "left"))} src={process.env.PUBLIC_URL + "/media/arrows/arrowleft.svg"} />
                     <p className={"BloomTestText" + (index.value == 0 ? " BloomBloom" : "")}>Text Bloom {getBloom()}</p>
-                    <img className={"BloomArrow" + (arrowColor(0, "right"))} src={process.env.PUBLIC_URL + "/media/arrows/arrowright.svg"} />
                 </div>
 
                 <div className="BloomContainer">
-                    <img className={"BloomArrow" + (arrowColor(1, "left"))} src={process.env.PUBLIC_URL + "/media/arrows/arrowleft.svg"} />
                     <p className={"BloomTestText" + (index.value == 1 ? " BloomBloom" : "")}>Box Bloom {getBoxBloom() * 10}</p>
-                    <img className={"BloomArrow" + (arrowColor(1, "right"))} src={process.env.PUBLIC_URL + "/media/arrows/arrowright.svg"} />
                 </div>
 
-                <div className="BloomContainer">
-                    <img className={"BloomArrow" + (arrowColor(3))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
-                    <img className={"BloomArrowBig" + (arrowColor(4))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
-                    <img className={"BloomArrow" + (arrowColor(5))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
-                </div>
+                <ExitArrows index={index} startIndex={2} />
 
             </div>
         );

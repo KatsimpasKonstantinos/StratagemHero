@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import "./Sound.css"
 import { computed, effect, signal } from "@preact/signals-react";
+import ExitArrows from "../ExitArrows";
 
 export let soundMaster = signal(5);
 export let soundKeyboard = signal(5);
@@ -98,11 +99,7 @@ function Sound(props) {
                 {renderSound(soundKeyboard, "Keyboard", 1)}
                 {renderSound(soundMusic, "Music", 2)}
                 {renderSound(soundEffects, "Effects", 3)}
-                <div className="DifficultyArrowContainer">
-                    <img className={"DifficultyArrow" + (arrowColor(5))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
-                    <img className={"DifficultyArrowBig" + (arrowColor(6))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
-                    <img className={"DifficultyArrow" + (arrowColor(7))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
-                </div>
+                <ExitArrows index={index} startIndex={4} />
             </div>
         );
     });
@@ -119,7 +116,7 @@ function Sound(props) {
 
     return (
         <div className="SoundContainer">
-            <p className="SoundTitle">Sound settings</p>
+            <p className="SoundTitle">SOUND VOLUME</p>
             {renderScreen}
         </div>
     );

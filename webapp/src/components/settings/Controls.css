@@ -8,3 +8,10 @@
     align-items: center;
     flex-direction: column;
 }
+
+.ControlsTitle {
+    font-size: var(--subtitle);
+    color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
+    margin: 0;
+}

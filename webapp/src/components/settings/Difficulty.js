@@ -1,6 +1,7 @@
 import { computed, effect, signal } from "@preact/signals-react";
 import "./Difficulty.css"
 import { useEffect } from "react";
+import ExitArrows from "../ExitArrows";
 
 export let difficulty = signal(5);
 
@@ -97,7 +98,7 @@ function Difficulty(props) {
     let renderScreen = computed(() => {
         return (
             <div className="Difficulty">
-                <div className="DifficultyTitle">Game difficulty</div>
+                <div className="DifficultyTitle">GAME DIFFICULTY</div>
                 <div className="DifficultyTitle">{difficultyDescription[difficulty.value - 1].name}</div>
                 <div className="DifficultyText">{difficultyDescription[difficulty.value - 1].description}</div>
                 <div className="DifficultyDivContainer">
@@ -111,11 +112,7 @@ function Difficulty(props) {
                     <div className={"DifficultyDiv" + divColor(8)}>8</div>
                     <div className={"DifficultyDiv" + divColor(9)}>9</div>
                 </div>
-                <div className="DifficultyArrowContainer">
-                    <img className={"DifficultyArrow" + (arrowColor(2))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
-                    <img className={"DifficultyArrowBig" + (arrowColor(3))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
-                    <img className={"DifficultyArrow" + (arrowColor(4))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
-                </div>
+                <ExitArrows index={index} startIndex={1} />
             </div>
         )
     });

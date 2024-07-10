@@ -58,28 +58,3 @@
     color: var(--grayDark);
     text-shadow: 0 0 var(--bloom) var(--grayDark);
 }
-
-.DifficultyArrowContainer {
-    display: flex;
-    align-items: center;
-}
-
-.DifficultyArrow {
-    height: 10vh;
-}
-
-.DifficultyArrowBig {
-    height: 13vh;
-}
-
-.DifficultyArrowYellow {
-    filter: invert(100%) sepia(100%) saturate(10000%);
-}
-
-.DifficultyArrowDarkGray {
-    filter: invert(1) brightness(0.3);
-}
-
-.DifficultyArrowGray {
-    filter: invert(1) brightness(0.7);
-}

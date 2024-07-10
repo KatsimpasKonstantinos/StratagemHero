@@ -38,36 +38,3 @@
     align-items: center;
     z-index: -1;
 }
-
-.DataArrowContainer {
-    display: flex;
-    align-items: center;
-    margin-top: 3vh;
-}
-
-.DataArrow {
-    filter: invert(1) brightness(0.7);
-    height: 10vh;
-}
-
-.DataArrowBig {
-    filter: invert(1) brightness(0.7);
-    height: 13vh;
-}
-
-.DataArrowYellow {
-    filter: invert(100%) sepia(100%) saturate(10000%);
-}
-
-.DataArrowDarkGray {
-    filter: invert(1) brightness(0.3);
-}
-
-.DataArrowGray {
-    filter: invert(1) brightness(0.7);
-}
-
-
-.DataArrowRed {
-    filter: invert(1) brightness(0.7) sepia(100%) saturate(10000%);
-}

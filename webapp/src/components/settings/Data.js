@@ -5,6 +5,7 @@ import TimeBar from "../TimeBar";
 import { soundMaster, soundEffects } from "./Sound";
 
 import { timeRunning, time } from "../TimeBar";
+import ExitArrows from "../ExitArrows";
 const startTime = 5000;
 
 function Data(props) {
@@ -97,14 +98,10 @@ function Data(props) {
     let renderScreen = computed(() => {
         return (
             <div className="Data">
-                <div className="DataTitle">Delete Local Data</div>
+                <div className="DataTitle">DELETE LOCAL DATA</div>
                 <div className="DataText">There are currently <span className="DataTextYellow">{renderHighscoresNumber}</span> highscores saved</div>
                 <div className="DataText">Spam UP untill the progress reaches zero to delete all locally saved highscores</div>
-                <div className="DataArrowContainer">
-                    <img className={"DataArrow" + (arrowColor(1))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
-                    <img className={"DataArrowBig" + (arrowColor(2))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
-                    <img className={"DataArrow" + (arrowColor(3))} src={process.env.PUBLIC_URL + "/media/arrows/arrowdown.svg"} />
-                </div>
+                <ExitArrows index={index} startIndex={0} />
             </div>
         );
     });

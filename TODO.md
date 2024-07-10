@@ -9,5 +9,4 @@
 - [ ] Add Statistics
 - [ ] Better Highscores
 - [ ] Make all Settings more uniform
-- [ ] Create shared components for Settings (Exit Arrows)
 - [ ] Save Settings locally
