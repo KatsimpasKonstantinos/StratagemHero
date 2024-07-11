@@ -21,6 +21,7 @@
     margin-bottom: 3vh;
     display: flex;
     align-items: center;
+    flex-direction: column;
 }
 
 .BloomTestText {
@@ -30,7 +31,22 @@
     text-shadow: 0 0 var(--bloom) var(--white);
 }
 
-.BloomBloom {
+.BloomTextYellow {
     color: var(--yellow);
     text-shadow: 0 0 var(--bloom) var(--yellow);
+}
+
+.BloomTextWhite {
+    color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
+}
+
+.BloomTextGray {
+    color: var(--gray);
+    text-shadow: 0 0 var(--bloom) var(--gray);
+}
+
+.BloomTextDarkGray {
+    color: var(--grayDark);
+    text-shadow: 0 0 var(--bloom) var(--grayDark);
 }

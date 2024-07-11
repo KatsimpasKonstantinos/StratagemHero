@@ -8,10 +8,12 @@ function ExitArrows(props) {
     let startIndex = props.startIndex;
 
     function arrowColor(i) {
-        if (index < 0 || index < startIndex) {
+        if (index < 0) {
             return " ExitArrowDarkGray";
         } else if (index >= i) {
             return " ExitArrowYellow";
+        } else if (index >= startIndex) {
+            return " ExitArrowWhite";
         } else {
             return " ExitArrowGray";
         }

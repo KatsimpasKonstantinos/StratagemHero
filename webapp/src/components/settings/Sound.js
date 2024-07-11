@@ -4,10 +4,10 @@ import { computed, effect, signal } from "@preact/signals-react";
 import ExitArrows from "../ExitArrows";
 import StateBar from "../StateBar";
 
-export let soundMaster = signal(5);
-export let soundKeyboard = signal(5);
+export let soundMaster = signal(10);
+export let soundKeyboard = signal(4);
 export let soundMusic = signal(5);
-export let soundEffects = signal(5);
+export let soundEffects = signal(6);
 
 
 function Sound(props) {
@@ -62,24 +62,23 @@ function Sound(props) {
         }
     });
 
-
-
     function divColor(i) {
-        if (index.value == i) {
+        if (!blockNavigation.value) {
+            return " SoundDivDarkGray";
+        } else if (index.value == i) {
             return " SoundDivYellow";
-        } else if (!blockNavigation.value) {
-            return " SoundDivGray";
-        } else {
+        } else if (index.value < 4) {
             return " SoundDivWhite";
+        } else {
+            return " SoundDivGray";
         }
     }
-    
 
     function renderSound(signal, name, i) {
         return (
             <div className={"SoundElement" + divColor(i)}>
                 <p className="SoundText">{name}</p>
-                <StateBar state={signal} maxBars={40} signalMax={10}/>
+                <StateBar state={signal} maxBars={40} signalMax={10} />
             </div>
         );
     }

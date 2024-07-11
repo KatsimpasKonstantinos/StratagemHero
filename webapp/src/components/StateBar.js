@@ -13,7 +13,7 @@ function StateBar(props) {
         let bars = [];
         for (let i = 0; i <= maxBars; i++) {
             let colorClass = i < state.value * (maxBars / signalMax) ? " StateBarDivWhite" : " StateBarDivGray";
-            if (i == state.value * (maxBars / signalMax)) colorClass = " StateBarDivYellow";
+            if (i == Math.floor(state.value * (maxBars / signalMax))) colorClass = " StateBarDivYellow";
             bars.push(<div className={"StateBarDiv" + colorClass} key={i}></div>);
         }
         return bars;

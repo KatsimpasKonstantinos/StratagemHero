@@ -17,9 +17,17 @@
 
 .DataText {
     font-size: var(--info);
+    margin: 1vh 0;
+}
+
+.DataTextDarkGray {
+    color: var(--grayDark);
+    text-shadow: 0 0 var(--bloom) var(--grayDark);
+}
+
+.DataTextWhite {
     color: var(--white);
     text-shadow: 0 0 var(--bloom) var(--white);
-    margin: 1vh 0;
 }
 
 .DataTextYellow {

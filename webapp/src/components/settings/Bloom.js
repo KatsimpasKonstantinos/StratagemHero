@@ -2,6 +2,7 @@ import { computed, effect, signal } from "@preact/signals-react";
 import "./Bloom.css";
 import { useEffect } from "react";
 import ExitArrows from "../ExitArrows";
+import StateBar from "../StateBar";
 
 function Bloom(props) {
     console.log("Rendering Bloom");
@@ -9,6 +10,10 @@ function Bloom(props) {
     let blockNavigation = props.blockNavigation;
     let index = signal(0);
     let valueChangedFlip = signal(false);
+    let textBloom = signal(getBloom());
+    let boxBloom = signal(getBoxBloom());
+    let maxTextBloom = 20;
+    let maxBoxBloom = 2;
 
 
     function getBloom() {
@@ -20,9 +25,12 @@ function Bloom(props) {
         let bloomValue = getBloom()
         if (bloomValue + int <= 0) {
             bloomValue = 0;
+        } else if (bloomValue + int >= maxTextBloom) {
+            bloomValue = maxTextBloom;
         } else {
             bloomValue += int;
         }
+        textBloom.value = bloomValue;
         document.documentElement.style.setProperty('--bloom', bloomValue + "px");
         valueChangedFlip.value = !valueChangedFlip.peek();
     }
@@ -40,9 +48,12 @@ function Bloom(props) {
         let bloomValue = getBoxBloom()
         if (bloomValue + int <= 0) {
             bloomValue = 0;
+        } else if (bloomValue + int >= maxBoxBloom) {
+            bloomValue = maxBoxBloom;
         } else {
             bloomValue += int;
         }
+        boxBloom.value = bloomValue;
         document.documentElement.style.setProperty('--bloomBox', bloomValue + "em");
         valueChangedFlip.value = !valueChangedFlip.peek();
     }
@@ -81,17 +92,31 @@ function Bloom(props) {
         }
     });
 
+    function textBloomColor(i) {
+        if (!blockNavigation.value) {
+            return " BloomTextDarkGray";
+        } else if (index.value == i) {
+            return " BloomTextYellow";
+        } else if (index.value < 2) {
+            return " BloomTextWhite";
+        } else {
+            return " BloomTextGray";
+        }
+    }
+
     let renderScreen = computed(() => {
         let dependecy = valueChangedFlip.value;
         return (
             <div className="Bloom">
                 <p className="BloomTitle">BLOOM INTENSITY</p>
                 <div className="BloomContainer">
-                    <p className={"BloomTestText" + (index.value == 0 ? " BloomBloom" : "")}>Text Bloom {getBloom()}</p>
+                    <p className={"BloomTestText" + textBloomColor(0)}>Text Bloom {getBloom()}</p>
+                    <StateBar state={textBloom} maxBars={40} signalMax={maxTextBloom} />
                 </div>
 
                 <div className="BloomContainer">
-                    <p className={"BloomTestText" + (index.value == 1 ? " BloomBloom" : "")}>Box Bloom {getBoxBloom() * 10}</p>
+                    <p className={"BloomTestText" + textBloomColor(1)}>Box Bloom {getBoxBloom() * 10}</p>
+                    <StateBar state={boxBloom} maxBars={40} signalMax={maxBoxBloom} />
                 </div>
 
                 <ExitArrows index={index} startIndex={2} />

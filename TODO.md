@@ -8,6 +8,6 @@
 - [ ] Add mobile support
 - [ ] Add Statistics
 - [ ] Better Highscores
-- [ ] Make all Settings more uniform
 - [ ] Save Settings locally
 - [ ] Preload image Box => avoid collapsed boxes
+- [ ] on Sound Settings change play according example
