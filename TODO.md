@@ -10,3 +10,4 @@
 - [ ] Better Highscores
 - [ ] Make all Settings more uniform
 - [ ] Save Settings locally
+- [ ] Preload image Box => avoid collapsed boxes

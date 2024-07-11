@@ -42,6 +42,7 @@
 .DifficultyDivYellow {
     color: var(--yellow);
     text-shadow: 0 0 var(--bloom) var(--yellow);
+    font-size: var(--title);
 }
 
 .DifficultyDivWhite {

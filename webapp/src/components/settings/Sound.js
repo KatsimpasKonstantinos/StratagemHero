@@ -65,21 +65,21 @@ function Sound(props) {
 
     function divColor(i) {
         if (index.value == i) {
-            return " DifficultyDivYellow";
+            return " SoundDivYellow";
         } else if (!blockNavigation.value) {
-            return " DifficultyDivGray";
+            return " SoundDivGray";
         } else {
-            return " DifficultyDivWhite";
+            return " SoundDivWhite";
         }
     }
 
     function arrowColor(i) {
         if (index.value >= i) {
-            return " DifficultyArrowYellow";
+            return " SoundDArrowYellow";
         } else if (index.value >= 4) {
-            return " DifficultyArrowGray";
+            return " SoundDArrowGray";
         } else {
-            return " DifficultyArrowDarkGray";
+            return " SoundDArrowDarkGray";
         }
     }
 
