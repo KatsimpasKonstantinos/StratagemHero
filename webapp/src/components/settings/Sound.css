@@ -17,11 +17,13 @@
     margin: 0;
 }
 
-.SoundElement {}
+.SoundElement {
+    margin-bottom: 3vh;
+}
 
 .SoundText {
     font-size: var(--info);
-    margin: 0;
+    margin: 1vh;
 }
 
 .SoundValue {

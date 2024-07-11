@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import "./Sound.css"
 import { computed, effect, signal } from "@preact/signals-react";
 import ExitArrows from "../ExitArrows";
+import StateBar from "../StateBar";
 
 export let soundMaster = signal(5);
 export let soundKeyboard = signal(5);
@@ -72,22 +73,13 @@ function Sound(props) {
             return " SoundDivWhite";
         }
     }
-
-    function arrowColor(i) {
-        if (index.value >= i) {
-            return " SoundDArrowYellow";
-        } else if (index.value >= 4) {
-            return " SoundDArrowGray";
-        } else {
-            return " SoundDArrowDarkGray";
-        }
-    }
+    
 
     function renderSound(signal, name, i) {
         return (
             <div className={"SoundElement" + divColor(i)}>
                 <p className="SoundText">{name}</p>
-                <p className="SoundValue">{signal.value * 10}</p>
+                <StateBar state={signal} maxBars={40} signalMax={10}/>
             </div>
         );
     }

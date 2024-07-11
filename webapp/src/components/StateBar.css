@@ -1,0 +1,29 @@
+.StateBar {
+    width: 50vw;
+}
+
+.StateBarDivContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.StateBarDiv {
+    height: 2.5vh;
+    width: 0.6vw;
+}
+
+.StateBarDivWhite {
+    background-color: var(--white);
+    box-shadow: 0 0 var(--bloom) var(--white);
+}
+
+.StateBarDivGray {
+    background-color: var(--grayDark);
+    box-shadow: 0 0 var(--bloom) var(--grayDark);
+}
+
+.StateBarDivYellow {
+    background-color: var(--yellow);
+    box-shadow: 0 0 var(--bloom) var(--yellow);
+}

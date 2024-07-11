@@ -1,7 +1,13 @@
+.ExitArrow {
+    justify-content: center;
+    display: flex;
+}
+
 .ExitArrowContainer {
     display: flex;
     align-items: center;
 }
+
 .ExitArrow {
     height: 10vh;
 }

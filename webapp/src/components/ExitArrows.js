@@ -36,7 +36,7 @@ function ExitArrows(props) {
     }, []);
 
     return (
-        <div className="ExitArrowContainer">
+        <div className="ExitArrow">
             {renderScreen}
         </div>
     );
