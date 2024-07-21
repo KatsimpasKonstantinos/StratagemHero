@@ -111,10 +111,10 @@ function SettingsView(props) {
         return <Difficulty keyPressed={keyPressed} blockNavigation={blockNavigation} key={settingsScreenString.value} />;
       case "SOUND":
         blockNavigation.value = true;
-        return <Sound keyPressed={keyPressed} blockNavigation={blockNavigation} key={settingsScreenString.value}/>;
+        return <Sound keyPressed={keyPressed} blockNavigation={blockNavigation} key={settingsScreenString.value} />;
       case "CONTROLS":
-        mac.reset(true);
-        return <Controls />;
+        blockNavigation.value = true;
+        return <Controls keyPressed={keyPressed} blockNavigation={blockNavigation} key={settingsScreenString.value} />;
       case "BLOOM":
         blockNavigation.value = true;
         return <Bloom keyPressed={keyPressed} blockNavigation={blockNavigation} key={settingsScreenString.value} />;
