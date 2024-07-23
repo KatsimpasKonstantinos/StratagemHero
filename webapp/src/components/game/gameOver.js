@@ -52,7 +52,7 @@ function GameOver(props) {
             <p className='GameOverHighscoreTitle'>HIGHSCORES</p>
             {highscores.slice(0, 3).map((highscore, index) => {
               return (
-                <p className='GameOverHighscore'>{(index + 1) + ". " + highscore.name + " | " + highscore.score}</p>
+                <p className='GameOverHighscore' key={index}>{(index + 1) + ". " + highscore.name + " | " + highscore.score}</p>
               );
             })}
             <br />

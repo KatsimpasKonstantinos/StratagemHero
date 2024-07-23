@@ -8,23 +8,22 @@ from evdev import uinput, ecodes as e
 gamepad = None
 while not gamepad:
     try:
-        gamepad = hid.Device(0x0810, 0xe501)
+        gamepad = hid.Device(0x0810, 0xE501)
         gamepad.nonblocking = True
-        print('connected.')
+        print("connected.")
     except hid.HIDException:
         time.sleep(0.5)
-        sys.stdout.write('.')
+        sys.stdout.write(".")
 
-capabilities = {
-    e.EV_KEY: [
-        e.KEY_W, e.KEY_A, e.KEY_S, e.KEY_D
-    ]
-}
+capabilities = {e.EV_KEY: [e.KEY_W, e.KEY_A, e.KEY_S, e.KEY_D]}
 
 last_report = None
 with uinput.UInput(capabilities) as ui:
     while True:
-        report = gamepad.read(64,timeout=10)
+        if gamepad is not None:
+            report = gamepad.read(64, timeout=10)
+        else:
+            report = None
         if not report or report == last_report:
             continue
         last_report = report

@@ -20,6 +20,8 @@ import("./media/stratagemsData.js").then((module) => {
     let img = new Image();
     img.src = url;
   }
+}).catch((error) => {
+  console.error("Error loading stratagemsData.js: " + error);
 });
 
 export const keyPressedUnfiltered = signal("");
