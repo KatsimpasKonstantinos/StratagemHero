@@ -15,3 +15,67 @@
     text-shadow: 0 0 var(--bloom) var(--white);
     margin: 0;
 }
+
+.ControlsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ControlsElement {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: var(--info);
+    margin: 0.5em 0;
+    white-space: pre;
+}
+
+.ControlsTextYellow {
+    color: var(--yellow);
+    text-shadow: 0 0 var(--bloom) var(--yellow);
+}
+
+.ControlsTextWhite {
+    color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
+}
+
+.ControlsTextGray {
+    color: var(--gray);
+    text-shadow: 0 0 var(--bloom) var(--gray);
+}
+
+.ControlsTextDarkGray {
+    color: var(--grayDark);
+    text-shadow: 0 0 var(--bloom) var(--grayDark);
+}
+
+.ControlsImage {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+
+.ControlsArrowYellow {
+    filter: invert(100%) sepia(100%) saturate(10000%);
+}
+
+.ControlsArrowGray {
+    filter: invert(1) brightness(0.4);
+}
+
+.ControlsArrowWhite {
+    filter: invert(1) brightness(0.7);
+}
+
+.ControlsArrowDarkGray {
+    filter: invert(1) brightness(0.2);
+}
+
+.ControlsPressAKey {
+    font-size: var(--info);
+    margin: 4.375em 0;
+}

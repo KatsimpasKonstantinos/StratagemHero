@@ -39,7 +39,7 @@ function Data(props) {
             if (keyPressed.peek() === "up") {
                 clearInterval(timoutID);
                 timeRunning.value = true;
-                index.value = -1;
+                index.value = 0;
             } else if (keyPressed.peek() === "down") {
                 index.value = index.peek() + 1;
                 if (index.peek() >= 3) {

@@ -9,16 +9,7 @@ import BrowserVersion from './components/BrowserVersion.js';
 
 import { soundMaster, soundKeyboard } from './components/settings/Sound.js';
 
-const keyMap = {
-  "ArrowUp": "up",
-  "ArrowDown": "down",
-  "ArrowRight": "right",
-  "ArrowLeft": "left",
-  "w": "up",
-  "s": "down",
-  "d": "right",
-  "a": "left"
-}
+import { keyMap } from './components/settings/Controls.js';
 
 let stratagemsData = [];
 import("./media/stratagemsData.js").then((module) => {
@@ -30,6 +21,8 @@ import("./media/stratagemsData.js").then((module) => {
     img.src = url;
   }
 });
+
+export const keyPressedUnfiltered = signal("");
 
 function App(props) {
   console.log("Rendering App");
@@ -48,48 +41,103 @@ function App(props) {
   }
 
   window.addEventListener('keydown', function (event) {
-    switch (keyMap[event.key]) {
-      case "up":
+    keyPressedUnfiltered.value = event.key;
+
+    switch (event.key) {
+      case "ArrowUp":
         if (keyBlockedUp) return;
         keyPressed.value = "up";
         keyBlockedUp = true;
         playKeySound();
-        break;
-      case "down":
+        return;
+      case "ArrowDown":
         if (keyBlockedDown) return;
         keyPressed.value = "down";
         keyBlockedDown = true;
         playKeySound();
-        break;
-      case "right":
+        return;
+      case "ArrowRight":
         if (keyBlockedRight) return;
         keyPressed.value = "right";
         keyBlockedRight = true;
         playKeySound();
-        break;
-      case "left":
+        return;
+      case "ArrowLeft":
         if (keyBlockedLeft) return;
         keyPressed.value = "left";
         keyBlockedLeft = true;
         playKeySound();
-        break;
+        return;
+    }
+
+    let entries = Object.entries(keyMap);
+    for (let i = 0; i < entries.length; i++) {
+      if (entries[i][1].value === event.key) {
+        switch (entries[i][0]) {
+          case "up":
+            if (keyBlockedUp) return;
+            keyPressed.value = "up";
+            keyBlockedUp = true;
+            break;
+          case "down":
+            if (keyBlockedDown) return;
+            keyPressed.value = "down";
+            keyBlockedDown = true;
+            break;
+          case "right":
+            if (keyBlockedRight) return;
+            keyPressed.value = "right";
+            keyBlockedRight = true;
+            break;
+          case "left":
+            if (keyBlockedLeft) return;
+            keyPressed.value = "left";
+            keyBlockedLeft = true;
+            break;
+        }
+        playKeySound();
+        return;
+      }
     }
   });
 
   window.addEventListener('keyup', function (event) {
-    switch (keyMap[event.key]) {
-      case "up":
+
+    switch (event.key) {
+      case "ArrowUp":
         keyBlockedUp = false;
-        break;
-      case "down":
+        return;
+      case "ArrowDown":
         keyBlockedDown = false;
-        break;
-      case "right":
+        return;
+      case "ArrowRight":
         keyBlockedRight = false;
-        break;
-      case "left":
+        return;
+      case "ArrowLeft":
         keyBlockedLeft = false;
-        break;
+        return;
+    }
+
+    let entries = Object.entries(keyMap);
+    for (let i = 0; i < entries.length; i++) {
+      if (entries[i][1].value === event.key) {
+        keyPressed.value = "";
+        switch (entries[i][0]) {
+          case "up":
+            keyBlockedUp = false;
+            break;
+          case "down":
+            keyBlockedDown = false;
+            break;
+          case "right":
+            keyBlockedRight = false;
+            break;
+          case "left":
+            keyBlockedLeft = false;
+            break;
+        }
+        return;
+      }
     }
   });
 
