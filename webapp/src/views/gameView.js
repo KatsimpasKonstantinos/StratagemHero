@@ -17,7 +17,7 @@ function GameView(props) {
     let stratagemsData = props.stratagemsData;
     const gameScreenString = signal("prepare");
     const round = signal(1);
-    const maxRounds = 1;
+    const maxRounds = 10;
     const score = signal(0);
     const won = signal(false);
     let startTime = 15000 - (difficulty.value * 1000);
