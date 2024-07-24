@@ -6,16 +6,23 @@ import { timeRunning, time } from "../TimeBar";
 import { useEffect } from "react";
 import { soundMaster, soundEffects, soundMusic } from '../settings/Sound.js';
 
+import { difficulty } from "../settings/Difficulty.js";
+
 function GamePlay(props) {
   console.log("Rendering GamePlay");
   let round = props.round;
+  let maxRounds = props.maxRounds;
   let score = props.score;
   let keyPressed = props.keyPressed;
-  let timeGetBack = 500;
+  let won = props.won;
+
   let startTime = props.startTime;
+  let timeGetBack = startTime / (5 + difficulty.peek());
+  console.log("Time get back: " + timeGetBack);
   let stratagemsData = props.stratagemsData;
   let gameScreenString = props.gameScreenString;
-  let stratagemsAmount = 7;
+  let stratagemsAmount = Math.round(3 + round.peek() * difficulty.peek() * 0.1);
+  console.log("Stratagems amount: " + stratagemsAmount);
   let stratagems = [];
 
   let backgroundMusic = new Audio(process.env.PUBLIC_URL + "/media/sounds/backgroundMusic.ogg");
@@ -47,7 +54,7 @@ function GamePlay(props) {
     if (currentStratagemIndexDelay.value !== currentStratagemIndex.value) {
       score.value = score.peek() + stratagems[currentStratagemIndex.value].code.length * 5;
       stratagemCompleteSound.play();
-      time.value = time.peek() + timeGetBack;
+      time.value = time.peek() + timeGetBack > startTime ? startTime : time.peek() + timeGetBack;
       timeRunning.value = false;
     }
     setTimeout(() => {
@@ -110,7 +117,13 @@ function GamePlay(props) {
       );
     } else {
       round.value++;
-      gameScreenString.value = "recap";
+      if (round.value > maxRounds) {
+        won.value = true;
+        gameScreenString.value = "success";
+      } else {
+        gameScreenString.value = "recap";
+
+      }
     }
   });
 
@@ -133,7 +146,7 @@ function GamePlay(props) {
       {renderStratagems}
       {renderScreen}
       <div className="TimeBarContainer">
-        <TimeBar startTime={startTime} someSignal={gameScreenString} failureValue={"over"} />
+        <TimeBar startTime={startTime} someSignal={gameScreenString} failureValue={"success"} />
       </div>
     </div>
   );

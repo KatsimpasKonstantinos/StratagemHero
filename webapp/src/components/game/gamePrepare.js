@@ -6,6 +6,7 @@ function GamePrepare(props) {
     console.log("Rendering GamePrepare");
     let round = props.round;
     let gameScreenString = props.gameScreenString;
+    let maxRounds = props.maxRounds;
 
     let prepareNextRoundSound = new Audio(process.env.PUBLIC_URL + "/media/sounds/prepareNextRound.ogg");
     prepareNextRoundSound.volume = (soundMaster.value / 10) * (soundEffects / 10);
@@ -26,7 +27,7 @@ function GamePrepare(props) {
         <div className="GamePrepare">
             <p className="GamePrepareTitle">GET READY</p>
             <p className="GamePrepareRoundTitle">Round</p>
-            <p className="GamePrepareRound">{round}</p>
+            <p className="GamePrepareRound">{round + "/" + maxRounds}</p>
         </div>
     );
 }

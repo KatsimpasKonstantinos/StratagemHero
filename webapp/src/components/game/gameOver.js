@@ -3,7 +3,6 @@ import './GameOver.css';
 import { computed, signal } from '@preact/signals-react';
 import NameHighscore from '../NameHighscore';
 import { name, nameDone } from '../NameHighscore';
-import { soundMaster, soundEffects } from '../settings/Sound.js';
 
 
 function GameOver(props) {
@@ -13,10 +12,6 @@ function GameOver(props) {
   let score = props.score;
   let keyPressed = props.keyPressed;
   nameDone.value = false;
-
-  let gameOverSound = new Audio(process.env.PUBLIC_URL + "/media/sounds/gameOver.ogg");
-  gameOverSound.volume = (soundMaster.value / 10) * (soundEffects / 10);
-  gameOverSound.play();
 
   function getHighscores() {
     let highscores = [];
@@ -37,7 +32,7 @@ function GameOver(props) {
     if (nameDone.value) {
       timoutID = setTimeout(() => {
         mainScreenString.value = "start";
-      }, 5000);
+      }, 3500);
       let highscores = getHighscores();
       let position = 0;
       for (let i = 0; i < highscores.length; i++) {
@@ -77,7 +72,6 @@ function GameOver(props) {
       console.log("Unmounting GameOver");
       round.value = 1;
       score.value = 0;
-      gameOverSound.pause();
       clearTimeout(timoutID);
     }
   }, []);

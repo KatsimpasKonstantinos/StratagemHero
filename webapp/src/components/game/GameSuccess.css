@@ -1,0 +1,58 @@
+.GameSuccess {
+    position: absolute;
+    top: 10vh;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.GameSuccessMainTitle {
+    font-size: var(--title);
+    color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
+    margin: 0;
+}
+
+.GameSuccessText {
+    font-size: var(--info);
+    color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
+    margin: 0;
+}
+
+.GameSuccessContainer {
+    position: absolute;
+    left: 10vw;
+    width: 75vw;
+    display: flex;
+    align-items: center;
+}
+
+.GameSuccessCompletion {
+    top: 35vh;
+}
+
+.GameSuccessDifficulty {
+    top: 50vh;
+}
+
+.GameSuccessTotalScore {
+    top: 65vh;
+}
+
+.GameSuccessTitle {
+    margin: 0;
+    font-size: var(--info);
+    color: var(--white);
+    text-shadow: 0 0 var(--bloom) var(--white);
+}
+
+.GameSuccessScore {
+    margin: 0;
+    font-size: var(--score);
+    color: var(--yellow);
+    text-shadow: 0 0 var(--bloom) var(--yellow);
+    margin-left: auto;
+}
