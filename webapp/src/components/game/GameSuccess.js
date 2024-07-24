@@ -38,7 +38,7 @@ function GameSuccess(props) {
                 setTimeout(() => {
                     score.value = totalScore.value;
                     gameScreenString.value = "over";
-                }, 2500);
+                }, 3000);
             }, 600);
         }, 700);
     }, 20);

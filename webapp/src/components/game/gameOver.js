@@ -34,7 +34,7 @@ function GameOver(props) {
         mainScreenString.value = "start";
       }, 3500);
       let highscores = getHighscores();
-      let position = 0;
+      let position = highscores.length - 1;
       for (let i = 0; i < highscores.length; i++) {
         if (score.value >= highscores[i].score) {
           position = i;
