@@ -1,4 +1,4 @@
-import { computed, effect, signal } from "@preact/signals-react";
+import { computed, signal } from "@preact/signals-react";
 import GamePrepare from "../components/game/GamePrepare.js";
 import GamePlay from "../components/game/GamePlay.js";
 import InvalidScreen from "../components/InvalidScreen.js";

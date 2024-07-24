@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import './GameOver.css';
-import { computed, signal } from '@preact/signals-react';
+import { computed } from '@preact/signals-react';
 import NameHighscore from '../NameHighscore';
 import { name, nameDone } from '../NameHighscore';
 

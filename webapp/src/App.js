@@ -1,11 +1,10 @@
-import { computed, effect, signal } from '@preact/signals-react';
+import { computed, signal } from '@preact/signals-react';
 import './App.css';
 import GameView from "./views/GameView.js";
 import StartView from './views/StartView.js';
 import InvalidScreen from './components/InvalidScreen.js';
 import { useEffect } from 'react';
 import SettingsView from './views/SettingsView.js';
-import BrowserVersion from './components/BrowserVersion.js';
 
 import { soundMaster, soundKeyboard } from './components/settings/Sound.js';
 
@@ -70,6 +69,8 @@ function App(props) {
         keyBlockedLeft = true;
         playKeySound();
         return;
+      default:
+        break;
     }
 
     let entries = Object.entries(keyMap);
@@ -96,6 +97,8 @@ function App(props) {
             keyPressed.value = "left";
             keyBlockedLeft = true;
             break;
+          default:
+            return;
         }
         playKeySound();
         return;
@@ -118,6 +121,8 @@ function App(props) {
       case "ArrowLeft":
         keyBlockedLeft = false;
         return;
+      default:
+        break;
     }
 
     let entries = Object.entries(keyMap);
@@ -137,6 +142,8 @@ function App(props) {
           case "left":
             keyBlockedLeft = false;
             break;
+          default:
+            return;
         }
         return;
       }
@@ -148,7 +155,6 @@ function App(props) {
     switch (mainScreenString.value.split(" ")[0]) {
       case "start":
         return <StartView mainScreenString={mainScreenString} keyPressed={keyPressed} />;
-      //return <BrowserVersion />;
       case "game":
         return <GameView mainScreenString={mainScreenString} keyPressed={keyPressed} stratagemsData={stratagemsData} />;
       case "settings":
