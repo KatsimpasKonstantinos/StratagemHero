@@ -36,14 +36,14 @@ function GameRecap(props) {
                         console.log("Round: " + round.value);
                         console.log("Max rounds: " + maxRounds);
                         console.log("Won: " + won.value);
+                        perfect.value = true;
+                        score.value = totalScore.value;
                         if (round.value > maxRounds) {
                             won.value = true;
                             gameScreenString.value = "success";
                         } else {
                             gameScreenString.value = "prepare";
                         }
-                        perfect.value = true;
-                        score.value = totalScore.value;
                     }, 2000);
                 }, 500);
             }, 500);

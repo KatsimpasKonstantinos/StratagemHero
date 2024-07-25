@@ -1,6 +1,7 @@
 # TODO List
 
 - [ ] Add bloom to svg's (probably not possible)
+- [ ] Add controller support (build in controller api?)
 - [ ] add tooltip for settings
 - [ ] Save Settings locally
 - [ ] Better Highscores

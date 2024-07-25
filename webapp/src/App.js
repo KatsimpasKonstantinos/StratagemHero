@@ -172,10 +172,14 @@ function App(props) {
 
   return (
     <div className="App">
+
       <div className="BackgroundImage" />
+
       <div className="whiteLine top"></div>
       {screen}
       <div className="whiteLine bottom"></div>
+      <div className='crt'></div>
+
 
     </div>
   );
