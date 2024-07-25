@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/StratagemHero/static/css/main.31281960.css",
-    "main.js": "/StratagemHero/static/js/main.267ca21a.js",
-    "static/js/218.6feb6d25.chunk.js": "/StratagemHero/static/js/218.6feb6d25.chunk.js",
-    "static/media/superEarth.png": "/StratagemHero/static/media/superEarth.da320c9f619306f5b961.png",
-    "static/media/FS Sinclair Medium.otf": "/StratagemHero/static/media/FS Sinclair Medium.b3b6bfb7b2b91e3a9828.otf",
-    "index.html": "/StratagemHero/index.html",
-    "static/media/res.svg": "/StratagemHero/static/media/res.d1d87a01e44a1f3f931b.svg",
-    "static/media/resHover.svg": "/StratagemHero/static/media/resHover.e0cee2cd68d9c0484468.svg",
-    "main.31281960.css.map": "/StratagemHero/static/css/main.31281960.css.map",
-    "main.267ca21a.js.map": "/StratagemHero/static/js/main.267ca21a.js.map",
-    "218.6feb6d25.chunk.js.map": "/StratagemHero/static/js/218.6feb6d25.chunk.js.map"
+    "main.css": "/static/css/main.bec9484b.css",
+    "main.js": "/static/js/main.1fede422.js",
+    "static/js/218.6feb6d25.chunk.js": "/static/js/218.6feb6d25.chunk.js",
+    "static/media/superEarth.png": "/static/media/superEarth.da320c9f619306f5b961.png",
+    "static/media/FS Sinclair Medium.otf": "/static/media/FS Sinclair Medium.b3b6bfb7b2b91e3a9828.otf",
+    "index.html": "/index.html",
+    "static/media/res.svg": "/static/media/res.d1d87a01e44a1f3f931b.svg",
+    "static/media/resHover.svg": "/static/media/resHover.e0cee2cd68d9c0484468.svg",
+    "main.bec9484b.css.map": "/static/css/main.bec9484b.css.map",
+    "main.1fede422.js.map": "/static/js/main.1fede422.js.map",
+    "218.6feb6d25.chunk.js.map": "/static/js/218.6feb6d25.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.31281960.css",
-    "static/js/main.267ca21a.js"
+    "static/css/main.bec9484b.css",
+    "static/js/main.1fede422.js"
   ]
 }
