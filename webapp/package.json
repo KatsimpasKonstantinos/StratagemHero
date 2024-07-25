@@ -1,4 +1,5 @@
 {
+  "homepage": "https://katsimpaskonstantinos.github.io/StratagemHero/",
   "name": "webapp",
   "version": "0.1.0",
   "private": true,
@@ -18,7 +19,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "build": "react-scripts build",
-    "build-cloudflare": "CI=false node cloudflareBuild.js && react-scripts build",
+    "build-cloudflare": "node cloudflareBuild.js && CI=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
