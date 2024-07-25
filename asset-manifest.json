@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/StratagemHero/static/css/main.122f1c1d.css",
+    "main.css": "/StratagemHero/static/css/main.fb748769.css",
     "main.js": "/StratagemHero/static/js/main.4472b2d7.js",
     "static/js/218.6feb6d25.chunk.js": "/StratagemHero/static/js/218.6feb6d25.chunk.js",
     "static/media/superEarth.png": "/StratagemHero/static/media/superEarth.da320c9f619306f5b961.png",
@@ -8,12 +8,12 @@
     "index.html": "/StratagemHero/index.html",
     "static/media/res.svg": "/StratagemHero/static/media/res.d1d87a01e44a1f3f931b.svg",
     "static/media/resHover.svg": "/StratagemHero/static/media/resHover.e0cee2cd68d9c0484468.svg",
-    "main.122f1c1d.css.map": "/StratagemHero/static/css/main.122f1c1d.css.map",
+    "main.fb748769.css.map": "/StratagemHero/static/css/main.fb748769.css.map",
     "main.4472b2d7.js.map": "/StratagemHero/static/js/main.4472b2d7.js.map",
     "218.6feb6d25.chunk.js.map": "/StratagemHero/static/js/218.6feb6d25.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.122f1c1d.css",
+    "static/css/main.fb748769.css",
     "static/js/main.4472b2d7.js"
   ]
 }
