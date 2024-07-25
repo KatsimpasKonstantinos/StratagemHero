@@ -99,9 +99,9 @@ function Data(props) {
         let textColor = index.value < 0 ? " DataTextDarkGray" : " DataTextWhite";
         return (
             <div className="Data">
-                <div className="DataTitle">DELETE LOCAL DATA</div>
+                <div className="DataTitle">DELETE DATA</div>
                 <div className={"DataText" + textColor}>There are currently <span className="DataTextYellow">{renderHighscoresNumber}</span> highscores saved</div>
-                <div className={"DataText" + textColor}>Spam UP untill the progress reaches zero to delete all locally saved highscores</div>
+                <div className={"DataText" + textColor}>Spam UP to delete all locally saved highscores</div>
                 <ExitArrows index={index} startIndex={0} />
             </div>
         );

@@ -81,11 +81,11 @@
 .StratagemName {
     margin: 0;
     padding: 0;
-    line-height: 1em;
+    line-height: 6vh;
     color: var(--background);
     margin-block-start: 0em;
     margin-block-end: 0em;
-    font-size: 3.3em;
+    font-size: 6vh;
     z-index: -2;
 }
 
@@ -111,7 +111,7 @@
 }
 
 .Stratagem {
-    width: 7vw;
+    height: 15vh;
     padding: 1vw;
     display: inline-block;
     justify-content: center;
