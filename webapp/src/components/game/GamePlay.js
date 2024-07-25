@@ -117,13 +117,7 @@ function GamePlay(props) {
       );
     } else {
       round.value++;
-      if (round.value > maxRounds) {
-        won.value = true;
-        gameScreenString.value = "success";
-      } else {
-        gameScreenString.value = "recap";
-
-      }
+      gameScreenString.value = "recap";
     }
   });
 

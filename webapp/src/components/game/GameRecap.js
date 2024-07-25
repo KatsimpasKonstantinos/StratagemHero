@@ -11,6 +11,8 @@ function GameRecap(props) {
     let score = props.score;
     let round = props.round;
     let startTime = props.startTime;
+    let maxRounds = props.maxRounds;
+    let won = props.won;
 
     let roundCompleteSoundURL = process.env.PUBLIC_URL + "/media/sounds/roundComplete" + Math.ceil(Math.random() * 4).toString() + ".mp3";
     let roundCompleteSound = new Audio(roundCompleteSoundURL);
@@ -31,7 +33,15 @@ function GameRecap(props) {
                 setTimeout(() => {
                     totalScore.value = score.value + roundScore.value + timeScore.value + perfectScore.value;
                     setTimeout(() => {
-                        gameScreenString.value = "prepare";
+                        console.log("Round: " + round.value);
+                        console.log("Max rounds: " + maxRounds);
+                        console.log("Won: " + won.value);
+                        if (round.value > maxRounds) {
+                            won.value = true;
+                            gameScreenString.value = "success";
+                        } else {
+                            gameScreenString.value = "prepare";
+                        }
                         perfect.value = true;
                         score.value = totalScore.value;
                     }, 2000);

@@ -17,7 +17,7 @@ function GameView(props) {
     let stratagemsData = props.stratagemsData;
     const gameScreenString = signal("prepare");
     const round = signal(1);
-    const maxRounds = 10;
+    const maxRounds = 1;
     const score = signal(0);
     const won = signal(false);
     let startTime = 15000 - (difficulty.value * 1000);
@@ -28,9 +28,9 @@ function GameView(props) {
             case "prepare":
                 return <GamePrepare round={round} maxRounds={maxRounds} gameScreenString={gameScreenString} key={gameScreenString.value + " " + Math.random()} />
             case "play":
-                return <GamePlay round={round} maxRounds={maxRounds} score={score} keyPressed={keyPressed} won={won} startTime={startTime} stratagemsData={stratagemsData} gameScreenString={gameScreenString} />
+                return <GamePlay round={round} maxRounds={maxRounds} score={score} keyPressed={keyPressed} startTime={startTime} stratagemsData={stratagemsData} gameScreenString={gameScreenString} />
             case "recap":
-                return <GameRecap round={round} maxRounds={maxRounds} score={score} startTime={startTime} gameScreenString={gameScreenString} key={gameScreenString.value + " " + Math.random()} />
+                return <GameRecap round={round} maxRounds={maxRounds} score={score} startTime={startTime} gameScreenString={gameScreenString} key={gameScreenString.value + " " + Math.random()} won={won} />
             case "success":
                 return <GameSuccess round={round} maxRounds={maxRounds} score={score} keyPressed={keyPressed} gameScreenString={gameScreenString} won={won} />
             case "over":
