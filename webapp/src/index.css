@@ -9,11 +9,11 @@
   --grayDark: #3f3f3f;
   --background: #252627;
 
-  --title: 20vh;
-  --subtitle: 12vh;
-  --score: 12vh;
-  --info: 6vh;
-  --tiny: 4vh;
+  --title: 15vh;
+  --subtitle: 9vh;
+  --score: 9vh;
+  --info: 4.5vh;
+  --tiny: 3vh;
 
   --bloom: 8px;
   --bloomBox: 0.4em;
