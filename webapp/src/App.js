@@ -5,6 +5,7 @@ import StartView from './views/StartView.js';
 import InvalidScreen from './components/InvalidScreen.js';
 import { useEffect } from 'react';
 import SettingsView from './views/SettingsView.js';
+import GamePad from './components/GamePad.js';
 
 import { soundMaster, soundKeyboard } from './components/settings/Sound.js';
 
@@ -30,10 +31,10 @@ function App(props) {
   const mainScreenString = signal("start");
   let keyPressed = signal("");
 
-  let keyBlockedUp = false;
-  let keyBlockedDown = false;
-  let keyBlockedRight = false;
-  let keyBlockedLeft = false;
+  let keyBlockedUp = signal(false);
+  let keyBlockedDown = signal(false);
+  let keyBlockedRight = signal(false);
+  let keyBlockedLeft = signal(false);
 
   function playKeySound() {
     let audio = new Audio(process.env.PUBLIC_URL + "/media/sounds/keyInput.ogg");
@@ -46,27 +47,27 @@ function App(props) {
 
     switch (event.key) {
       case "ArrowUp":
-        if (keyBlockedUp) return;
+        if (keyBlockedUp.value) return;
         keyPressed.value = "up";
-        keyBlockedUp = true;
+        keyBlockedUp.value = true;
         playKeySound();
         return;
       case "ArrowDown":
-        if (keyBlockedDown) return;
+        if (keyBlockedDown.value) return;
         keyPressed.value = "down";
-        keyBlockedDown = true;
+        keyBlockedDown.value = true;
         playKeySound();
         return;
       case "ArrowRight":
-        if (keyBlockedRight) return;
+        if (keyBlockedRight.value) return;
         keyPressed.value = "right";
-        keyBlockedRight = true;
+        keyBlockedRight.value = true;
         playKeySound();
         return;
       case "ArrowLeft":
-        if (keyBlockedLeft) return;
+        if (keyBlockedLeft.value) return;
         keyPressed.value = "left";
-        keyBlockedLeft = true;
+        keyBlockedLeft.value = true;
         playKeySound();
         return;
       default:
@@ -78,24 +79,24 @@ function App(props) {
       if (entries[i][1].value === event.key) {
         switch (entries[i][0]) {
           case "up":
-            if (keyBlockedUp) return;
+            if (keyBlockedUp.value) return;
             keyPressed.value = "up";
-            keyBlockedUp = true;
+            keyBlockedUp.value = true;
             break;
           case "down":
-            if (keyBlockedDown) return;
+            if (keyBlockedDown.value) return;
             keyPressed.value = "down";
-            keyBlockedDown = true;
+            keyBlockedDown.value = true;
             break;
           case "right":
-            if (keyBlockedRight) return;
+            if (keyBlockedRight.value) return;
             keyPressed.value = "right";
-            keyBlockedRight = true;
+            keyBlockedRight.value = true;
             break;
           case "left":
-            if (keyBlockedLeft) return;
+            if (keyBlockedLeft.value) return;
             keyPressed.value = "left";
-            keyBlockedLeft = true;
+            keyBlockedLeft.value = true;
             break;
           default:
             return;
@@ -110,16 +111,16 @@ function App(props) {
 
     switch (event.key) {
       case "ArrowUp":
-        keyBlockedUp = false;
+        keyBlockedUp.value = false;
         return;
       case "ArrowDown":
-        keyBlockedDown = false;
+        keyBlockedDown.value = false;
         return;
       case "ArrowRight":
-        keyBlockedRight = false;
+        keyBlockedRight.value = false;
         return;
       case "ArrowLeft":
-        keyBlockedLeft = false;
+        keyBlockedLeft.value = false;
         return;
       default:
         break;
@@ -131,16 +132,16 @@ function App(props) {
         keyPressed.value = "";
         switch (entries[i][0]) {
           case "up":
-            keyBlockedUp = false;
+            keyBlockedUp.value = false;
             break;
           case "down":
-            keyBlockedDown = false;
+            keyBlockedDown.value = false;
             break;
           case "right":
-            keyBlockedRight = false;
+            keyBlockedRight.value = false;
             break;
           case "left":
-            keyBlockedLeft = false;
+            keyBlockedLeft.value = false;
             break;
           default:
             return;
@@ -172,7 +173,7 @@ function App(props) {
 
   return (
     <div className="App">
-
+      <GamePad keyPressed={keyPressed} keyPressedUnfiltered={keyPressedUnfiltered} keyBlockedDown={keyBlockedDown} keyBlockedLeft={keyBlockedLeft} keyBlockedRight={keyBlockedRight} keyBlockedUp={keyBlockedUp} />
       <div className="BackgroundImage" />
 
       <div className="whiteLine top"></div>
