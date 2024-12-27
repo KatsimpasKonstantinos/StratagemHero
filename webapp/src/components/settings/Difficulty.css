@@ -35,6 +35,7 @@
     font-size: var(--score);
     color: var(--white);
     text-shadow: 0 0 var(--bloom) var(--white);
+    transition: font-size var(--transition-font-size);
 }
 
 .DifficultyDivYellow {
