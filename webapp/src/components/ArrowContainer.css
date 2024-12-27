@@ -12,7 +12,8 @@
 }
 
 .ArrowContainerYellow {
-  filter: invert(100%) sepia(100%) saturate(10000%);
+  filter: brightness(0) saturate(100%) invert(44%) sepia(59%) saturate(1789%) hue-rotate(325deg) brightness(101%) contrast(116%);
+
 }
 
 .ArrowContainerRed {
