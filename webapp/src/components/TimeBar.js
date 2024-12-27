@@ -28,7 +28,7 @@ function TimeBar(props) {
             intervalId = setInterval(() => {
                 time.value = time.peek() - intervalTime;
                 if (time.peek() <= startTime / 3) {
-                    document.documentElement.style.setProperty('--mainColor', 'red');
+                    document.documentElement.style.setProperty('--mainColor', '#FF5053');
                 }
                 if (time.peek() <= 0) {
                     timeRunning.value = false;
@@ -45,7 +45,7 @@ function TimeBar(props) {
     useEffect(() => {
         return () => {
             console.log("Unmounting TimeBar");
-            document.documentElement.style.setProperty('--mainColor', 'yellow');
+            document.documentElement.style.setProperty('--mainColor', '#6A5FDB');
             clearInterval(intervalId);
             dispose();
         }
