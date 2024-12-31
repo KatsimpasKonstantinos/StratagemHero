@@ -1,13 +1,13 @@
 :root {
-  --yellow: #6A5FDB;
-  --mainColor: #FF5053;
-  --red: #FF5053;
-  --white: #FEF2FF;
-  --green: #B2AAFF;
-  --blue: #6A5FDB;
-  --gray: #261A66;
-  --grayDark: #29114C;
-  --background: #0F000A;
+  --yellow: yellow;
+  --mainColor: yellow;
+  --red: red;
+  --white: white;
+  --green: #679552;
+  --blue: #49adc9;
+  --gray: #7f7f7f;
+  --grayDark: #3f3f3f;
+  --background: #252627;
 
   --title: 15vh;
   --subtitle: 9vh;
