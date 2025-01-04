@@ -5,37 +5,55 @@ import ExitArrows from "../ExitArrows";
 
 export let difficulty = signal(5);
 
+
+
 let difficultyDescription = [
     {
+        "level": 1,
         "name": "Trivial",
         "description": "Play this if you are a bug."
     }, {
+        "level": 2,
         "name": "Easy",
         "description": "Play this if you are over 80"
     }, {
+        "level": 3,
         "name": "Medium",
         "description": "For beginners."
     }, {
+        "level": 4,
         "name": "Challenging",
         "description": "More challenging."
     }, {
+        "level": 5,
         "name": "Hard",
         "description": "Standard difficulty."
     }, {
+        "level": 6,
         "name": "Extreme",
         "description": "Fast reflexes"
     }, {
+        "level": 7,
         "name": "Suicide Mission",
         "description": "Fast reflexes and fingers",
     }, {
+
+        "level": 8,
         "name": "Impossible",
         "description": "Play this if you are a bot"
     }, {
+        "level": 9,
         "name": "Helldive",
         "description": "God is dead"
+    },
+    {
+        "level": 10,
+        "name": "Super Helldive",
+        "description": "All for the super earth"
     }
 ]
 
+const MAX_DIFFICULTY = difficultyDescription.length;
 
 function Difficulty(props) {
     console.log("Rendering Difficulty");
@@ -51,7 +69,7 @@ function Difficulty(props) {
                     index.value = 1;
                 } else if (keyPressed.value === "right") {
                     difficulty.value = difficulty.peek() + 1;
-                    if (difficulty.peek() > 9) difficulty.value = 9;
+                    if (difficulty.peek() > MAX_DIFFICULTY) difficulty.value = MAX_DIFFICULTY;
                 } else if (keyPressed.value === "left") {
                     difficulty.value = difficulty.peek() - 1;
                     if (difficulty.peek() < 1) difficulty.value = 1;
@@ -111,6 +129,7 @@ function Difficulty(props) {
                     <div className={"DifficultyDiv" + divColor(7)}>7</div>
                     <div className={"DifficultyDiv" + divColor(8)}>8</div>
                     <div className={"DifficultyDiv" + divColor(9)}>9</div>
+                    <div className={"DifficultyDiv" + divColor(10)}>10</div>
                 </div>
                 <ExitArrows index={index} startIndex={1} />
             </div>
