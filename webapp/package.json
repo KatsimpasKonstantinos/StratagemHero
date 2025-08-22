@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "@preact/signals-react": "^2.3.0",
-    "@testing-library/jest-dom": "^6.0.0",
+    "@testing-library/jest-dom": "^6.6.4",
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.0.0",
     "gh-pages": "^6.3.0",
