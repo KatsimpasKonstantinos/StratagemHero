@@ -1,14 +1,18 @@
-import { computed, effect, signal } from "@preact/signals-react";
+import { computed, effect, signal, type Signal } from "@preact/signals-react";
 import "./Data.css"
 import { useEffect } from "react";
 import TimeBar from "../TimeBar";
-import { soundMaster, soundEffects } from "./Sound";
+import { soundMaster, soundEffects } from "./Sound.tsx";
 
 import { timeRunning, time } from "../TimeBar";
 import ExitArrows from "../ExitArrows";
 const startTime = 5000;
 
-function Data(props) {
+interface DataProps {
+    keyPressed: Signal<string>;
+    blockNavigation: Signal<boolean>;
+}
+function Data(props: DataProps) {
     console.log("Rendering Data");
     let keyPressed = props.keyPressed;
     let blockNavigation = props.blockNavigation;
@@ -24,20 +28,22 @@ function Data(props) {
         scoresChanged.value = true;
     }
 
-    let audio = new Audio(process.env.PUBLIC_URL + "/media/sounds/delete.ogg");
-    audio.volume = (soundMaster.value / 10) * (soundEffects / 10);
+    let audio = new Audio("/media/sounds/delete.ogg");
+    audio.volume = (soundMaster.value / 10) * (soundEffects.value / 10);
     timeRunning.value = false;
 
     setTimeout(() => {
         timeRunning.value = false;
     }, 10);
 
-    let timoutID;
+    let timeoutID: number | undefined;
 
     let dispose = effect(() => {
         if (keyPressed.value !== "") {
             if (keyPressed.peek() === "up") {
-                clearInterval(timoutID);
+                if (timeoutID !== undefined) {
+                    clearTimeout(timeoutID);
+                }
                 timeRunning.value = true;
                 index.value = 0;
             } else if (keyPressed.peek() === "down") {
@@ -52,7 +58,7 @@ function Data(props) {
             }
             keyPressed.value = "";
         } else {
-            timoutID = setTimeout(() => {
+            timeoutID = window.setTimeout(() => {
                 timeRunning.value = false;
             }, 200);
         }
@@ -60,8 +66,8 @@ function Data(props) {
 
     let dispose2 = effect(() => {
         if (time.value <= 4000 && time.value > 3980) {
-            let charge = new Audio(process.env.PUBLIC_URL + "/media/sounds/charge.ogg");
-            setTimeout(() => { charge.volume = (soundMaster.value / 10) * (soundEffects / 10) }, 0); // Delay to make sure the volume is set (hacky js fix)
+            let charge = new Audio("/media/sounds/charge.ogg");
+            setTimeout(() => { charge.volume = (soundMaster.value / 10) * (soundEffects.value / 10) }, 0); // Delay to make sure the volume is set (hacky js fix)
             charge.play();
         }
         if (timeOver.value) {
@@ -75,17 +81,6 @@ function Data(props) {
         }
     });
 
-
-
-    function arrowColor(i) {
-        if (index.value < 0) {
-            return " DataArrowDarkGray";
-        } else if (index.value >= i) {
-            return " DataArrowYellow";
-        } else {
-            return " DataArrowGray";
-        }
-    }
 
     let renderHighscoresNumber = computed(() => {
         if (scoresChanged.value) {
@@ -102,7 +97,7 @@ function Data(props) {
                 <div className="DataTitle">DELETE DATA</div>
                 <div className={"DataText" + textColor}>There are currently <span className="DataTextYellow">{renderHighscoresNumber}</span> highscores saved</div>
                 <div className={"DataText" + textColor}>Spam UP to delete all locally saved highscores</div>
-                <ExitArrows index={index} startIndex={0} />
+                <ExitArrows index={index.value} startIndex={0} />
             </div>
         );
     });

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import "./Controls.css"
-import { computed, effect, signal } from "@preact/signals-react";
+import { computed, effect, signal, type Signal } from "@preact/signals-react";
 import ExitArrows from "../ExitArrows";
 
 import { keyPressedUnfiltered } from "../../App";
@@ -12,14 +12,13 @@ export const keyMap = {
     "right": signal("d")
 }
 
-const keyMapStandard = {
-    "up": "w",
-    "left": "a",
-    "down": "s",
-    "right": "d"
+
+interface ControlsProps {
+    keyPressed: Signal<string>;
+    blockNavigation: Signal<boolean>;
 }
 
-function Controls(props) {
+function Controls(props: ControlsProps) {
     console.log("Rendering Controls");
 
     let keyPressed = props.keyPressed;
@@ -49,7 +48,7 @@ function Controls(props) {
 
     let dispose2 = effect(() => {
         if (waitingForInput.value && keyPressedUnfiltered.value !== "") {
-            const entries = Object.entries(keyMap);
+            const entries = Object.entries(keyMap) as [keyof typeof keyMap, Signal<string>][];
             let flagDuplicate = false;
             for (let i = 0; i < entries.length; i++) {
                 if (entries[i][1].value === keyPressedUnfiltered.value) {
@@ -63,12 +62,15 @@ function Controls(props) {
                 keyPressedUnfiltered.value === "ArrowLeft") {
                 flagArrowKey = true;
             }
-            if (!flagDuplicate && !flagArrowKey) keyMap[entries[index.value][0]].value = keyPressedUnfiltered.value;
+            if (!flagDuplicate && !flagArrowKey) {
+                const entryKey = entries[index.value][0];
+                keyMap[entryKey].value = keyPressedUnfiltered.value;
+            }
             setTimeout(() => { waitingForInput.value = false }, 1);
         }
     });
 
-    function textControlsColor(i, direction) {
+    function textControlsColor(i: number, direction: boolean) {
         if (direction) {
             if (!blockNavigation.value) {
                 return " ControlsTextDarkGray";
@@ -88,7 +90,7 @@ function Controls(props) {
         }
     }
 
-    function arrowControlsColor(i) {
+    function arrowControlsColor(i: number) {
         if (index.value == i || !blockNavigation.value) {
             return " ControlsArrowYellow";
         } else if (index.value < 4) {
@@ -104,15 +106,13 @@ function Controls(props) {
                 <p className="ControlsPressAKey ControlsTextWhite">Press a key</p>
             );
         } else {
-            let elements = [];
+            let elements:any = [];
             Object.entries(keyMap).forEach(([key, value], index) => {
                 elements.push(
-                    <>
-                        <p className={"ControlsElement" + textControlsColor(index, true)} key={key}>
-                            <img className={"ControlsImage" + arrowControlsColor(index)} src={process.env.PUBLIC_URL + "/media/arrows/arrow" + key + ".svg"}></img>
-                            {"  " + key + "   "}<span className={textControlsColor(index, false)}>{value + " "}</span>
-                        </p>
-                    </>
+                    <p className={"ControlsElement" + textControlsColor(index, true)} key={key}>
+                        <img className={"ControlsImage" + arrowControlsColor(index)} src={"/media/arrows/arrow" + key + ".svg"}></img>
+                        {"  " + key + "   "}<span className={textControlsColor(index, false)}>{value + " "}</span>
+                    </p>
                 );
             });
             return elements;
@@ -134,7 +134,7 @@ function Controls(props) {
             <div className="ControlsContainer">
                 {renderScreen}
             </div>
-            <ExitArrows index={index} startIndex={4} />
+            <ExitArrows index={index.value} startIndex={4} />
         </div>
     );
 }

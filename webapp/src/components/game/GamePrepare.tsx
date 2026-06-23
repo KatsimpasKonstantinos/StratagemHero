@@ -2,14 +2,22 @@ import { useEffect } from "react";
 import "./GamePrepare.css";
 import { soundEffects, soundMaster } from "../settings/Sound";
 
-function GamePrepare(props) {
+interface GamePrepareProps {
+    round: number;
+    maxRounds: number;
+    gameScreenString: {
+        value: string;
+    };
+}
+
+function GamePrepare(props: GamePrepareProps) {
     console.log("Rendering GamePrepare");
     let round = props.round;
     let gameScreenString = props.gameScreenString;
     let maxRounds = props.maxRounds;
 
-    let prepareNextRoundSound = new Audio(process.env.PUBLIC_URL + "/media/sounds/prepareNextRound.ogg");
-    prepareNextRoundSound.volume = (soundMaster.value / 10) * (soundEffects / 10);
+    let prepareNextRoundSound = new Audio("/media/sounds/prepareNextRound.ogg");
+    prepareNextRoundSound.volume = (soundMaster.value / 10) * (soundEffects.value / 10);
     prepareNextRoundSound.play();
 
     setTimeout(() => {

@@ -6,7 +6,12 @@ import "./NameHighscore.css";
 export const name = signal(["A", "A", "A"]);
 export const nameDone = signal(false);
 
-function NameHighscore(props) {
+interface NameHighscoreProps {
+  keyPressed: any;
+  score: any;
+}
+
+function NameHighscore(props: NameHighscoreProps) {
     console.log("Rendering NameHighscore");
     let keyPressed = props.keyPressed;
     let charIndex = signal(0);
@@ -41,7 +46,7 @@ function NameHighscore(props) {
     });
 
 
-    function charColor(i) {
+    function charColor(i: number) {
         if (i === charIndex.value) {
             return "selected";
         } if (i < charIndex.value) {

@@ -1,22 +1,22 @@
 import { computed, signal } from '@preact/signals-react';
 import './App.css';
-import GameView from "./views/GameView.js";
-import StartView from './views/StartView.js';
-import InvalidScreen from './components/InvalidScreen.js';
+import GameView from "./views/GameView.tsx";
+import StartView from './views/StartView.tsx';
+import InvalidScreen from './components/InvalidScreen.tsx';
 import { useEffect } from 'react';
-import SettingsView from './views/SettingsView.js';
-import GamePad from './components/GamePad.js';
+import SettingsView from './views/SettingsView.tsx';
+import GamePad from './components/GamePad.tsx';
 
-import { soundMaster, soundKeyboard } from './components/settings/Sound.js';
+import { soundMaster, soundKeyboard } from './components/settings/Sound.tsx';
 
-import { keyMap } from './components/settings/Controls.js';
+import { keyMap } from './components/settings/Controls.tsx';
 
 let stratagemsData = [];
 import("./media/stratagemsData.js").then((module) => {
   stratagemsData = module.default;
   // Preload stratagem images
   for (let stratagem of stratagemsData) {
-    let url = process.env.PUBLIC_URL + "/media/stratagems/" + stratagem.name + ".svg"
+    let url = "/media/stratagems/" + stratagem.name + ".svg"
     let img = new Image();
     img.src = url;
   }
@@ -37,8 +37,8 @@ function App(props) {
   let keyBlockedLeft = signal(false);
 
   function playKeySound() {
-    let audio = new Audio(process.env.PUBLIC_URL + "/media/sounds/keyInput.ogg");
-    setTimeout(() => { audio.volume = (soundMaster.value / 10) * (soundKeyboard / 10) }, 0); // Delay to make sure the volume is set (hacky js fix)
+    let audio = new Audio("/media/sounds/keyInput.ogg");
+    setTimeout(() => { audio.volume = (soundMaster.value / 10) * (soundKeyboard.value / 10) }, 0); // Delay to make sure the volume is set (hacky js fix)
     audio.play();
   }
 

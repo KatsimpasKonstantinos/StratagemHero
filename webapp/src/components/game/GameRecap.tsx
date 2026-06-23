@@ -1,11 +1,20 @@
-import { computed, effect, signal } from "@preact/signals-react";
+import { computed, signal, type Signal } from "@preact/signals-react";
 import { perfect } from "../ArrowContainer.js";
 import "./GameRecap.css";
 import { useEffect } from "react";
 import { time } from "../TimeBar.js";
 import { soundMaster, soundEffects } from "../settings/Sound.js";
 
-function GameRecap(props) {
+interface GameRecapProps {
+    gameScreenString: Signal<string>;
+    score: Signal<number>;
+    round: Signal<number>;
+    startTime: number;
+    maxRounds: number;
+    won: Signal<boolean>;
+}
+
+function GameRecap(props: GameRecapProps) {
     console.log("Rendering GameRecap");
     let gameScreenString = props.gameScreenString;
     let score = props.score;
@@ -14,15 +23,15 @@ function GameRecap(props) {
     let maxRounds = props.maxRounds;
     let won = props.won;
 
-    let roundCompleteSoundURL = process.env.PUBLIC_URL + "/media/sounds/roundComplete" + Math.ceil(Math.random() * 4).toString() + ".mp3";
+    let roundCompleteSoundURL = "/media/sounds/roundComplete" + Math.ceil(Math.random() * 4).toString() + ".mp3";
     let roundCompleteSound = new Audio(roundCompleteSoundURL);
-    roundCompleteSound.volume = (soundMaster.value / 10) * (soundEffects / 10);
+    roundCompleteSound.volume = (soundMaster.value / 10) * (soundEffects.value / 10);
     roundCompleteSound.play();
 
-    let roundScore = signal(null);
-    let timeScore = signal(null);
-    let perfectScore = signal(null);
-    let totalScore = signal(null);
+    let roundScore = signal<number | null>(null);
+    let timeScore = signal<number | null>(null);
+    let perfectScore = signal<number | null>(null);
+    let totalScore = signal<number | null>(null);
 
     setTimeout(() => {
         roundScore.value = round.value * 25;
@@ -31,13 +40,13 @@ function GameRecap(props) {
             setTimeout(() => {
                 perfectScore.value = perfect.value ? 100 : 0;
                 setTimeout(() => {
-                    totalScore.value = score.value + roundScore.value + timeScore.value + perfectScore.value;
+                    totalScore.value = score.value + (roundScore.value ?? 0) + (timeScore.value ?? 0) + (perfectScore.value ?? 0);
                     setTimeout(() => {
                         console.log("Round: " + round.value);
                         console.log("Max rounds: " + maxRounds);
                         console.log("Won: " + won.value);
                         perfect.value = true;
-                        score.value = totalScore.value;
+                        score.value = totalScore.value ?? score.value;
                         if (round.value > maxRounds) {
                             won.value = true;
                             gameScreenString.value = "success";
@@ -49,7 +58,6 @@ function GameRecap(props) {
             }, 500);
         }, 300);
     }, 10);
-
 
     let renderScores = computed(() => {
         return (

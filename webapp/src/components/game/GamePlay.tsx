@@ -1,20 +1,29 @@
 import { computed, effect, signal } from "@preact/signals-react";
-import ArrowContainer from "../ArrowContainer";
+import ArrowContainer from "../ArrowContainer.js";
 import "./GamePlay.css";
-import TimeBar from "../TimeBar";
-import { timeRunning, time } from "../TimeBar";
+import TimeBar from "../TimeBar.js";
+import { timeRunning, time } from "../TimeBar.js";
 import { useEffect } from "react";
 import { soundMaster, soundEffects, soundMusic } from '../settings/Sound.js';
 
 import { difficulty } from "../settings/Difficulty.js";
 
-function GamePlay(props) {
+type GamePlayProps = {
+  round: any;
+  maxRounds: any;
+  score: any;
+  keyPressed: any;
+  startTime: number;
+  stratagemsData: any[];
+  gameScreenString: any;
+};
+
+function GamePlay(props: GamePlayProps) {
   console.log("Rendering GamePlay");
   let round = props.round;
   let maxRounds = props.maxRounds;
   let score = props.score;
   let keyPressed = props.keyPressed;
-  let won = props.won;
 
   let startTime = props.startTime;
   let timeGetBack = startTime / (5 + difficulty.peek());
@@ -23,15 +32,15 @@ function GamePlay(props) {
   let gameScreenString = props.gameScreenString;
   let stratagemsAmount = Math.round(3 + round.peek() * difficulty.peek() * 0.1);
   console.log("Stratagems amount: " + stratagemsAmount);
-  let stratagems = [];
+  let stratagems:any = [];
 
-  let backgroundMusic = new Audio(process.env.PUBLIC_URL + "/media/sounds/backgroundMusic.ogg");
-  backgroundMusic.volume = (soundMaster.value / 10) * (soundMusic / 10);
+  let backgroundMusic = new Audio("/media/sounds/backgroundMusic.ogg");
+  backgroundMusic.volume = (soundMaster.value / 10) * (soundMusic.value / 10);
   backgroundMusic.loop = true;
   backgroundMusic.play();
 
-  let stratagemCompleteSound = new Audio(process.env.PUBLIC_URL + "/media/sounds/stratagemComplete.ogg");
-  stratagemCompleteSound.volume = (soundMaster.value / 10) * (soundEffects / 10);
+  let stratagemCompleteSound = new Audio("/media/sounds/stratagemComplete.ogg");
+  stratagemCompleteSound.volume = (soundMaster.value / 10) * (soundEffects.value / 10);
 
   let currentStratagemIndex = signal(0);
   let currentStratagemIndexDelay = signal(0);
@@ -74,7 +83,7 @@ function GamePlay(props) {
 
   let renderStratagems = computed(() => {
     return (<div className="StratagemsContainer">
-      {stratagems.slice(currentStratagemIndex.value, stratagemsAmount).map((stratagem, i) => {
+      {stratagems.slice(currentStratagemIndex.value, stratagemsAmount).map((stratagem: any, i: number) => {
         if (i >= 6) return null;
 
         if (i === 0) {
@@ -83,7 +92,7 @@ function GamePlay(props) {
               <img
                 key={i}
                 className={currentStratagemIndex.value === currentStratagemIndexDelay.value ? "MainStratagem" : "MainStratagem saturation"}
-                src={process.env.PUBLIC_URL + "/media/stratagems/" + stratagem.name + ".svg"}
+                src={"/media/stratagems/" + stratagem.name + ".svg"}
                 alt={stratagem.name}
               />
             </div>
@@ -94,7 +103,7 @@ function GamePlay(props) {
               <img
                 key={i}
                 className={"Stratagem"}
-                src={process.env.PUBLIC_URL + "/media/stratagems/" + stratagem.name + ".svg"}
+                src={"/media/stratagems/" + stratagem.name + ".svg"}
                 alt={stratagem.name}
               />
             </div>

@@ -1,17 +1,22 @@
 import { computed, effect, signal } from "@preact/signals-react";
 import "./SettingsView.css"
 import { useEffect } from "react";
-import About from "../components/settings/About";
-import InvalidScreen from "../components/InvalidScreen";
-import MultipleArrowContainer from "../components/MultipleArrowContainer";
-import MultipleArrowSubscriber from "../components/MultipleArrowSubscriber";
-import Difficulty from "../components/settings/Difficulty";
-import Controls from "../components/settings/Controls";
-import Bloom from "../components/settings/Bloom";
-import Data from "../components/settings/Data";
-import Sound from "../components/settings/Sound";
+import About from "../components/settings/About.tsx";
+import InvalidScreen from "../components/InvalidScreen.tsx";
+import MultipleArrowContainer from "../components/MultipleArrowContainer.tsx";
+import MultipleArrowSubscriber from "../components/MultipleArrowSubscriber.tsx";
+import Difficulty from "../components/settings/Difficulty.tsx";
+import Controls from "../components/settings/Controls.tsx";
+import Bloom from "../components/settings/Bloom.tsx";
+import Data from "../components/settings/Data.tsx";
+import Sound from "../components/settings/Sound.tsx";
 
-function SettingsView(props) {
+type SettingsViewProps = {
+    mainScreenString: any;
+    keyPressed: any;
+};
+
+function SettingsView(props: SettingsViewProps) {
   console.log("Rendering SettingsView");
   let keyPressed = props.keyPressed;
   let mainScreenString = props.mainScreenString;
@@ -23,43 +28,43 @@ function SettingsView(props) {
       "success": "BACK",
       "code": ["up", "down", "right", "left", "up"],
       "show": signal(true),
-      "img": process.env.PUBLIC_URL + "/media/stratagems/Reinforce.svg",
+      "img": "/media/stratagems/Reinforce.svg",
       "color": "SettingsViewNavbarYellow"
     }, {
       "success": "DIFFICULTY",
       "code": ['down', 'up', 'left', 'down', 'up', 'right', 'down', 'up'],
       "show": signal(true),
-      "img": process.env.PUBLIC_URL + "/media/stratagems/Hellbomb.svg",
+      "img": "/media/stratagems/Hellbomb.svg",
       "color": "SettingsViewNavbarYellow"
     }, {
       "success": "SOUND",
       "code": ['down', 'up', 'right', 'right', 'down'],
       "show": signal(true),
-      "img": process.env.PUBLIC_URL + "/media/stratagems/Mortar Sentry.svg",
+      "img": "/media/stratagems/Mortar Sentry.svg",
       "color": "SettingsViewNavbarGreen"
     }, {
       "success": "BLOOM",
       "code": ['right', 'down', 'left', 'up', 'up'],
       "show": signal(true),
-      "img": process.env.PUBLIC_URL + "/media/stratagems/Orbital Laser.svg",
+      "img": "/media/stratagems/Orbital Laser.svg",
       "color": "SettingsViewNavbarRed"
     }, {
       "success": "CONTROLS",
       "code": ['down', 'up', 'up', 'down', 'up'],
       "show": signal(true),
-      "img": process.env.PUBLIC_URL + "/media/stratagems/Jump Pack.svg",
+      "img": "/media/stratagems/Jump Pack.svg",
       "color": "SettingsViewNavbarBlue"
     }, {
       "success": "DATA",
       "code": ['up', 'right', 'down', 'down', 'down'],
       "show": signal(true),
-      "img": process.env.PUBLIC_URL + "/media/stratagems/Eagle 500KG Bomb.svg",
+      "img": "/media/stratagems/Eagle 500KG Bomb.svg",
       "color": "SettingsViewNavbarRed"
     }, {
       "success": "ABOUT",
       "code": ['up', 'down', 'right', 'up'],
       "show": signal(true),
-      "img": process.env.PUBLIC_URL + "/media/stratagems/SOS Beacon.svg",
+      "img": "/media/stratagems/SOS Beacon.svg",
       "color": "SettingsViewNavbarYellow"
     }
   ];

@@ -1,11 +1,15 @@
 import { effect, signal } from '@preact/signals-react';
-import ArrowContainer from '../components/ArrowContainer';
-import MultipleArrowContainer from '../components/MultipleArrowContainer';
+import MultipleArrowContainer from '../components/MultipleArrowContainer.tsx';
 import './StartView.css';
 import { useEffect } from 'react';
-import MultipleArrowSubscriber from '../components/MultipleArrowSubscriber';
+import MultipleArrowSubscriber from '../components/MultipleArrowSubscriber.tsx';
 
-function StartView(props) {
+type StartViewProps = {
+    mainScreenString: any;
+    keyPressed: any;
+};
+
+function StartView(props: StartViewProps) {
     console.log("Rendering StartView");
     let mainScreenString = props.mainScreenString;
     let keyPressed = props.keyPressed;
@@ -43,7 +47,7 @@ function StartView(props) {
             <p className='StartViewTitle'>STRATAGEM HERO</p>
             <div className='SettingsViewNavbar'>
                 <div className="SettingsViewNavbarStratagem">
-                    <img className="SettingsViewNavbarImage SettingsViewNavbarYellow" src={process.env.PUBLIC_URL + "/media/stratagems/Resupply.svg"} alt={"SETTINGS"} />
+                    <img className="SettingsViewNavbarImage SettingsViewNavbarYellow" src={"/media/stratagems/Resupply.svg"} alt={"SETTINGS"} />
                     <div className="SettingsViewNavbarContent">
                         <p className="SettingsViewNavbarTitle">SETTINGS</p>
                         <div className="SettingsViewNavbarArrows">

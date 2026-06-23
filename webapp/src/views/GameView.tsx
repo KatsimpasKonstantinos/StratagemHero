@@ -1,16 +1,22 @@
 import { computed, signal } from "@preact/signals-react";
-import GamePrepare from "../components/game/GamePrepare.js";
-import GamePlay from "../components/game/GamePlay.js";
-import InvalidScreen from "../components/InvalidScreen.js";
-import GameRecap from "../components/game/GameRecap.js";
-import GameOver from "../components/game/GameOver.js";
+import GamePrepare from "../components/game/GamePrepare.tsx";
+import GamePlay from "../components/game/GamePlay.tsx";
+import InvalidScreen from "../components/InvalidScreen.tsx";
+import GameRecap from "../components/game/GameRecap.tsx";
+import GameOver from "../components/game/GameOver.tsx";
 import { useEffect } from "react";
 
 
-import { difficulty } from "../components/settings/Difficulty.js";
-import GameSuccess from "../components/game/GameSuccess.js";
+import { difficulty } from "../components/settings/Difficulty.tsx";
+import GameSuccess from "../components/game/GameSuccess.tsx";
 
-function GameView(props) {
+type GameViewProps = {
+    keyPressed: any;
+    mainScreenString: any;
+    stratagemsData: any;
+};
+
+function GameView(props: GameViewProps) {
     console.log("Rendering GameView")
     let keyPressed = props.keyPressed;
     let mainScreenString = props.mainScreenString;
@@ -26,15 +32,15 @@ function GameView(props) {
     let gameScreen = computed(() => {
         switch (gameScreenString.value) {
             case "prepare":
-                return <GamePrepare round={round} maxRounds={maxRounds} gameScreenString={gameScreenString} key={gameScreenString.value + " " + Math.random()} />
+                return <GamePrepare round={round.value} maxRounds={maxRounds} gameScreenString={gameScreenString} key={gameScreenString.value + " " + Math.random()} />
             case "play":
                 return <GamePlay round={round} maxRounds={maxRounds} score={score} keyPressed={keyPressed} startTime={startTime} stratagemsData={stratagemsData} gameScreenString={gameScreenString} />
             case "recap":
                 return <GameRecap round={round} maxRounds={maxRounds} score={score} startTime={startTime} gameScreenString={gameScreenString} key={gameScreenString.value + " " + Math.random()} won={won} />
             case "success":
-                return <GameSuccess round={round} maxRounds={maxRounds} score={score} keyPressed={keyPressed} gameScreenString={gameScreenString} won={won} />
+                return <GameSuccess score={score} gameScreenString={gameScreenString} won={won} />
             case "over":
-                return <GameOver round={round} maxRounds={maxRounds} score={score} keyPressed={keyPressed} mainScreenString={mainScreenString} />
+                return <GameOver round={round} score={score} keyPressed={keyPressed} mainScreenString={mainScreenString} />
             default:
                 return <InvalidScreen />;
         }

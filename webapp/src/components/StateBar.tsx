@@ -2,7 +2,13 @@ import { computed } from "@preact/signals-react";
 import { useEffect } from "react";
 import "./StateBar.css";
 
-function StateBar(props) {
+interface StateBarProps {
+    state: { value: number };
+    maxBars: number;
+    signalMax: number;
+}
+
+function StateBar(props: StateBarProps) {
     console.log("Rendering StateBar");
 
     let state = props.state; // signal 0 - 10

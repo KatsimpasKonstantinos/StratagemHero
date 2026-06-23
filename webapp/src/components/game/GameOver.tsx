@@ -4,8 +4,14 @@ import { computed } from '@preact/signals-react';
 import NameHighscore from '../NameHighscore';
 import { name, nameDone } from '../NameHighscore';
 
+interface GameOverProps {
+  mainScreenString: any;
+  round: any;
+  score: any;
+  keyPressed: any;
+}
 
-function GameOver(props) {
+function GameOver(props: GameOverProps) {
   console.log("Rendering GameOver");
   let mainScreenString = props.mainScreenString;
   let round = props.round;
@@ -14,19 +20,30 @@ function GameOver(props) {
   nameDone.value = false;
 
   function getHighscores() {
-    let highscores = [];
+    let highscores: Array<{ name: string; score: number }> = [];
     for (let i = 0; i < localStorage.length; i++) {
       let key = localStorage.key(i);
-      if (key.length !== 3) continue;
+      if (key === null || key.length !== 3) continue;
       let value = localStorage.getItem(key);
       if (value === null) continue;
-      highscores.push({ name: key, score: value });
+      let scoreValue = parseInt(value, 10);
+      if (Number.isNaN(scoreValue)) continue;
+      highscores.push({ name: key, score: scoreValue });
     }
     highscores.sort((a, b) => b.score - a.score);
     return highscores;
   }
 
-  let timoutID;
+  let timoutID: ReturnType<typeof setTimeout> | undefined;
+  useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+    if (nameDone.value) {
+      timeoutId = setTimeout(() => {
+        mainScreenString.value = "start";
+      }, 3500);
+    }
+    return () => clearTimeout(timeoutId);
+  }, [nameDone.value]);
 
   let renderHighscore = computed(() => {
     if (nameDone.value) {

@@ -1,7 +1,7 @@
 import { computed } from "@preact/signals-react";
 import "./MultipleArrowSubscriber.css";
 
-function MultipleArrowSubscriber(props) {
+function MultipleArrowSubscriber(props: { mac: any; self: any }) {
     console.log("Rendering MultipleArrowSubscriber");
     let mac = props.mac;
     let self = props.self;
@@ -21,7 +21,7 @@ function MultipleArrowSubscriber(props) {
             let className = "MultipleArrowSubscriberArrow " + color;
             arrows.push(
                 <div className="MultipleArrowSubscriberDiv" key={i}>
-                    <img className={className} src={process.env.PUBLIC_URL + "/media/arrows/arrow" + mac.arrowData[self].code[i] + ".svg"} alt={mac.arrowData[self].code[i]} />
+                    <img className={className} src={"/media/arrows/arrow" + mac.arrowData[self].code[i] + ".svg"} alt={mac.arrowData[self].code[i]} />
                 </div>
             );
         }

@@ -1,23 +1,29 @@
 import { useEffect } from "react";
 import "./GameSuccess.css";
-import { computed, signal } from "@preact/signals-react";
+import { computed, signal, type Signal } from "@preact/signals-react";
 
 import { difficulty } from "../settings/Difficulty";
 import { soundEffects, soundMaster } from "../settings/Sound";
 
 
-function GameSuccess(props) {
+type GameSuccessProps = {
+    score: Signal<number>;
+    gameScreenString: Signal<string>;
+    won: Signal<boolean>;
+};
+
+function GameSuccess(props: GameSuccessProps) {
     console.log("Rendering GameSuccess");
     let score = props.score;
     let gameScreenString = props.gameScreenString;
     let won = props.won;
 
-    const completionBonus = signal();
-    const difficultyMultiplier = signal();
-    const totalScore = signal();
+    const completionBonus = signal<number | undefined>();
+    const difficultyMultiplier = signal<number | undefined>();
+    const totalScore = signal<number | undefined>();
 
-    let gameOverSound = new Audio(process.env.PUBLIC_URL + "/media/sounds/gameOver.ogg");
-    gameOverSound.volume = (soundMaster.value / 10) * (soundEffects / 10);
+    let gameOverSound = new Audio("/media/sounds/gameOver.ogg");
+    gameOverSound.volume = (soundMaster.value / 10) * (soundEffects.value / 10);
     if (won.value) {
         gameOverSound.currentTime = 0.3;
     }
@@ -34,9 +40,9 @@ function GameSuccess(props) {
         setTimeout(() => {
             difficultyMultiplier.value = difficulty.value;
             setTimeout(() => {
-                totalScore.value = (score + completionBonus.value) * difficultyMultiplier.value;
+                totalScore.value = (score.value + (completionBonus.value ?? 0)) * (difficultyMultiplier.value ?? 1);
                 setTimeout(() => {
-                    score.value = totalScore.value;
+                    score.value = totalScore.value ?? score.value;
                     gameScreenString.value = "over";
                 }, 3500);
             }, 600);

@@ -1,13 +1,21 @@
 import { computed, effect, signal } from "@preact/signals-react";
 import "./ArrowContainer.css";
 import { useEffect } from "react";
-import { soundMaster, soundEffects } from "./settings/Sound";
+import { soundMaster, soundEffects } from "./settings/Sound.tsx";
 
 
 export let perfect = signal(true);
-let onlyArrowContainerKey = signal(null);
+let onlyArrowContainerKey = signal<number | null>(null);
 
-function ArrowContainer(props) {
+interface ArrowContainerProps {
+    code: string;
+    someSignal: ReturnType<typeof signal>;
+    successValue: unknown;
+    keyPressed: any;
+    muted: boolean;
+}
+
+function ArrowContainer(props: ArrowContainerProps) {
     console.log("Rendering ArrowContainer");
     let currentArrowIndex = signal(0);
     let code = signal(props.code);
@@ -20,8 +28,8 @@ function ArrowContainer(props) {
     onlyArrowContainerKey.value = key;
     keyPressed.value = "";
 
-    let wrongInputSound = new Audio(process.env.PUBLIC_URL + "/media/sounds/wrongInput.ogg");
-    wrongInputSound.volume = (soundMaster.value / 10) * (soundEffects / 10);
+    let wrongInputSound = new Audio("/media/sounds/wrongInput.ogg");
+    wrongInputSound.volume = (soundMaster.value / 10) * (soundEffects.value / 10);
     currentArrowIndex.value = 0;
 
     let renderArrows = computed(() => {
@@ -37,7 +45,7 @@ function ArrowContainer(props) {
             let className = "ArrowContainerArrow " + color;
             arrows.push(
                 <div key={i}>
-                    <img className={className} src={process.env.PUBLIC_URL + "/media/arrows/arrow" + code.value[i] + ".svg"} alt={code.value[i]} />
+                    <img className={className} src={"/media/arrows/arrow" + code.value[i] + ".svg"} alt={code.value[i]} />
                 </div>
             );
         }

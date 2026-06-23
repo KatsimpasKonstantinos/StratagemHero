@@ -2,12 +2,18 @@ import { computed, effect, signal } from "@preact/signals-react";
 import "./TimeBar.css";
 import { useEffect } from "react";
 
+type TimeBarProps = {
+    startTime: number;
+    someSignal: ReturnType<typeof signal>;
+    failureValue: unknown;
+};
+
 const intervalTime = 20;
 
 export let time = signal(10000);
 export let timeRunning = signal(true);
 
-function TimeBar(props) {
+function TimeBar(props: TimeBarProps) {
     console.log("Rendering TimeBar");
     let startTime = props.startTime;
     let someSignal = props.someSignal;
@@ -21,7 +27,7 @@ function TimeBar(props) {
         );
     });
 
-    let intervalId;
+    let intervalId: ReturnType<typeof setInterval>;
 
     let dispose = effect(() => {
         if (timeRunning.value === true) {
