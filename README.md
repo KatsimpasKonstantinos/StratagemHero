@@ -1,6 +1,6 @@
 # StratagemHero
 
-Hosted on [stratagemhero.konstantinos.katsimpas.com](https://stratagemhero.konstantinos.katsimpas.com/)
+Hosted on [stratagemhero.konsti.zip/](https://stratagemhero.konsti.zip/)
 
 Buy me a Liber-tea on [Ko-fi](https://ko-fi.com/konstantinoskatsimpas)
 
