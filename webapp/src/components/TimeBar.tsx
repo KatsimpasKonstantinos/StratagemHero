@@ -1,68 +1,13 @@
-import { computed, effect, signal } from "@preact/signals-react";
 import "./TimeBar.css";
-import { useEffect } from "react";
 
-type TimeBarProps = {
-    startTime: number;
-    someSignal: ReturnType<typeof signal>;
-    failureValue: unknown;
-};
-
-const intervalTime = 20;
-
-export let time = signal(10000);
-export let timeRunning = signal(true);
-
-function TimeBar(props: TimeBarProps) {
-    console.log("Rendering TimeBar");
-    let startTime = props.startTime;
-    let someSignal = props.someSignal;
-    let failureValue = props.failureValue;
-    time.value = startTime;
-    timeRunning.value = true;
-
-    let renderTimeBar = computed(() => {
-        return (
-            <div className="TimeBarFill" style={{ width: `${(time.value / startTime) * 100}%` }}></div>
-        );
-    });
-
-    let intervalId: ReturnType<typeof setInterval>;
-
-    let dispose = effect(() => {
-        if (timeRunning.value === true) {
-            intervalId = setInterval(() => {
-                time.value = time.peek() - intervalTime;
-                if (time.peek() <= startTime / 3) {
-                    document.documentElement.style.setProperty('--mainColor', 'red');
-                }
-                if (time.peek() <= 0) {
-                    timeRunning.value = false;
-                    clearInterval(intervalId);
-                    someSignal.value = failureValue;
-                    dispose();
-                }
-            }, intervalTime);
-        } else if (timeRunning.value === false) {
-            clearInterval(intervalId);
-        }
-    });
-
-    useEffect(() => {
-        return () => {
-            console.log("Unmounting TimeBar");
-            document.documentElement.style.setProperty('--mainColor', 'yellow');
-            clearInterval(intervalId);
-            dispose();
-        }
-    }, []);
-
+/** Remaining time as a bar; `fraction` goes from 1 (full) to 0 (empty). */
+function TimeBar({ fraction }: { fraction: number }) {
+    const width = Math.max(0, Math.min(1, fraction)) * 100;
     return (
         <div className="TimeBar">
-            {renderTimeBar}
+            <div className="TimeBarFill" style={{ width: `${width}%` }} />
         </div>
-
-    )
+    );
 }
 
 export default TimeBar;

@@ -1,62 +1,92 @@
-import { computed, signal } from "@preact/signals-react";
-import GamePrepare from "../components/game/GamePrepare.tsx";
-import GamePlay from "../components/game/GamePlay.tsx";
-import InvalidScreen from "../components/InvalidScreen.tsx";
-import GameRecap from "../components/game/GameRecap.tsx";
+import { useState } from "react";
 import GameOver from "../components/game/GameOver.tsx";
-import { useEffect } from "react";
-
-
-import { difficulty } from "../components/settings/Difficulty.tsx";
+import GamePlay from "../components/game/GamePlay.tsx";
+import GamePrepare from "../components/game/GamePrepare.tsx";
+import GameRecap from "../components/game/GameRecap.tsx";
 import GameSuccess from "../components/game/GameSuccess.tsx";
+import { getSettings } from "../lib/settings.ts";
+import { recordGame } from "../lib/statistics.ts";
 
-type GameViewProps = {
-    keyPressed: any;
-    mainScreenString: any;
-    stratagemsData: any;
-};
+export const MAX_ROUNDS = 10;
 
-function GameView(props: GameViewProps) {
-    console.log("Rendering GameView")
-    let keyPressed = props.keyPressed;
-    let mainScreenString = props.mainScreenString;
-    let stratagemsData = props.stratagemsData;
-    const gameScreenString = signal("prepare");
-    const round = signal(1);
-    const maxRounds = 10;
-    const score = signal(0);
-    const won = signal(false);
-    let startTime = 15000 - (difficulty.value * 1000);
-    console.log("Start time: " + startTime);
+type Phase =
+    | { name: "prepare" }
+    | { name: "play" }
+    | { name: "recap"; timeLeft: number; perfect: boolean }
+    | { name: "result"; won: boolean }
+    | { name: "over"; won: boolean };
 
-    let gameScreen = computed(() => {
-        switch (gameScreenString.value) {
-            case "prepare":
-                return <GamePrepare round={round.value} maxRounds={maxRounds} gameScreenString={gameScreenString} key={gameScreenString.value + " " + Math.random()} />
-            case "play":
-                return <GamePlay round={round} maxRounds={maxRounds} score={score} keyPressed={keyPressed} startTime={startTime} stratagemsData={stratagemsData} gameScreenString={gameScreenString} />
-            case "recap":
-                return <GameRecap round={round} maxRounds={maxRounds} score={score} startTime={startTime} gameScreenString={gameScreenString} key={gameScreenString.value + " " + Math.random()} won={won} />
-            case "success":
-                return <GameSuccess score={score} gameScreenString={gameScreenString} won={won} />
-            case "over":
-                return <GameOver round={round} score={score} keyPressed={keyPressed} mainScreenString={mainScreenString} />
-            default:
-                return <InvalidScreen />;
-        }
-    });
+/** One game: prepare → play → recap (repeat for every round) → result → over. */
+function GameView({ onExit }: { onExit: () => void }) {
+    // The difficulty is fixed for the whole game, even if the settings change later.
+    const [difficulty] = useState(() => getSettings().difficulty);
+    const startTime = 15000 - difficulty * 1000;
+    const [round, setRound] = useState(1);
+    const [score, setScore] = useState(0);
+    const [phase, setPhase] = useState<Phase>({ name: "prepare" });
 
-    useEffect(() => {
-        return () => {
-            console.log("Unmounting GameView");
-        }
-    }, []);
+    function finish(won: boolean) {
+        recordGame(won, Math.min(round, MAX_ROUNDS));
+        setPhase({ name: "result", won });
+    }
 
-    return (
-        <div>
-            {gameScreen}
-        </div>
-    );
+    switch (phase.name) {
+        case "prepare":
+            return <GamePrepare round={round} maxRounds={MAX_ROUNDS} onDone={() => setPhase({ name: "play" })} />;
+        case "play":
+            return (
+                <GamePlay
+                    key={round}
+                    round={round}
+                    difficulty={difficulty}
+                    startTime={startTime}
+                    score={score}
+                    onScore={(points) => setScore((current) => current + points)}
+                    onRoundComplete={(timeLeft, perfect) => {
+                        setRound(round + 1);
+                        setPhase({ name: "recap", timeLeft, perfect });
+                    }}
+                    onTimeout={() => finish(false)}
+                />
+            );
+        case "recap":
+            return (
+                <GameRecap
+                    round={round}
+                    score={score}
+                    timeLeft={phase.timeLeft}
+                    startTime={startTime}
+                    perfect={phase.perfect}
+                    onDone={(total) => {
+                        setScore(total);
+                        if (round > MAX_ROUNDS) finish(true);
+                        else setPhase({ name: "prepare" });
+                    }}
+                />
+            );
+        case "result":
+            return (
+                <GameSuccess
+                    won={phase.won}
+                    score={score}
+                    difficulty={difficulty}
+                    onDone={(total) => {
+                        setScore(total);
+                        setPhase({ name: "over", won: phase.won });
+                    }}
+                />
+            );
+        case "over":
+            return (
+                <GameOver
+                    score={score}
+                    difficulty={difficulty}
+                    round={Math.min(round, MAX_ROUNDS)}
+                    won={phase.won}
+                    onExit={onExit}
+                />
+            );
+    }
 }
 
 export default GameView;

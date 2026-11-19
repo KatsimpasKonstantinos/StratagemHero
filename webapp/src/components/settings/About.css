@@ -1,43 +1,67 @@
 .About {
     position: absolute;
     display: flex;
-    height: 100vh;
-    width: 100vw;
+    height: 100cqh;
+    width: 100cqw;
     justify-content: center;
     align-items: center;
     cursor: url("../../media/icons/res.svg"), auto;
 }
 
 .AboutTextContainer {
-    width: 50vw;
-
+    width: 50cqw;
 
     a {
         color: var(--yellow);
-        text-shadow: 0 0 var(--bloom) var(--yellow);
+        text-shadow: 0 0 var(--bloom) currentColor;
         text-decoration: none;
-    }
 
-    a:hover {
-        cursor: url("../../media/icons/resHover.svg"), auto;
+        &:hover {
+            cursor: url("../../media/icons/resHover.svg"), auto;
+        }
     }
 }
 
 .AboutTitle {
     font-size: var(--subtitle);
     color: var(--white);
-    text-shadow: 0 0 var(--bloom) var(--white);
+    text-shadow: 0 0 var(--bloom) currentColor;
     margin: 0;
 }
 
 .AboutText {
+    position: relative;
+    /* as wide as the text, so the selection arrow sits right in front of it */
+    inline-size: fit-content;
+    margin-inline: auto;
     font-size: var(--info);
     color: var(--white);
-    text-shadow: 0 0 var(--bloom) var(--white);
+    text-shadow: 0 0 var(--bloom) currentColor;
+}
+
+/* Arrow in front of the selected link; hidden (but space-neutral) otherwise. */
+.AboutMarker {
+    --arrow-size: 0.9em;
+    position: absolute;
+    left: -1.3em;
+    top: 50%;
+    translate: 0 -50%;
+    visibility: hidden;
+}
+
+.AboutTextSelected {
+    .AboutMarker {
+        visibility: visible;
+    }
+
+    a {
+        text-decoration: underline;
+        text-underline-offset: 0.15em;
+    }
 }
 
 .AboutInfo {
     font-size: var(--tiny);
     color: var(--white);
-    text-shadow: 0 0 var(--bloom) var(--white);
+    text-shadow: 0 0 var(--bloom) currentColor;
 }

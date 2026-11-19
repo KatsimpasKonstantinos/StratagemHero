@@ -1,4 +1,12 @@
+@font-face {
+  font-family: "FS Sinclair";
+  src: url("./media/FS Sinclair Medium.otf") format("opentype");
+  font-display: swap;
+}
+
 :root {
+  color-scheme: dark;
+
   --yellow: yellow;
   --mainColor: yellow;
   --red: red;
@@ -9,38 +17,44 @@
   --grayDark: #3f3f3f;
   --background: #252627;
 
-  --title: 15vh;
-  --subtitle: 9vh;
-  --score: 9vh;
-  --info: 4.5vh;
-  --tiny: 3vh;
+  --title: 15cqh;
+  --subtitle: 9cqh;
+  --score: 9cqh;
+  --info: 4.5cqh;
+  --tiny: 3cqh;
 
   --bloom: 8px;
   --bloomBox: 0.4em;
-  --crt: 4;
 
   --transition-font-size: 0.2s;
 }
 
 body {
   margin: 0;
-  font-family: FS Sinclair, sans-serif;
+  font-family: "FS Sinclair", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--background);
-  width: 100vw;
-  height: 100vh;
+  height: 100svh;
   overflow: hidden;
   color: var(--white);
   cursor: none;
+  user-select: none;
+  touch-action: manipulation;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#root {
+  display: grid;
+  place-items: center;
+  height: 100%;
 }
 
-@font-face {
-  font-family: 'FS Sinclair';
-  src: url('media/FS\ Sinclair\ Medium.otf') format('truetype');
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

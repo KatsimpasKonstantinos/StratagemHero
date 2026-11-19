@@ -1,0 +1,63 @@
+.Records {
+    position: absolute;
+    display: flex;
+    height: 100cqh;
+    width: 50cqw;
+    translate: 50%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.RecordsTitle {
+    font-size: var(--subtitle);
+    color: var(--white);
+    text-shadow: 0 0 var(--bloom) currentColor;
+    margin: 0 0 2cqh;
+}
+
+.RecordsColumns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3cqw;
+    inline-size: 44cqw;
+    text-align: start;
+}
+
+.RecordsHeading {
+    font-size: var(--info);
+    color: var(--yellow);
+    text-shadow: 0 0 var(--bloom) currentColor;
+    margin: 0 0 1cqh;
+}
+
+.RecordsLine {
+    font-size: var(--tiny);
+    line-height: 1.35;
+    color: var(--white);
+    text-shadow: 0 0 var(--bloom) currentColor;
+    margin: 0;
+}
+
+.RecordsBest {
+    color: var(--yellow);
+}
+
+.RecordsEmpty {
+    color: var(--gray);
+}
+
+.RecordsStats {
+    margin: 0;
+
+    div {
+        display: flex;
+        justify-content: space-between;
+        gap: 1em;
+    }
+
+    dd {
+        margin: 0;
+        color: var(--yellow);
+    }
+}

@@ -1,0 +1,13 @@
+.NameEntry {
+    margin: 0;
+    color: var(--white);
+    text-shadow: 0 0 var(--bloom) currentColor;
+
+    .selected {
+        text-decoration: underline;
+    }
+
+    .submitted {
+        color: var(--yellow);
+    }
+}

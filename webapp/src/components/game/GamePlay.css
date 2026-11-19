@@ -1,7 +1,7 @@
 .RoundContainer {
     position: absolute;
-    top: 20vh;
-    left: 10vw;
+    top: 20cqh;
+    left: 10cqw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,7 +10,7 @@
 
 .RoundTitle {
     color: var(--white);
-    text-shadow: 0 0 var(--bloom) var(--white);
+    text-shadow: 0 0 var(--bloom) currentColor;
     font-size: var(--info);
     line-height: 0.9em;
     text-align: center;
@@ -19,7 +19,7 @@
 
 .Round {
     color: var(--mainColor);
-    text-shadow: 0 0 var(--bloom) var(--mainColor);
+    text-shadow: 0 0 var(--bloom) currentColor;
     font-size: var(--score);
     letter-spacing: 0.1em;
     text-align: center;
@@ -29,8 +29,8 @@
 
 .ScoreContainer {
     position: absolute;
-    top: 20vh;
-    right: 10vw;
+    top: 20cqh;
+    right: 10cqw;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -38,7 +38,7 @@
 
 .ScoreTitle {
     color: var(--white);
-    text-shadow: 0 0 var(--bloom) var(--white);
+    text-shadow: 0 0 var(--bloom) currentColor;
     font-size: var(--info);
     line-height: 0.9em;
     margin: 0;
@@ -46,78 +46,70 @@
 
 .Score {
     color: var(--mainColor);
-    text-shadow: 0 0 var(--bloom) var(--mainColor);
+    text-shadow: 0 0 var(--bloom) currentColor;
     font-size: var(--score);
     line-height: 0.9em;
     letter-spacing: 0.1em;
     margin: 0;
-    text-align: right;
+    text-align: end;
 }
 
 .ArrowContainerContainer {
     position: absolute;
-    top: 57vh;
-    left: 50vw;
-    transform: translateX(-50%);
+    top: 57cqh;
+    left: 50cqw;
+    translate: -50%;
     display: flex;
     align-items: center;
 }
 
 .StratagemNameContainer {
     position: absolute;
-    top: 50vh;
-    left: 20vw;
-    width: 60vw;
-    height: 5vh;
-
+    top: 50cqh;
+    left: 20cqw;
+    width: 60cqw;
+    height: 5cqh;
     background-color: var(--mainColor);
     box-shadow: 0 0 var(--bloomBox) var(--mainColor);
-    position: absolute;
-    display: inline-block;
-    align-items: center;
     margin: 0;
 }
 
 .StratagemName {
     margin: 0;
     padding: 0;
-    line-height: 6vh;
+    line-height: 6cqh;
     color: var(--background);
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    font-size: 6vh;
-    z-index: -2;
+    font-size: 6cqh;
 }
 
 .StratagemsContainer {
     position: absolute;
-    top: 20vh;
-    left: 20vw;
-    width: 60vw;
-    height: 30vh;
+    top: 20cqh;
+    left: 20cqw;
+    width: 60cqw;
+    height: 30cqh;
     display: flex;
     align-items: center;
 }
 
 .MainStratagemBox {
-    border: 0.4vh solid var(--mainColor);
+    border: 0.4cqh solid var(--mainColor);
     box-shadow: 0 0 var(--bloomBox) var(--mainColor);
 }
 
 .MainStratagem {
-    height: 29vh;
-    padding: 1vh;
+    height: 29cqh;
+    aspect-ratio: 1;
+    padding: 1cqh;
     filter: saturate(2);
 }
 
 .Stratagem {
-    height: 15vh;
-    padding: 1vw;
+    height: 15cqh;
+    aspect-ratio: 1;
+    padding: 1cqw;
     display: inline-block;
-    justify-content: center;
-    align-items: center;
     filter: saturate(2);
-
 }
 
 
@@ -137,11 +129,21 @@
 
 .TimeBarContainer {
     position: absolute;
-    top: 73vh;
-    left: 20vw;
-    width: 60vw;
-    height: 4vh;
+    top: 73cqh;
+    left: 20cqw;
+    width: 60cqw;
+    height: 4cqh;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+/* Shown instead of a stratagem svg that failed to load, so the row keeps its layout. */
+.StratagemFallback {
+    display: inline-grid;
+    place-items: center;
+    box-sizing: content-box;
+    font-size: var(--info);
+    color: var(--gray);
+    outline: 0.3cqh dashed var(--grayDark);
+    outline-offset: -1cqh;
 }

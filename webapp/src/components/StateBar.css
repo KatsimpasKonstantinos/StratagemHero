@@ -1,16 +1,13 @@
 .StateBar {
-    width: 50vw;
-}
-
-.StateBarDivContainer {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 50cqw;
 }
 
 .StateBarDiv {
-    height: 2.5vh;
-    width: 0.6vw;
+    height: 2.5cqh;
+    width: 0.6cqw;
 }
 
 .StateBarDivWhite {

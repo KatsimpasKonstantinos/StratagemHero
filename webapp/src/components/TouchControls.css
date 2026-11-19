@@ -1,0 +1,49 @@
+.TouchControls {
+    position: fixed;
+    inset-block-end: 4svh;
+    inset-inline-end: 3svw;
+    z-index: 3;
+    display: grid;
+    grid-template:
+        ". up ." 1fr
+        "left . right" 1fr
+        ". down ." 1fr / 1fr 1fr 1fr;
+    gap: 1svh;
+    inline-size: 42svh;
+    block-size: 42svh;
+    opacity: 0.75;
+}
+
+.TouchButton {
+    --arrow-size: 70%;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 2px solid #b3b3b3;
+    border-radius: 12%;
+    background: rgb(0 0 0 / 35%);
+    touch-action: none;
+    user-select: none;
+    cursor: pointer;
+
+    &:active {
+        border-color: var(--yellow);
+        background: rgb(255 255 0 / 15%);
+    }
+}
+
+.TouchButton-up {
+    grid-area: up;
+}
+
+.TouchButton-down {
+    grid-area: down;
+}
+
+.TouchButton-left {
+    grid-area: left;
+}
+
+.TouchButton-right {
+    grid-area: right;
+}

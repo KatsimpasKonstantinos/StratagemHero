@@ -1,34 +1,22 @@
-# React + TypeScript + Vite
+# Stratagem Hero – Webapp
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React + TypeScript, built with [Vite+](https://viteplus.dev/guide) (`vite-plus`), which bundles Vite, Oxlint and Oxfmt into one toolchain (`vp`).
 
-Currently, two official plugins are available:
+## Scripts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+| Command           | Does                                   |
+| ----------------- | -------------------------------------- |
+| `npm run dev`     | Start the dev server (`vp dev`)        |
+| `npm run build`   | Production build (`vp build`)          |
+| `npm run preview` | Serve the production build locally     |
+| `npm run lint`    | Type-aware lint + type check (`vp lint`) |
 
-## React Compiler
+## Configuration
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+All tool configuration lives in [`vite.config.ts`](./vite.config.ts):
 
-Note: This will impact Vite dev & build performances.
+- `plugins` – React plugin with the [React Compiler](https://react.dev/learn/react-compiler) (via Babel)
+- `lint` – Oxlint rules (replaces `.oxlintrc.json`), see the [Vite+ lint guide](https://viteplus.dev/guide/lint)
+- `fmt` – Oxfmt options, see the [Vite+ fmt guide](https://viteplus.dev/guide/fmt)
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
-
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+`vite` in `package.json` is an alias for `@voidzero-dev/vite-plus-core`; keep it in sync with the `overrides` entry (use `vp migrate` to upgrade).

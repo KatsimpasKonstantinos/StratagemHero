@@ -1,106 +1,55 @@
-import { computed, signal, type Signal } from "@preact/signals-react";
-import { perfect } from "../ArrowContainer.js";
+import { useEffect, useEffectEvent, useState } from "react";
+import { playSound, SOUNDS, stopSound } from "../../lib/audio.ts";
 import "./GameRecap.css";
-import { useEffect } from "react";
-import { time } from "../TimeBar.js";
-import { soundMaster, soundEffects } from "../settings/Sound.js";
 
 interface GameRecapProps {
-    gameScreenString: Signal<string>;
-    score: Signal<number>;
-    round: Signal<number>;
+    /** Already advanced to the next round. */
+    round: number;
+    score: number;
+    timeLeft: number;
     startTime: number;
-    maxRounds: number;
-    won: Signal<boolean>;
+    perfect: boolean;
+    onDone: (totalScore: number) => void;
 }
 
-function GameRecap(props: GameRecapProps) {
-    console.log("Rendering GameRecap");
-    let gameScreenString = props.gameScreenString;
-    let score = props.score;
-    let round = props.round;
-    let startTime = props.startTime;
-    let maxRounds = props.maxRounds;
-    let won = props.won;
+/** Times (ms) at which the four lines appear, and when the recap ends. */
+const STEPS = [10, 310, 810, 1310];
+const END = 3310;
 
-    let roundCompleteSoundURL = "/media/sounds/roundComplete" + Math.ceil(Math.random() * 4).toString() + ".mp3";
-    let roundCompleteSound = new Audio(roundCompleteSoundURL);
-    roundCompleteSound.volume = (soundMaster.value / 10) * (soundEffects.value / 10);
-    roundCompleteSound.play();
-
-    let roundScore = signal<number | null>(null);
-    let timeScore = signal<number | null>(null);
-    let perfectScore = signal<number | null>(null);
-    let totalScore = signal<number | null>(null);
-
-    setTimeout(() => {
-        roundScore.value = round.value * 25;
-        setTimeout(() => {
-            timeScore.value = Math.round((time.value / startTime) * 100);
-            setTimeout(() => {
-                perfectScore.value = perfect.value ? 100 : 0;
-                setTimeout(() => {
-                    totalScore.value = score.value + (roundScore.value ?? 0) + (timeScore.value ?? 0) + (perfectScore.value ?? 0);
-                    setTimeout(() => {
-                        console.log("Round: " + round.value);
-                        console.log("Max rounds: " + maxRounds);
-                        console.log("Won: " + won.value);
-                        perfect.value = true;
-                        score.value = totalScore.value ?? score.value;
-                        if (round.value > maxRounds) {
-                            won.value = true;
-                            gameScreenString.value = "success";
-                        } else {
-                            gameScreenString.value = "prepare";
-                        }
-                    }, 2000);
-                }, 500);
-            }, 500);
-        }, 300);
-    }, 10);
-
-    let renderScores = computed(() => {
-        return (
-            <div>
-                {roundScore.value === null ? "" :
-                    <div className="RecapScoreContainer RecapRoundBonus">
-                        <p className="RecapTitle">Round Bonus</p>
-                        <p className="RecapScore"> {roundScore}</p>
-                    </div>
-                }
-                {timeScore.value === null ? "" :
-                    <div className="RecapScoreContainer RecapTimeBonus">
-                        <p className="RecapTitle">Time Bonus</p>
-                        <p className="RecapScore"> {timeScore}</p>
-                    </div>
-                }
-                {perfectScore.value === null ? "" :
-                    <div className="RecapScoreContainer RecapPerfectBonus">
-                        <p className="RecapTitle">Perfect Bonus</p>
-                        <p className="RecapScore"> {perfectScore}</p>
-                    </div>
-                }
-                {totalScore.value === null ? "" :
-                    <div className="RecapScoreContainer RecapTotalScore">
-                        <p className="RecapTitle">Total Score</p>
-                        <p className="RecapScore"> {totalScore}</p>
-                    </div>
-                }
-            </div>
-        );
-    });
+function GameRecap({ round, score, timeLeft, startTime, perfect, onDone }: GameRecapProps) {
+    const [step, setStep] = useState(0);
+    const roundBonus = round * 25;
+    const timeBonus = Math.round((timeLeft / startTime) * 100);
+    const perfectBonus = perfect ? 100 : 0;
+    const total = score + roundBonus + timeBonus + perfectBonus;
+    const done = useEffectEvent(() => onDone(total));
 
     useEffect(() => {
+        const sound = playSound(SOUNDS.roundComplete[Math.floor(Math.random() * SOUNDS.roundComplete.length)], "effects");
+        const timers = STEPS.map((ms, i) => setTimeout(() => setStep(i + 1), ms));
+        timers.push(setTimeout(done, END));
         return () => {
-            console.log("Unmounting GameRecap");
-            roundCompleteSound.pause();
-        }
+            timers.forEach(clearTimeout);
+            stopSound(sound);
+        };
     }, []);
 
+    const lines = [
+        { label: "Round Bonus", value: roundBonus, className: "RecapRoundBonus" },
+        { label: "Time Bonus", value: timeBonus, className: "RecapTimeBonus" },
+        { label: "Perfect Bonus", value: perfectBonus, className: "RecapPerfectBonus" },
+        { label: "Total Score", value: total, className: "RecapTotalScore" },
+    ];
+
     return (
-        <>
-            {renderScores}
-        </>
+        <div>
+            {lines.slice(0, step).map((line) => (
+                <div key={line.label} className={`RecapScoreContainer ${line.className}`}>
+                    <p className="RecapTitle">{line.label}</p>
+                    <p className="RecapScore">{line.value}</p>
+                </div>
+            ))}
+        </div>
     );
 }
 

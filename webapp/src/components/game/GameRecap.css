@@ -1,38 +1,38 @@
 .RecapScoreContainer {
     position: absolute;
-    left: 10vw;
-    width: 75vw;
+    left: 10cqw;
+    width: 75cqw;
     display: flex;
     align-items: center;
 }
 
 .RecapRoundBonus {
-    top: 20vh;
+    top: 20cqh;
 }
 
 .RecapTimeBonus {
-    top: 35vh;
+    top: 35cqh;
 }
 
 .RecapPerfectBonus {
-    top: 50vh;
+    top: 50cqh;
 }
 
 .RecapTotalScore {
-    top: 65vh;
+    top: 65cqh;
 }
 
 .RecapTitle {
     margin: 0;
     font-size: var(--info);
     color: var(--white);
-    text-shadow: 0 0 var(--bloom) var(--white);
+    text-shadow: 0 0 var(--bloom) currentColor;
 }
 
 .RecapScore {
     margin: 0;
     font-size: var(--score);
     color: var(--yellow);
-    text-shadow: 0 0 var(--bloom) var(--yellow);
-    margin-left: auto;
+    text-shadow: 0 0 var(--bloom) currentColor;
+    margin-inline-start: auto;
 }

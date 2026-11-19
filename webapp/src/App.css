@@ -1,201 +1,168 @@
-.App {
+/* 16:9 stage, as large as the viewport allows. Everything inside sizes itself in cqh/cqw. */
+.Stage {
+  position: relative;
+  width: min(100svw, 100svh * 16 / 9);
+  height: min(100svh, 100svw * 9 / 16);
+  container-type: size;
   text-align: center;
-
+  animation: crt-power-on 1.2s cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
 }
-
 
 .BackgroundImage {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  filter: grayscale() brightness(0.25);
-  background-image: url('./media/icons/superEarth.png');
-  background-size: 62vh;
-  background-repeat: no-repeat;
-  background-position: center;
+  inset: 0;
   z-index: -1;
+  filter: grayscale() brightness(0.25);
+  background: url("./media/icons/superEarth.png") center / 62cqh no-repeat;
 }
 
+/* The lines belong to the stage (vertical position) but run across the whole window. */
 .whiteLine {
+  position: absolute;
+  left: 50%;
+  translate: -50%;
+  width: 100svw;
+  height: 6px;
   background-color: var(--white);
   box-shadow: 0 0 var(--bloom) var(--white);
-  width: 100%;
-  height: 6px;
 }
 
 .top {
-  position: absolute;
-  top: 5vh;
+  top: 5cqh;
 }
 
 .bottom {
-  position: absolute;
-  bottom: 5vh;
+  bottom: 5cqh;
 }
 
-.GameView {
-  position: absolute;
-  top: 10vh;
-  color: var(--white)
-}
+/* ---------- CRT monitor ---------- */
 
-
-@keyframes flicker {
+/* Power on: a bright horizontal line opens up into the picture. */
+@keyframes crt-power-on {
   0% {
-    opacity: 0.139305;
+    transform: scale(0, 0.004);
+    filter: brightness(8);
   }
 
-  5% {
-    opacity: 0.173845;
+  12% {
+    transform: scale(1, 0.004);
+    filter: brightness(8);
   }
 
-  10% {
-    opacity: 0.11802;
-  }
-
-  15% {
-    opacity: 0.45313;
-  }
-
-  20% {
-    opacity: 0.09064;
-  }
-
-  25% {
-    opacity: 0.419455;
-  }
-
-  30% {
-    opacity: 0.327915;
-  }
-
-  35% {
-    opacity: 0.339035;
-  }
-
-  40% {
-    opacity: 0.132795;
-  }
-
-  45% {
-    opacity: 0.423465;
-  }
-
-  50% {
-    opacity: 0.480095;
-  }
-
-  55% {
-    opacity: 0.04297;
-  }
-
-  60% {
-    opacity: 0.101565;
-  }
-
-  65% {
-    opacity: 0.35994;
-  }
-
-  70% {
-    opacity: 0.267275;
-  }
-
-  75% {
-    opacity: 0.18644;
-  }
-
-  80% {
-    opacity: 0.35714;
-  }
-
-  85% {
-    opacity: 0.352095;
-  }
-
-  90% {
-    opacity: 0.35015;
-  }
-
-  95% {
-    opacity: 0.18054;
+  32% {
+    transform: scale(1, 1);
+    filter: brightness(2.2) contrast(1.4);
   }
 
   100% {
-    opacity: 0.121935;
+    transform: none;
+    filter: none;
   }
 }
 
+/* Mains hum: tiny, irregular brightness changes of the whole tube. */
+@keyframes crt-flicker {
+  0% { opacity: 0.97; }
+  10% { opacity: 1; }
+  20% { opacity: 0.94; }
+  30% { opacity: 0.99; }
+  45% { opacity: 0.96; }
+  60% { opacity: 1; }
+  75% { opacity: 0.95; }
+  90% { opacity: 0.98; }
+  100% { opacity: 1; }
+}
 
-@keyframes turn-on {
-  0% {
-    transform: scale(1, 0.8) translate3d(0, 0, 0);
-    -webkit-filter: brightness(30);
-    filter: brightness(30);
-    opacity: 1;
+/* A faint bright band that rolls down the screen. */
+@keyframes crt-roll {
+  from {
+    translate: 0 -100%;
   }
 
-  3.5% {
-    transform: scale(1, 0.8) translate3d(0, 100%, 0);
-  }
-
-  3.6% {
-    transform: scale(1, 0.8) translate3d(0, -100%, 0);
-    opacity: 1;
-  }
-
-  9% {
-    transform: scale(1.3, 0.6) translate3d(0, 100%, 0);
-    -webkit-filter: brightness(30);
-    filter: brightness(30);
-    opacity: 0;
-  }
-
-
-
-  11% {
-    transform: scale(1, 1) translate3d(0, 0, 0);
-    -webkit-filter: contrast(0) brightness(0);
-    filter: contrast(0) brightness(0);
-    opacity: 0;
-  }
-
-  100% {
-    transform: scale(1, 1) translate3d(0, 0, 0);
-    -webkit-filter: contrast(1) brightness(1.2) saturate(1.3);
-    filter: contrast(1) brightness(1.2) saturate(1.3);
-    opacity: 1;
+  to {
+    translate: 0 400%;
   }
 }
 
-.crt::after {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: rgba(18, 16, 16, 0.1);
-  opacity: 0;
+.crt {
+  /* scanline pitch grows with the screen (whole pixels only) so it stays visible on 4K */
+  --scanline: max(3px, round(0.25svh, 1px));
+  position: fixed;
+  inset: 0;
   z-index: 2;
+  overflow: hidden;
   pointer-events: none;
+  animation: crt-flicker 0.15s linear infinite;
+
+  /*
+   * Scanlines + RGB phosphor triads. Both share one pitch, rounded to whole pixels:
+   * a fractional pitch made some lines thicker than others on tall screens. Soft
+   * gradients instead of hard stops keep it even with display scaling (125%, 150%).
+   */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        rgb(0 0 0 / 22%) calc(var(--scanline) * 0.5),
+        transparent var(--scanline)
+      ),
+      repeating-linear-gradient(
+        to right,
+        rgb(255 0 0 / 5%) 0,
+        rgb(0 255 0 / 3%) calc(var(--scanline) / 3),
+        rgb(0 0 255 / 5%) calc(var(--scanline) * 2 / 3),
+        rgb(255 0 0 / 5%) var(--scanline)
+      );
+  }
+
+  /* vignette and the rounded corners of the tube */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 3vmin;
+    background: radial-gradient(
+      ellipse 75% 70% at 50% 50%,
+      transparent 60%,
+      rgb(0 0 0 / 35%) 85%,
+      rgb(0 0 0 / 70%) 100%
+    );
+    box-shadow:
+      0 0 0 6vmin #050505,
+      inset 0 0 6vmin rgb(0 0 0 / 55%);
+  }
 }
 
-.crt::before {
-  content: "";
-  display: block;
+.crtRoll {
   position: absolute;
+  inset-inline: 0;
   top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-  z-index: 2;
-  background-size: 100% 4px, 4px 100%;
-  pointer-events: none;
-  animation: turn-on 6s forwards;
-  mix-blend-mode: soft-light;
+  height: 25%;
+  background: linear-gradient(to bottom, transparent, rgb(255 255 255 / 4%) 50%, transparent);
+  animation: crt-roll 9s linear infinite;
+}
+
+.RotateHint {
+  display: none;
+}
+
+/* The game needs landscape; on phones held upright ask to rotate. */
+@media (orientation: portrait) and (pointer: coarse) {
+  .RotateHint {
+    position: fixed;
+    inset: 0;
+    z-index: 4;
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+    font-size: 8vw;
+    text-align: center;
+    background-color: var(--background);
+    color: var(--yellow);
+    text-shadow: 0 0 var(--bloom) currentColor;
+  }
 }

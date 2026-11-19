@@ -1,50 +1,27 @@
-import { computed } from "@preact/signals-react";
-import { useEffect } from "react";
+import { Arrow, type ArrowTone } from "./Arrow.tsx";
 import "./ExitArrows.css";
 
 interface ExitArrowsProps {
-    index: number;
-    startIndex: number;
+    focused: boolean;
+    /** The cursor is below the last item, on the way out. */
+    inZone: boolean;
+    /** How many of the three "down" arrows are already entered. */
+    progress: number;
 }
 
-function ExitArrows(props: ExitArrowsProps) {
-    console.log("Rendering ExitArrows");
-    let index = props.index;
-    let startIndex = props.startIndex;
-
-    function arrowColor(i:number) {
-        if (index < 0) {
-            return " ExitArrowDarkGray";
-        } else if (index >= i) {
-            return " ExitArrowYellow";
-        } else if (index >= startIndex) {
-            return " ExitArrowWhite";
-        } else {
-            return " ExitArrowGray";
-        }
+/** Three "down" arrows at the bottom of a settings page: press down three times to leave it. */
+function ExitArrows({ focused, inZone, progress }: ExitArrowsProps) {
+    function tone(i: number): ArrowTone {
+        if (!focused) return "dark";
+        if (i < progress) return "yellow";
+        return inZone ? "light" : "mid";
     }
 
-
-    const renderScreen = computed(() => {
-        return (
-            <div className="ExitArrowContainer">
-                <img className={"ExitArrow" + (arrowColor(startIndex + 1))} src={"/media/arrows/arrowdown.svg"} />
-                <img className={"ExitArrowBig" + (arrowColor(startIndex + 2))} src={"/media/arrows/arrowdown.svg"} />
-                <img className={"ExitArrow" + (arrowColor(startIndex + 3))} src={"/media/arrows/arrowdown.svg"} />
-            </div>
-        );
-    });
-
-
-    useEffect(() => {
-        return () => {
-            console.log("Unmounting ExitArrows");
-        }
-    }, []);
-
     return (
-        <div className="ExitArrow">
-            {renderScreen}
+        <div className="ExitArrows">
+            <Arrow direction="down" tone={tone(0)} />
+            <Arrow direction="down" tone={tone(1)} className="ExitArrowBig" />
+            <Arrow direction="down" tone={tone(2)} />
         </div>
     );
 }

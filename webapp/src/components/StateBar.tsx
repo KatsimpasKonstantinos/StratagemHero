@@ -1,47 +1,21 @@
-import { computed } from "@preact/signals-react";
-import { useEffect } from "react";
 import "./StateBar.css";
 
 interface StateBarProps {
-    state: { value: number };
-    maxBars: number;
-    signalMax: number;
+    value: number;
+    max: number;
+    bars?: number;
 }
 
-function StateBar(props: StateBarProps) {
-    console.log("Rendering StateBar");
-
-    let state = props.state; // signal 0 - 10
-    let maxBars = props.maxBars;
-    let signalMax = props.signalMax;
-
-    function generateBars() {
-        let bars = [];
-        for (let i = 0; i <= maxBars; i++) {
-            let colorClass = i < state.value * (maxBars / signalMax) ? " StateBarDivWhite" : " StateBarDivGray";
-            if (i == Math.floor(state.value * (maxBars / signalMax))) colorClass = " StateBarDivYellow";
-            bars.push(<div className={"StateBarDiv" + colorClass} key={i}></div>);
-        }
-        return bars;
-    }
-
-    let renderScreen = computed(() => {
-        return (
-            <div className="StateBarDivContainer">
-                {generateBars()}
-            </div>
-        );
-    });
-
-    useEffect(() => {
-        return () => {
-            console.log("Unmounting StateBar");
-        }
-    }, []);
-
+/** Segmented level meter: filled segments are white, the current level is yellow. */
+function StateBar({ value, max, bars = 40 }: StateBarProps) {
+    const level = Math.floor(value * (bars / max));
     return (
-        <div className="StateBar">
-            {renderScreen}
+        <div className="StateBar" role="meter" aria-valuemin={0} aria-valuemax={max} aria-valuenow={value}>
+            {Array.from({ length: bars + 1 }, (_, i) => {
+                let color = i < level ? " StateBarDivWhite" : " StateBarDivGray";
+                if (i === level) color = " StateBarDivYellow";
+                return <div className={"StateBarDiv" + color} key={i} />;
+            })}
         </div>
     );
 }

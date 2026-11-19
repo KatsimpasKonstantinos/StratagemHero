@@ -1,9 +1,9 @@
 .Data {
     position: absolute;
     display: flex;
-    height: 100vh;
-    width: 50vw;
-    transform: translateX(50%);
+    height: 100cqh;
+    width: 50cqw;
+    translate: 50%;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -12,35 +12,82 @@
 .DataTitle {
     font-size: var(--subtitle);
     color: var(--white);
-    text-shadow: 0 0 var(--bloom) var(--white);
+    text-shadow: 0 0 var(--bloom) currentColor;
 }
 
 .DataText {
     font-size: var(--info);
-    margin: 1vh 0;
+    margin-block: 1cqh;
 }
 
 .DataTextDarkGray {
     color: var(--grayDark);
-    text-shadow: 0 0 var(--bloom) var(--grayDark);
+    text-shadow: 0 0 var(--bloom) currentColor;
 }
 
 .DataTextWhite {
     color: var(--white);
-    text-shadow: 0 0 var(--bloom) var(--white);
+    text-shadow: 0 0 var(--bloom) currentColor;
+}
+
+.DataTextGray {
+    color: var(--gray);
+    text-shadow: 0 0 var(--bloom) currentColor;
 }
 
 .DataTextYellow {
-    color: var(--yellow) !important;
-    text-shadow: 0 0 var(--bloom) var(--yellow) !important;
+    color: var(--yellow);
+    text-shadow: 0 0 var(--bloom) currentColor;
+}
+
+.DataMessage {
+    min-block-size: 1.3em;
+    margin: 0;
+    font-size: var(--tiny);
+    color: var(--yellow);
+    text-shadow: 0 0 var(--bloom) currentColor;
+}
+
+.DataCodeEntry {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.DataCodeSlots {
+    --arrow-size: 70%;
+    display: flex;
+    gap: 1cqw;
+    margin-block: 2cqh;
+}
+
+.DataCodeSlot {
+    display: grid;
+    place-items: center;
+    inline-size: 7cqh;
+    block-size: 7cqh;
+    border: 0.4cqh solid var(--grayDark);
+}
+
+.DataCodeSlotFilled {
+    border-color: var(--yellow);
+    box-shadow: 0 0 var(--bloomBox) var(--yellow);
+}
+
+.DataCodeDot {
+    inline-size: 30%;
+    block-size: 30%;
+    border-radius: 50%;
+    background-color: var(--yellow);
+    box-shadow: 0 0 var(--bloom) var(--yellow);
 }
 
 .DataTimeBar {
     position: absolute;
-    top: 82vh;
-    left: 25vw;
-    width: 50vw;
-    height: 4vh;
+    top: 82cqh;
+    left: 25cqw;
+    width: 50cqw;
+    height: 4cqh;
     display: flex;
     justify-content: center;
     align-items: center;

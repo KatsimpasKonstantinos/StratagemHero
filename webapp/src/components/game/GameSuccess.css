@@ -1,8 +1,8 @@
 .GameSuccess {
     position: absolute;
-    top: 10vh;
-    width: 100vw;
-    height: 100vh;
+    top: 10cqh;
+    width: 100cqw;
+    height: 100cqh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,48 +11,48 @@
 .GameSuccessMainTitle {
     font-size: var(--title);
     color: var(--white);
-    text-shadow: 0 0 var(--bloom) var(--white);
+    text-shadow: 0 0 var(--bloom) currentColor;
     margin: 0;
 }
 
 .GameSuccessText {
     font-size: var(--info);
     color: var(--white);
-    text-shadow: 0 0 var(--bloom) var(--white);
+    text-shadow: 0 0 var(--bloom) currentColor;
     margin: 0;
 }
 
 .GameSuccessContainer {
     position: absolute;
-    left: 10vw;
-    width: 75vw;
+    left: 10cqw;
+    width: 75cqw;
     display: flex;
     align-items: center;
 }
 
 .GameSuccessCompletion {
-    top: 35vh;
+    top: 35cqh;
 }
 
 .GameSuccessDifficulty {
-    top: 50vh;
+    top: 50cqh;
 }
 
 .GameSuccessTotalScore {
-    top: 65vh;
+    top: 65cqh;
 }
 
 .GameSuccessTitle {
     margin: 0;
     font-size: var(--info);
     color: var(--white);
-    text-shadow: 0 0 var(--bloom) var(--white);
+    text-shadow: 0 0 var(--bloom) currentColor;
 }
 
 .GameSuccessScore {
     margin: 0;
     font-size: var(--score);
     color: var(--yellow);
-    text-shadow: 0 0 var(--bloom) var(--yellow);
-    margin-left: auto;
+    text-shadow: 0 0 var(--bloom) currentColor;
+    margin-inline-start: auto;
 }

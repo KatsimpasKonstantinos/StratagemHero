@@ -1,66 +1,44 @@
-import { effect, signal } from '@preact/signals-react';
-import MultipleArrowContainer from '../components/MultipleArrowContainer.tsx';
-import './StartView.css';
-import { useEffect } from 'react';
-import MultipleArrowSubscriber from '../components/MultipleArrowSubscriber.tsx';
+import { MenuArrows } from "../components/Arrow.tsx";
+import type { Direction } from "../lib/directions.ts";
+import { useStratagemMenu } from "../lib/useStratagemMenu.ts";
+import "./SettingsView.css";
+import "./StartView.css";
 
-type StartViewProps = {
-    mainScreenString: any;
-    keyPressed: any;
-};
+type Target = "settings" | "game";
 
-function StartView(props: StartViewProps) {
-    console.log("Rendering StartView");
-    let mainScreenString = props.mainScreenString;
-    let keyPressed = props.keyPressed;
+const ENTRIES: readonly { id: Target; code: readonly Direction[] }[] = [
+    { id: "settings", code: ["down", "down", "up", "right"] },
+    { id: "game", code: ["up", "down", "right", "left", "up"] },
+];
 
-    let arrowData = [
-        {
-            "success": "settings",
-            "code": ['down', 'down', 'up', 'right'],
-            "show": signal(true)
-        }, {
-            "success": "game",
-            "code": ["up", "down", "right", "left", "up"],
-            "show": signal(true)
-        }
-    ];
-
-    let mac = new MultipleArrowContainer(arrowData, mainScreenString);
-
-    let dispose = effect(() => {
-        if (keyPressed.value != "") {
-            mac.handleKeyPressed(keyPressed.value);
-            keyPressed.value = "";
-        }
-    });
-
-    useEffect(() => {
-        return () => {
-            console.log("Unmounting StartView");
-            dispose();
-        }
-    }, []);
+function StartView({ onSelect }: { onSelect: (target: Target) => void }) {
+    const menu = useStratagemMenu(ENTRIES, onSelect);
+    const arrows = (id: Target) => (
+        <MenuArrows
+            code={ENTRIES.find((entry) => entry.id === id)?.code ?? []}
+            progress={menu.progress}
+            candidate={menu.isCandidate(id)}
+        />
+    );
 
     return (
         <div className="StartView">
-            <p className='StartViewTitle'>STRATAGEM HERO</p>
-            <div className='SettingsViewNavbar'>
+            <p className="StartViewTitle">STRATAGEM HERO</p>
+            <div className="SettingsViewNavbar">
                 <div className="SettingsViewNavbarStratagem">
-                    <img className="SettingsViewNavbarImage SettingsViewNavbarYellow" src={"/media/stratagems/Resupply.svg"} alt={"SETTINGS"} />
+                    <img
+                        className="SettingsViewNavbarImage SettingsViewNavbarYellow"
+                        src="/media/stratagems/Resupply.svg"
+                        alt=""
+                    />
                     <div className="SettingsViewNavbarContent">
                         <p className="SettingsViewNavbarTitle">SETTINGS</p>
-                        <div className="SettingsViewNavbarArrows">
-                            <MultipleArrowSubscriber mac={mac} self={0} />
-                        </div>
+                        <div className="SettingsViewNavbarArrows">{arrows("settings")}</div>
                     </div>
                 </div>
             </div>
-            <div className="StartViewGameArrowContainer">
-                <MultipleArrowSubscriber mac={mac} self={1} />
-            </div>
-            <p className='StartViewInfo'>Enter Stratagem Combination to Start</p>
-
+            <div className="StartViewGameArrowContainer">{arrows("game")}</div>
+            <p className="StartViewInfo">Enter Stratagem Combination to Start</p>
         </div>
     );
 }

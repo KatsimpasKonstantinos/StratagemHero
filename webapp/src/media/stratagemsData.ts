@@ -1,6 +1,8 @@
+import type { Direction } from "../lib/directions.ts";
+
 export interface Stratagem {
     name: string;
-    code: string[];
+    code: Direction[];
 }
 const stratagemsData: Stratagem[] = [
     {

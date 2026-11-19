@@ -1,114 +1,82 @@
-import { useEffect } from "react";
-import "./Sound.css"
-import { computed, effect, signal } from "@preact/signals-react";
-import ExitArrows from "../ExitArrows";
-import StateBar from "../StateBar";
+import { useEffect, useRef } from "react";
+import { playSound, setVolume, SOUNDS, stopSound } from "../../lib/audio.ts";
+import { useDirectionInput } from "../../lib/input.ts";
+import { MAX_VOLUME, updateSettings, useSettings, type VolumeChannel } from "../../lib/settings.ts";
+import ExitArrows from "../ExitArrows.tsx";
+import StateBar from "../StateBar.tsx";
+import "./Sound.css";
+import { useSettingsCursor, type SettingsPageProps } from "./useSettingsCursor.ts";
 
-export let soundMaster = signal(10);
-export let soundKeyboard = signal(4);
-export let soundMusic = signal(5);
-export let soundEffects = signal(6);
+const CHANNELS: { channel: VolumeChannel; label: string }[] = [
+    { channel: "master", label: "Master" },
+    { channel: "keyboard", label: "Keyboard" },
+    { channel: "music", label: "Music" },
+    { channel: "effects", label: "Effects" },
+];
 
+const MUSIC_PREVIEW_MS = 2500;
 
-function Sound(props) {
-    console.log("Rendering Sound");
-    let keyPressed = props.keyPressed;
-    let blockNavigation = props.blockNavigation;
+function Sound({ focused, onExit }: SettingsPageProps) {
+    const { volume } = useSettings();
+    const { cursor, exit, move } = useSettingsCursor(CHANNELS.length, focused, onExit);
+    const musicPreview = useRef<HTMLAudioElement | null>(null);
+    const musicPreviewEnd = useRef<number | undefined>(undefined);
 
-    let index = signal(0);
+    useEffect(
+        () => () => {
+            clearTimeout(musicPreviewEnd.current);
+            stopSound(musicPreview.current);
+        },
+        [],
+    );
 
-    let dispose = effect(() => {
-        if (keyPressed.value != "") {
-            if (keyPressed.value === "down") {
-                index.value = index.peek() + 1;
-                if (index.peek() > 6) {
-                    index.value = -1;
-                    blockNavigation.value = false;
-                }
-            } else if (keyPressed.value === "up") {
-                index.value = index.peek() - 1;
-                if (index.peek() < 0) index.value = 0;
-                if (index.peek() > 3) index.value = 3;
-            } else if (keyPressed.value === "right") {
-                if (index.peek() === 0) {
-                    soundMaster.value = soundMaster.peek() + 1;
-                    if (soundMaster.peek() > 10) soundMaster.value = 10;
-                } else if (index.peek() === 1) {
-                    soundKeyboard.value = soundKeyboard.peek() + 1;
-                    if (soundKeyboard.peek() > 10) soundKeyboard.value = 10;
-                } else if (index.peek() === 2) {
-                    soundMusic.value = soundMusic.peek() + 1;
-                    if (soundMusic.peek() > 10) soundMusic.value = 10;
-                } else if (index.peek() === 3) {
-                    soundEffects.value = soundEffects.peek() + 1;
-                    if (soundEffects.peek() > 10) soundEffects.value = 10;
-                }
-            } else if (keyPressed.value === "left") {
-                if (index.peek() === 0) {
-                    soundMaster.value = soundMaster.peek() - 1;
-                    if (soundMaster.peek() < 0) soundMaster.value = 0;
-                } else if (index.peek() === 1) {
-                    soundKeyboard.value = soundKeyboard.peek() - 1;
-                    if (soundKeyboard.peek() < 0) soundKeyboard.value = 0;
-                } else if (index.peek() === 2) {
-                    soundMusic.value = soundMusic.peek() - 1;
-                    if (soundMusic.peek() < 0) soundMusic.value = 0;
-                } else if (index.peek() === 3) {
-                    soundEffects.value = soundEffects.peek() - 1;
-                    if (soundEffects.peek() < 0) soundEffects.value = 0;
-                }
-            }
-            keyPressed.value = "";
-        }
-    });
-
-    function divColor(i) {
-        if (!blockNavigation.value) {
-            return " SoundDivDarkGray";
-        } else if (index.value == i) {
-            return " SoundDivYellow";
-        } else if (index.value < 4) {
-            return " SoundDivWhite";
-        } else {
-            return " SoundDivGray";
+    /** Play an example so the new volume can be heard right away. */
+    function preview(channel: VolumeChannel) {
+        if (channel === "music") {
+            // Keep one music snippet playing while the volume is being adjusted.
+            if (musicPreview.current) setVolume(musicPreview.current, "music");
+            else musicPreview.current = playSound(SOUNDS.backgroundMusic, "music");
+            clearTimeout(musicPreviewEnd.current);
+            musicPreviewEnd.current = window.setTimeout(() => {
+                stopSound(musicPreview.current);
+                musicPreview.current = null;
+            }, MUSIC_PREVIEW_MS);
+        } else if (channel !== "keyboard") {
+            // keyboard: every key press already plays the key sound
+            playSound(SOUNDS.stratagemComplete, "effects");
         }
     }
 
-    function renderSound(signal, name, i) {
-        return (
-            <div className={"SoundElement" + divColor(i)}>
-                <p className="SoundText">{name}</p>
-                <StateBar state={signal} maxBars={40} signalMax={10} />
-            </div>
-        );
+    useDirectionInput((direction) => {
+        if (move(direction) || cursor < 0) return;
+        const { channel } = CHANNELS[cursor];
+        const change = direction === "right" ? 1 : -1;
+        updateSettings((s) => ({
+            ...s,
+            volume: { ...s.volume, [channel]: Math.min(MAX_VOLUME, Math.max(0, s.volume[channel] + change)) },
+        }));
+        preview(channel);
+    }, focused);
+
+    function rowColor(i: number) {
+        if (!focused) return " SoundDivDarkGray";
+        if (cursor === i) return " SoundDivYellow";
+        if (!exit.inZone) return " SoundDivWhite";
+        return " SoundDivGray";
     }
-
-    let renderScreen = computed(() => {
-        return (
-            <div>
-                {renderSound(soundMaster, "Master", 0)}
-                {renderSound(soundKeyboard, "Keyboard", 1)}
-                {renderSound(soundMusic, "Music", 2)}
-                {renderSound(soundEffects, "Effects", 3)}
-                <ExitArrows index={index} startIndex={4} />
-            </div>
-        );
-    });
-
-
-
-    useEffect(() => {
-        return () => {
-            console.log("Unmounting Sound");
-            dispose();
-        }
-    }, []);
-
 
     return (
         <div className="SoundContainer">
             <p className="SoundTitle">SOUND VOLUME</p>
-            {renderScreen}
+            {CHANNELS.map(({ channel, label }, i) => (
+                <div key={channel} className={"SoundElement" + rowColor(i)}>
+                    <p className="SoundText">
+                        {label} {volume[channel]}
+                    </p>
+                    <StateBar value={volume[channel]} max={MAX_VOLUME} />
+                </div>
+            ))}
+            <ExitArrows {...exit} />
         </div>
     );
 }

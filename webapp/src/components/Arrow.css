@@ -1,0 +1,64 @@
+.Arrow {
+    display: inline-block;
+    block-size: var(--arrow-size, 100%);
+    aspect-ratio: 1;
+    flex-shrink: 0;
+    /* bloom for the svg arrows: the glow follows the arrow's own colour */
+    filter: drop-shadow(0 0 calc(var(--bloom) / 2) currentColor);
+}
+
+.ArrowShape {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    background-color: currentColor;
+    mask: url("/media/arrows/arrowup.svg") center / contain no-repeat;
+
+    &[data-direction="down"] {
+        mask-image: url("/media/arrows/arrowdown.svg");
+    }
+
+    &[data-direction="left"] {
+        mask-image: url("/media/arrows/arrowleft.svg");
+    }
+
+    &[data-direction="right"] {
+        mask-image: url("/media/arrows/arrowright.svg");
+    }
+}
+
+.Arrow-yellow {
+    color: var(--yellow);
+}
+
+.Arrow-red {
+    color: var(--red);
+}
+
+.Arrow-light {
+    color: #b3b3b3;
+}
+
+.Arrow-mid {
+    color: #666;
+}
+
+.Arrow-dim {
+    color: #4d4d4d;
+}
+
+.Arrow-dark {
+    color: #333;
+}
+
+.ArrowSequence {
+    --arrow-size: 10cqh;
+    display: flex;
+    align-items: center;
+}
+
+.MenuArrows {
+    display: flex;
+    align-items: center;
+    block-size: 100%;
+}

@@ -1,86 +1,49 @@
-import { useEffect } from "react";
+import { useEffect, useEffectEvent, useState } from "react";
+import { playSound, SOUNDS } from "../../lib/audio.ts";
 import "./GameSuccess.css";
-import { computed, signal, type Signal } from "@preact/signals-react";
 
-import { difficulty } from "../settings/Difficulty";
-import { soundEffects, soundMaster } from "../settings/Sound";
+interface GameSuccessProps {
+    won: boolean;
+    score: number;
+    difficulty: number;
+    onDone: (totalScore: number) => void;
+}
 
+const STEPS = [20, 720, 1320];
+const END = 4820;
 
-type GameSuccessProps = {
-    score: Signal<number>;
-    gameScreenString: Signal<string>;
-    won: Signal<boolean>;
-};
-
-function GameSuccess(props: GameSuccessProps) {
-    console.log("Rendering GameSuccess");
-    let score = props.score;
-    let gameScreenString = props.gameScreenString;
-    let won = props.won;
-
-    const completionBonus = signal<number | undefined>();
-    const difficultyMultiplier = signal<number | undefined>();
-    const totalScore = signal<number | undefined>();
-
-    let gameOverSound = new Audio("/media/sounds/gameOver.ogg");
-    gameOverSound.volume = (soundMaster.value / 10) * (soundEffects.value / 10);
-    if (won.value) {
-        gameOverSound.currentTime = 0.3;
-    }
-    gameOverSound.play();
-
-
-
-    setTimeout(() => {
-        if (won.value) {
-            completionBonus.value = 500 * difficulty.value;
-        } else {
-            completionBonus.value = 0;
-        }
-        setTimeout(() => {
-            difficultyMultiplier.value = difficulty.value;
-            setTimeout(() => {
-                totalScore.value = (score.value + (completionBonus.value ?? 0)) * (difficultyMultiplier.value ?? 1);
-                setTimeout(() => {
-                    score.value = totalScore.value ?? score.value;
-                    gameScreenString.value = "over";
-                }, 3500);
-            }, 600);
-        }, 700);
-    }, 20);
-
-    let renderScore = computed(() => {
-        return (
-            <div>
-                {typeof completionBonus.value === "number" ? <div className="GameSuccessContainer GameSuccessCompletion">
-                    <p className="GameSuccessTitle">Completion Bonus</p>
-                    <p className="GameSuccessScore">{completionBonus.value}</p>
-                </div> : null}
-
-                {typeof difficultyMultiplier.value === "number" ? <div className="GameSuccessContainer GameSuccessDifficulty">
-                    <p className="GameSuccessTitle">Difficulty Multiplier</p>
-                    <p className="GameSuccessScore">{"x" + difficultyMultiplier.value}</p>
-                </div> : null}
-
-                {typeof totalScore.value === "number" ? <div className="GameSuccessContainer GameSuccessTotalScore">
-                    <p className="GameSuccessTitle">Total Score</p>
-                    <p className="GameSuccessScore">{totalScore.value}</p>
-                </div> : null}
-            </div>
-        );
-    });
+/** Victory / defeat screen with completion bonus and difficulty multiplier. */
+function GameSuccess({ won, score, difficulty, onDone }: GameSuccessProps) {
+    const [step, setStep] = useState(0);
+    const completionBonus = won ? 500 * difficulty : 0;
+    const total = (score + completionBonus) * difficulty;
+    const done = useEffectEvent(() => onDone(total));
 
     useEffect(() => {
-        return () => {
-            console.log("Unmounting GameSuccess");
-        }
-    }, []);
+        playSound(SOUNDS.gameOver, "effects", { startAt: won ? 0.3 : 0 });
+        const timers = STEPS.map((ms, i) => setTimeout(() => setStep(i + 1), ms));
+        timers.push(setTimeout(done, END));
+        return () => timers.forEach(clearTimeout);
+    }, [won]);
+
+    const lines = [
+        { label: "Completion Bonus", value: String(completionBonus), className: "GameSuccessCompletion" },
+        { label: "Difficulty Multiplier", value: `x${difficulty}`, className: "GameSuccessDifficulty" },
+        { label: "Total Score", value: String(total), className: "GameSuccessTotalScore" },
+    ];
 
     return (
         <div className="GameSuccess">
-            <p className="GameSuccessMainTitle">{won.value ? "VICTORY" : "DEFEAT"}</p>
-            <p className="GameSuccessText">{won.value ? "Try a higher difficulty to earn more points" : "Try a lower difficulty"}</p>
-            {renderScore}
+            <p className="GameSuccessMainTitle">{won ? "VICTORY" : "DEFEAT"}</p>
+            <p className="GameSuccessText">
+                {won ? "Try a higher difficulty to earn more points" : "Try a lower difficulty"}
+            </p>
+            {lines.slice(0, step).map((line) => (
+                <div key={line.label} className={`GameSuccessContainer ${line.className}`}>
+                    <p className="GameSuccessTitle">{line.label}</p>
+                    <p className="GameSuccessScore">{line.value}</p>
+                </div>
+            ))}
         </div>
     );
 }
